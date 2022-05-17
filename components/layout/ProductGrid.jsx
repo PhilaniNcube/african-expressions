@@ -7,7 +7,7 @@ const ProductGrid = ({ products }) => {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 my-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 my-8">
       {products.map((product) => (
         <Link href={`/yarns/${product.slug}`} passHref key={product.slug}>
           <div
