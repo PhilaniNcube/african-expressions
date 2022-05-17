@@ -41,7 +41,7 @@ const Yarn = ({ initialData, error }) => {
       </Head>
       <div className="max-w-6xl mx-auto px-6 lg:px-0 mt-4">
         <header>
-          <h1 className="text-2xl md:text-3xl lg:text-5xl text-slate-800 font-extrabold ">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-slate-800 font-extrabold ">
             Yarns
           </h1>
           <p className="my-4">
