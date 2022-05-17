@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'home-bg': "url('/images/wool.jpg')",
+      },
       fontFamily: {
         mont: 'Montserrat',
         montLight: 'Montserrat-Light',
