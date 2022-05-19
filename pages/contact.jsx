@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 const Contact = () => {
   return (
     <Fragment>
-      <div className="max-w-7xl mx-auto py-12">
+      <div className="max-w-7xl mx-auto py-12 px-6 md:px-4 lg:px-0">
         <h1 className="font-georgiaBold text-2xl md:text-4xl lg:text-5xl text-gray-800">
           Contact
         </h1>
