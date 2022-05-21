@@ -27,7 +27,7 @@ const Hero = () => {
           </span>
           <span
             onClick={() => {
-              console.log('navigate');
+              router.push('/patterns');
             }}
             className="h-64 w-64 bg-yellow-400/30 hover:bg-yellow-800 shadow-xl transition-colors duration-150 ease-out cursor-pointer hover:shadow-md rounded-lg text-white flex flex-col justify-center items-center"
           >
@@ -36,7 +36,7 @@ const Hero = () => {
           </span>
           <span
             onClick={() => {
-              console.log('navigate');
+              router.push('/express');
             }}
             className="h-64 w-64 bg-yellow-400/30 hover:bg-yellow-800 shadow-xl transition-colors duration-150 ease-out cursor-pointer hover:shadow-md rounded-lg text-white flex flex-col justify-center items-center"
           >
