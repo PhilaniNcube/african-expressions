@@ -48,7 +48,7 @@ const Yarn = ({ initialData, error }) => {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Consequuntur excepturi quod reiciendis?
           </p>
-          <div className="hidden lg:flex py-4 border-y text-slate-800 text-xl border-gray-800 justify-center space-x-6">
+          <div className="hidden lg:flex z-30 py-4 border-y text-slate-800 text-xl border-gray-800 justify-center space-x-6">
             <span className="font-extrabold uppercase border-r border-gray-700 px-3">
               {filteredProducts.length} Items
             </span>
@@ -56,7 +56,7 @@ const Yarn = ({ initialData, error }) => {
               Filter
             </span>
 
-            <span className="font-light uppercase border-r border-gray-700 px-3">
+            <span className="font-light uppercase z-[999] border-r border-gray-700 px-3">
               <Listbox value={filter} onChange={setFilter}>
                 <div className="relative">
                   <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">

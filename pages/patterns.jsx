@@ -52,13 +52,13 @@ const Patterns = ({ initialData }) => {
 
   return (
     <div className="max-w-7xl mx-auto my-4">
-      <div className="w-full grid gap-6 grid-cols-1 lg:grid-cols-4">
-        <div className="col-span-1 relative">
-          <div className="w-full shadow-md px-2 py-2 rounded flex flex-row flex-wrap lg:flex-col">
+      <div className="w-full grid gap-6 grid-cols-1 relative lg:grid-cols-4">
+        <div className="col-span-1 isolate relative">
+          <div className="w-full absolute top-0 left-0 shadow-md px-2 py-2 rounded flex flex-row flex-wrap lg:flex-col">
             <h1 className="text-3xl font-georgiaBold text-slate-800">
               Patterns
             </h1>
-            <div className="flex flex-wrap md:flex-col md:space-y-2 w-full items-center my-8">
+            <div className="flex flex-wrap md:flex-col  md:space-y-2 w-full items-center my-8">
               {productsQuery.isLoading && (
                 <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-blue-400"></div>
               )}
@@ -86,11 +86,11 @@ const Patterns = ({ initialData }) => {
             </div>
           </div>
         </div>
-        <div className="columns-2 lg:columns-3 col-span-1 md:col-span-3">
+        <div className="columns-2 lg:columns-3 col-span-1  md:col-span-3">
           {filteredPatterns.map((pattern, i) => {
             return (
               <div
-                className="relative py-2 "
+                className="relative my-3 mx-1 rounded-md overflow-hidden"
                 key={pattern.id}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -98,14 +98,19 @@ const Patterns = ({ initialData }) => {
                 <img
                   alt={pattern.name}
                   src={pattern.image}
-                  className="w-full block z-10 shadow-xl overflow-hidden hover:shadow-sm object-cover rounded-md "
+                  className={`w-full h-full block z-10 shadow-xl  hover:shadow-sm object-cover rounded-md`}
                 />
 
                 <div
-                  className={`absolute inset-0 h-full flex  transition-all duration-300 justify-center items-center z-20 ${
-                    hoveredIndex === i ? 'opacity-100' : 'opacity-0 hidden '
+                  className={`absolute inset-0 h-full flex flex-col transition-all duration-300 justify-center items-center z-20 ${
+                    hoveredIndex === i
+                      ? 'opacity-80 bg-blend-overlay bg-slate-800/50'
+                      : 'opacity-0 hidden '
                   }`}
                 >
+                  <h2 className="font-georgiaBold text-center px-2 text-xl text-white pb-6">
+                    {pattern.name}
+                  </h2>
                   <div
                     onClick={() => router.push(pattern.document)}
                     className="flex items-center"
