@@ -48,6 +48,7 @@ const Yarn = ({ initialData, error }) => {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Consequuntur excepturi quod reiciendis?
           </p>
+
           <div className="hidden lg:flex z-30 py-4 border-y text-slate-800 text-xl border-gray-800 justify-center space-x-6">
             <span className="font-extrabold uppercase border-r border-gray-700 px-3">
               {filteredProducts.length} Items
@@ -81,9 +82,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Comfort"
@@ -98,7 +97,7 @@ const Yarn = ({ initialData, error }) => {
                               Comfort
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -111,9 +110,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Adore"
@@ -128,7 +125,7 @@ const Yarn = ({ initialData, error }) => {
                               Adore
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -141,9 +138,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Euphoria"
@@ -158,7 +153,7 @@ const Yarn = ({ initialData, error }) => {
                               Euphoria
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -171,9 +166,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Inspire"
@@ -188,7 +181,7 @@ const Yarn = ({ initialData, error }) => {
                               Inspire
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -201,9 +194,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Harmony"
@@ -218,7 +209,7 @@ const Yarn = ({ initialData, error }) => {
                               Harmony
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -231,9 +222,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Enchanted"
@@ -248,7 +237,7 @@ const Yarn = ({ initialData, error }) => {
                               Enchanted
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -261,9 +250,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Love"
@@ -278,7 +265,7 @@ const Yarn = ({ initialData, error }) => {
                               Love
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -291,9 +278,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Hope"
@@ -308,7 +293,7 @@ const Yarn = ({ initialData, error }) => {
                               Hope
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -321,9 +306,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Curiosity"
@@ -338,7 +321,7 @@ const Yarn = ({ initialData, error }) => {
                               Curiosity
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -351,9 +334,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Soul"
@@ -368,7 +349,7 @@ const Yarn = ({ initialData, error }) => {
                               Soul
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -381,9 +362,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Freedom"
@@ -398,7 +377,7 @@ const Yarn = ({ initialData, error }) => {
                               Freedom
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -411,9 +390,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Desire"
@@ -428,7 +405,7 @@ const Yarn = ({ initialData, error }) => {
                               Desire
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -441,9 +418,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value="Joy"
@@ -458,7 +433,7 @@ const Yarn = ({ initialData, error }) => {
                               Joy
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"
@@ -471,9 +446,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-gray-100 text-yellow-600'
-                              : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
                           }`
                         }
                         value=""
@@ -488,7 +461,7 @@ const Yarn = ({ initialData, error }) => {
                               All
                             </span>
                             {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
                                 <CheckIcon
                                   className="h-5 w-5"
                                   aria-hidden="true"

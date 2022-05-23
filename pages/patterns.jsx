@@ -2,14 +2,22 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router';
 import React, { Fragment, useMemo, useState } from 'react';
+import { Listbox, Transition } from '@headlessui/react';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  SelectorIcon,
+} from '@heroicons/react/solid';
 import Masonry from 'react-masonry-css';
 import { useQuery } from 'react-query';
 import supabase from '../utils/supabase';
 
 const Patterns = ({ initialData }) => {
   const [filter, setFilter] = useState('');
+  const [category, setCategory] = useState('');
   const [image, setImage] = useState('');
   const [show, setShow] = useState('');
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const router = useRouter();
 
@@ -51,47 +59,440 @@ const Patterns = ({ initialData }) => {
     [filter, patterns],
   );
 
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
   return (
     <div className={`my-4 relative oveflow-scroll h-screen`}>
       <div className="max-w-7xl mx-auto">
         {show && <Modal image={image} setShow={setShow} />}
-        <div className="w-full grid gap-6 grid-cols-1 relative lg:grid-cols-4">
-          <div className="col-span-1 isolate relative">
-            <div className="w-full absolute top-0 left-0 shadow-md px-2 py-2 rounded flex flex-row flex-wrap lg:flex-col">
-              <h1 className="text-3xl font-georgiaBold text-slate-800">
-                Patterns
-              </h1>
-              <div className="flex flex-wrap md:flex-col  md:space-y-2 w-full items-center my-8">
-                {productsQuery.isLoading && (
-                  <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-blue-400"></div>
-                )}
+        <div className="hidden lg:flex z-30 py-4 border-y text-slate-800 text-xl border-gray-800 justify-center space-x-6">
+          <span className="font-extrabold uppercase border-r border-gray-700 px-3">
+            {filteredPatterns.length} Items
+          </span>
+          <span className="uppercase font-extrabold border-r border-gray-700 px-3">
+            Filter
+          </span>
 
-                {productsQuery.isSuccess && (
-                  <Fragment>
-                    <button
-                      onClick={() => setFilter('')}
-                      className="bg-slate-300/20 hover:bg-slate-300/40  w-full py-1 rounded-md"
+          <span className="font-light uppercase z-[999] self-end flex justify-end flex-1 px-3">
+            <Listbox value={filter} onChange={setFilter}>
+              <div className="relative">
+                <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
+                  <span className="block truncate font-extrabold w-fit">
+                    {filter === '' ? 'By Yarn' : filter}
+                  </span>
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <ChevronDownIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Listbox.Button>
+
+                <Transition
+                  as={Fragment}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Comfort"
                     >
-                      All
-                    </button>
-
-                    {productsQuery.data.map((product) => (
-                      <button
-                        onClick={() => setFilter(product.name)}
-                        key={product.id}
-                        className="bg-slate-300/20 hover:bg-slate-300/40  w-full py-1 rounded-md"
-                      >
-                        {product.name}
-                      </button>
-                    ))}
-                  </Fragment>
-                )}
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Comfort
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Adore"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Adore
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Euphoria"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Euphoria
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Inspire"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Inspire
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Harmony"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Harmony
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Enchanted"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Enchanted
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Love"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Love
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Hope"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Hope
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Curiosity"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Curiosity
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Soul"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Soul
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Freedom"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Freedom
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Desire"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Desire
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Joy"
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Joy
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value=""
+                    >
+                      {({ filter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              filter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            All
+                          </span>
+                          {filter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                  </Listbox.Options>
+                </Transition>
               </div>
-            </div>
-          </div>
-          <div className="columns-2 lg:columns-3 col-span-1  md:col-span-3">
+            </Listbox>
+          </span>
+        </div>
+        <div className="w-full grid gap-6 grid-cols-1 relative lg:grid-cols-4">
+          <div className="columns-2 mt-24 lg:columns-4 col-span-1  lg:col-span-4">
             {filteredPatterns.map((pattern, i) => {
               return (
                 <div

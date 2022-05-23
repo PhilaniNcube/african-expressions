@@ -7,7 +7,7 @@ const SectionOne = () => {
     <Fragment>
       <section className="max-w-7xl mx-auto py-12 px-6 md:px-2 lg:px-0">
         <div className="flex flex-col md:flex-row w-full justify-around items-center">
-          <span className="bg-yellow-600 flex items-center pr-3 rounded-full">
+          <span className="bg-accent flex items-center pr-3 rounded-full">
             <CgInstagram className="h-12 w-12 p-2 rounded-full border text-white font-light" />
             <h2 className="uppercase pl-6 text-base text-white font-medium">
               Follow African Expressions

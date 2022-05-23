@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'home-bg': "url('/images/wool.jpg')",
+        'home-bg': "url('/images/home.jpg')",
       },
       fontFamily: {
         mont: 'Montserrat',
@@ -18,6 +18,9 @@ module.exports = {
         futuraBook: 'Futura LT Book',
         georgiaBold: 'Georgia Bold',
         georgia: 'Georgia',
+      },
+      colors: {
+        accent: '#a09258',
       },
     },
   },

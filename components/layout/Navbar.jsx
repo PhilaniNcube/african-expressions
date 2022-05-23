@@ -31,7 +31,7 @@ const Navbar = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="border-b-4 border-yellow-600 py-3 px-6 md:px-4 lg:px-0">
+    <div className="border-b-4 border-accent py-3 px-6 md:px-4 lg:px-0">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" passHref>
           <img
