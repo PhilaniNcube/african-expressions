@@ -22,8 +22,8 @@ const Footer = () => {
             <Link href="/patterns">
               <a className="font-bold text-2xl">Patterns</a>
             </Link>
-            <Link href="/stockists">
-              <a className="font-bold text-2xl">Stockists</a>
+            <Link href="/stores">
+              <a className="font-bold text-2xl">Stores</a>
             </Link>
             <Link href="/contact">
               <a className="font-bold text-2xl">Get In Touch</a>

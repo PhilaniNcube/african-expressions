@@ -19,11 +19,7 @@ const solutions = [
   },
   {
     name: 'Online Stockists',
-    href: '/stockists',
-  },
-  {
-    name: 'FAQ',
-    href: '/faq',
+    href: '/online_agents',
   },
 ];
 
@@ -152,7 +148,7 @@ const Navbar = () => {
         </div>
 
         {/**Menu Icon */}
-        <div className="flex items-center justify-center md:hidden ">
+        <div className="flex items-center justify-center z-[999] md:hidden ">
           <Menu as="div" className="relative inline-block text-left">
             <div>
               <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-yellow-600 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -230,6 +226,32 @@ const Navbar = () => {
                     >
                       <Link href="/express">
                         <a className="w-full">Express Yourself</a>
+                      </Link>
+                    </Menu.Button>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Menu.Button
+                      className={`${
+                        active ? 'bg-yellow-600 text-white' : 'text-slate-800'
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      <Link href="/stores">
+                        <a className="w-full">Stores</a>
+                      </Link>
+                    </Menu.Button>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Menu.Button
+                      className={`${
+                        active ? 'bg-yellow-600 text-white' : 'text-slate-800'
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      <Link href="/online_agents">
+                        <a className="w-full">Online Stockists</a>
                       </Link>
                     </Menu.Button>
                   )}

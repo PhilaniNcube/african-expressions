@@ -21,8 +21,6 @@ const Patterns = ({ initialData }) => {
 
   const router = useRouter();
 
-  console.log(filter);
-
   const productsQuery = useQuery('yarns', async () => {
     let { data: products, error } = await supabase.from('products').select('*');
 
