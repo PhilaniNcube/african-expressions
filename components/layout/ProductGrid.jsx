@@ -8,7 +8,7 @@ const ProductGrid = ({ products }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 my-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 my-8 px-6 lg:px-0">
       {products.map((product, i) => (
         <Link href={`/yarns/${product.slug}`} passHref key={product.slug}>
           <div

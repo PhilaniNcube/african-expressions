@@ -13,13 +13,13 @@ const Product = ({ product }) => {
   return (
     <Fragment>
       <section>
-        <div className="max-w-7xl mx-auto my-12">
+        <div className="max-w-7xl mx-auto my-12 px-6 lg:px-0">
           <span className="text-gray-700 text-xl font-medium">
-            <span className="text-yellow-600">
+            <span className="text-accent">
               <Link href="/">Home</Link>
             </span>{' '}
             /{' '}
-            <span className="text-yellow-800 cursor-pointer font-medium">
+            <span className="text-accent cursor-pointer font-medium">
               <Link href="/yarns">Yarns</Link>
             </span>{' '}
             / {product.name}
@@ -35,11 +35,11 @@ const Product = ({ product }) => {
             </div>
 
             <div className="w-full p-6">
-              <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-yellow-700">
+              <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-accent">
                 {product.name}
               </h1>
 
-              <p className="text-md md:text-lg text-yellow-900 mt-2">
+              <p className="text-md md:text-lg text-accent mt-2">
                 {product.description}
               </p>
 
@@ -77,7 +77,7 @@ const Product = ({ product }) => {
                 should be dry cleaned
               </p>
 
-              <button className="bg-orange-600 text-white font-bold shadow-xl hover:bg-orange-500 hover:shadow-md mt-8 px-6 py-2 rounded-md text-base uppercase">
+              <button className="bg-accent text-white font-bold shadow-xl hover:bg-accent/90 hover:shadow-md mt-8 px-6 py-2 rounded-md text-base uppercase">
                 View Pattern
               </button>
             </div>
@@ -93,7 +93,7 @@ const Product = ({ product }) => {
                 <img
                   key={i}
                   src={`${IMAGE_URL}/${product.slug}/${url}`}
-                  className="h-20 w-20 rounded object-cover cursor-pointer"
+                  className="md:h-20 md:w-20 w-10 h-10  rounded object-cover cursor-pointer"
                   alt={url}
                   onClick={() => setImage(url)}
                 />
