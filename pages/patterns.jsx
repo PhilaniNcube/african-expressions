@@ -60,8 +60,8 @@ const Patterns = ({ initialData }) => {
   );
 
   return (
-    <div className={`my-4 relative oveflow-scroll h-screen`}>
-      <div className="max-w-7xl mx-auto">
+    <div className={`my-4 relative oveflow-scroll px-6 lg:px-0`}>
+      <div className="max-w-7xl h-full mx-auto">
         {show && <Modal image={image} setShow={setShow} />}
         <div className="hidden lg:flex z-30 py-4 border-y text-slate-800 text-xl border-gray-800 justify-center space-x-6">
           <span className="font-extrabold uppercase border-r border-gray-700 px-3">
@@ -492,7 +492,7 @@ const Patterns = ({ initialData }) => {
           </span>
         </div>
         <div className="w-full grid gap-6 grid-cols-1 relative lg:grid-cols-4">
-          <div className="columns-2 mt-24 lg:columns-4 col-span-1  lg:col-span-4">
+          <div className="columns-2 mt-24 lg:columns-4 col-span-1 h-full ovef lg:col-span-4">
             {filteredPatterns.map((pattern, i) => {
               return (
                 <div
@@ -540,13 +540,13 @@ const Patterns = ({ initialData }) => {
                           />
                         </svg>
                       </span>
-                      <p className="py-3 px-9 bg-yellow-600 text-gray-800 font-georgia text-xs">
+                      <p className="py-3 px-4  bg-accent text-gray-800 font-georgia text-xs">
                         View Pattern
                       </p>
                     </div>
                     <div
                       onClick={() => router.push(pattern.document)}
-                      className="flex items-center"
+                      className="md:flex items-center hidden"
                     >
                       <span className="bg-yellow-800 h-10 w-10 text-white flex items-center justify-center">
                         <svg
@@ -564,7 +564,7 @@ const Patterns = ({ initialData }) => {
                           />
                         </svg>
                       </span>
-                      <p className="py-3 px-6 bg-yellow-600/90 text-gray-800 font-georgia text-xs">
+                      <p className="py-3 px-6 bg-accent/90 text-gray-800 font-georgia text-xs">
                         Download Pattern
                       </p>
                     </div>
