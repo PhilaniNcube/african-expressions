@@ -4,7 +4,7 @@ import React from 'react';
 const about = () => {
   return (
     <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-0 my-8">
-      <h1 className="text-4xl text-slate-800 font-georgiaBold mb-6">
+      <h1 className="text-4xl text-deep font-georgiaBold mb-6">
         About African Expressions
       </h1>
       <p className="text-sm md:text-base text-slate-700">
