@@ -8,6 +8,7 @@ const AddPattern = ({ categories, products, stitching }) => {
   const [stitch, setStitching] = useState('');
   const [category, setCategory] = useState('');
   const [productId, setProductId] = useState('');
+  const [loading, setLoading] = useState(false);
 
   console.log(categories);
 
@@ -16,6 +17,8 @@ const AddPattern = ({ categories, products, stitching }) => {
       throw new Error('You must select an image to upload.');
     }
 
+    setLoading(true);
+
     const file = e.target.files[0];
     const fileExt = file.name.split('.').pop();
     const fileName = `${Math.random()}.${fileExt}`;
@@ -26,9 +29,15 @@ const AddPattern = ({ categories, products, stitching }) => {
 
     const fileUrl = upload.data.Key;
 
+    if (fileUrl.length > 0) {
+      alert('File Uploaded');
+    }
+
     setImage(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/patterns/${fileUrl}`,
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`,
     );
+
+    setLoading(false);
   };
 
   const handleDocUpload = async (e) => {
@@ -36,6 +45,8 @@ const AddPattern = ({ categories, products, stitching }) => {
       throw new Error('You must select an document to upload.');
     }
 
+    setLoading(true);
+
     const file = e.target.files[0];
     const fileExt = file.name.split('.').pop();
     const fileName = `${Math.random()}.${fileExt}`;
@@ -46,9 +57,15 @@ const AddPattern = ({ categories, products, stitching }) => {
 
     const fileUrl = upload.data.Key;
 
+    if (fileUrl.length > 0) {
+      alert('File Uploaded');
+    }
+
     setDoc(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/patterns/${fileUrl}`,
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`,
     );
+
+    setLoading(false);
   };
 
   const handleSubmit = async (e) => {
@@ -218,9 +235,10 @@ const AddPattern = ({ categories, products, stitching }) => {
 
         <button
           type="submit"
+          disabled={loading}
           className="bg-accent text-white text-lg font-medium px-8 rounded py-1 mt-3"
         >
-          Submit
+          {loading ? 'Please wait....' : 'Submit'}
         </button>
       </form>
     </main>
