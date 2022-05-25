@@ -12,9 +12,10 @@ import Masonry from 'react-masonry-css';
 import { useQuery } from 'react-query';
 import supabase from '../utils/supabase';
 
-const Patterns = ({ initialData }) => {
+const Patterns = ({ initialData, categories }) => {
   const [filter, setFilter] = useState('');
-  const [category, setCategory] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('');
+
   const [image, setImage] = useState('');
   const [show, setShow] = useState('');
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -57,6 +58,14 @@ const Patterns = ({ initialData }) => {
     [filter, patterns],
   );
 
+  const useCategoryFilter = () => {
+    filteredPatterns.filter((pattern) =>
+      pattern.category.name
+        .toLowerCase()
+        .includes(categoryFilter.toLowerCase()),
+    );
+  };
+
   return (
     <div className={`my-4 relative oveflow-scroll px-6 lg:px-0`}>
       <div className="max-w-7xl h-full mx-auto">
@@ -66,10 +75,10 @@ const Patterns = ({ initialData }) => {
             {filteredPatterns.length} Items
           </span>
           <span className="uppercase font-extrabold border-r border-gray-700 px-3">
-            Filter
+            Filters
           </span>
 
-          <span className="font-light uppercase z-[999] self-end flex justify-end flex-1 px-3">
+          <span className="font-light uppercase z-[800] self-end flex justify-end flex-1 px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
@@ -488,6 +497,94 @@ const Patterns = ({ initialData }) => {
               </div>
             </Listbox>
           </span>
+
+          <span className="font-light uppercase z-[800] self-end flex justify-end flex-1 px-3">
+            <Listbox value={categoryFilter} onChange={setCategoryFilter}>
+              <div className="relative">
+                <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
+                  <span className="block truncate font-extrabold w-fit">
+                    {categoryFilter === '' ? 'By Category' : categoryFilter}
+                  </span>
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <ChevronDownIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Listbox.Button>
+
+                <Transition
+                  as={Fragment}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value=""
+                    >
+                      {({ categoryFilter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              categoryFilter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            All
+                          </span>
+                          {categoryFilter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+
+                    {categories.map((category) => (
+                      <Listbox.Option
+                        key={category.id}
+                        className={({ active }) =>
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                          }`
+                        }
+                        value={category.name}
+                      >
+                        {({ filter }) => (
+                          <Fragment>
+                            <span
+                              className={`block truncate ${
+                                filter ? 'font-medium' : 'font-normal'
+                              }`}
+                            >
+                              {category.name}
+                            </span>
+                            {categoryFilter ? (
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                                <CheckIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            ) : null}
+                          </Fragment>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </Transition>
+              </div>
+            </Listbox>
+          </span>
         </div>
         <div className="w-full grid gap-6 grid-cols-1 relative lg:grid-cols-4">
           <div className="columns-2 mt-24 lg:columns-4 col-span-1 h-full ovef lg:col-span-4">
@@ -586,9 +683,12 @@ export async function getServerSideProps() {
 
   let { data: products } = await supabase.from('products').select('*');
 
+  let { data: category } = await supabase.from('category').select('*');
+
   return {
     props: {
       initialData: patterns,
+      categories: category,
       error,
     },
   };

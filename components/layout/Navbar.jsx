@@ -27,7 +27,7 @@ const Navbar = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="border-b-4 border-accent py-3 px-6 md:px-4 lg:px-0">
+    <div className="border-b-4 border-accent py-3 px-6 md:px-4 lg:px-0 z-[999]">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" passHref>
           <img
@@ -64,7 +64,7 @@ const Navbar = () => {
                 <a>Express Yourself</a>
               </li>
             </Link>
-            <div className="">
+            <div className="z-[999]">
               <Popover className="relative">
                 {({ open }) => (
                   <Fragment>
