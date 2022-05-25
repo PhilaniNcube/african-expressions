@@ -15,6 +15,7 @@ import supabase from '../utils/supabase';
 const Patterns = ({ initialData, categories }) => {
   const [filter, setFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
+  const [stitchingFilter, setStitchingFilter] = useState('');
 
   const [image, setImage] = useState('');
   const [show, setShow] = useState('');
@@ -50,6 +51,8 @@ const Patterns = ({ initialData, categories }) => {
 
   const patterns = patternsQuery.data;
 
+  console.log(categoryFilter);
+
   const filteredPatterns = useMemo(
     () =>
       patterns.filter((pattern) =>
@@ -58,8 +61,28 @@ const Patterns = ({ initialData, categories }) => {
     [filter, patterns],
   );
 
+  filteredPatterns = useMemo(
+    () =>
+      patterns.filter((pattern) =>
+        pattern.category.name
+          .toLowerCase()
+          .includes(categoryFilter.toLowerCase()),
+      ),
+    [categoryFilter, patterns],
+  );
+
+  filteredPatterns = useMemo(
+    () =>
+      patterns.filter((pattern) =>
+        pattern.stitching.name
+          .toLowerCase()
+          .includes(stitchingFilter.toLowerCase()),
+      ),
+    [stitchingFilter, patterns],
+  );
+
   const useCategoryFilter = () => {
-    filteredPatterns.filter((pattern) =>
+    filteredPatterns = patterns.filter((pattern) =>
       pattern.category.name
         .toLowerCase()
         .includes(categoryFilter.toLowerCase()),
@@ -70,11 +93,11 @@ const Patterns = ({ initialData, categories }) => {
     <div className={`my-4 relative oveflow-scroll px-6 lg:px-0`}>
       <div className="max-w-7xl h-full mx-auto">
         {show && <Modal image={image} setShow={setShow} />}
-        <div className="hidden lg:flex z-30 py-4 border-y text-slate-800 text-xl border-gray-800 justify-center space-x-6">
-          <span className="font-extrabold uppercase border-r border-gray-700 px-3">
+        <div className="hidden lg:flex items-center z-30 py-2 border-y text-slate-800 text-xl border-gray-800 justify-center space-x-6">
+          <span className="font-extrabold uppercase border-r text-sm border-gray-700 px-3">
             {filteredPatterns.length} Items
           </span>
-          <span className="uppercase font-extrabold border-r border-gray-700 px-3">
+          <span className="uppercase font-extrabold text-sm border-r border-gray-700 px-3">
             Filters
           </span>
 
@@ -82,7 +105,7 @@ const Patterns = ({ initialData, categories }) => {
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
-                  <span className="block truncate font-extrabold w-fit">
+                  <span className="block truncate text-sm font-extrabold w-fit">
                     {filter === '' ? 'By Yarn' : filter}
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -502,7 +525,7 @@ const Patterns = ({ initialData, categories }) => {
             <Listbox value={categoryFilter} onChange={setCategoryFilter}>
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
-                  <span className="block truncate font-extrabold w-fit">
+                  <span className="block text-sm truncate font-extrabold w-fit">
                     {categoryFilter === '' ? 'By Category' : categoryFilter}
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -559,11 +582,11 @@ const Patterns = ({ initialData, categories }) => {
                         }
                         value={category.name}
                       >
-                        {({ filter }) => (
+                        {({ categoryFilter }) => (
                           <Fragment>
                             <span
                               className={`block truncate ${
-                                filter ? 'font-medium' : 'font-normal'
+                                categoryFilter ? 'font-medium' : 'font-normal'
                               }`}
                             >
                               {category.name}
@@ -580,6 +603,119 @@ const Patterns = ({ initialData, categories }) => {
                         )}
                       </Listbox.Option>
                     ))}
+                  </Listbox.Options>
+                </Transition>
+              </div>
+            </Listbox>
+          </span>
+
+          <span className="font-light uppercase z-[800] self-end flex justify-end flex-1 px-3">
+            <Listbox value={stitchingFilter} onChange={setStitchingFilter}>
+              <div className="relative">
+                <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
+                  <span className="block text-sm truncate font-extrabold w-fit">
+                    {stitchingFilter === '' ? 'By Stitching' : stitchingFilter}
+                  </span>
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <ChevronDownIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Listbox.Button>
+
+                <Transition
+                  as={Fragment}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value=""
+                    >
+                      {({ stitchingFilter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              stitchingFilter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            All
+                          </span>
+                          {stitchingFilter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Knitting"
+                    >
+                      {({ stitchingFilter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              stitchingFilter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Knitting
+                          </span>
+                          {stitchingFilter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
+                    <Listbox.Option
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                        }`
+                      }
+                      value="Crotchet"
+                    >
+                      {({ stitchingFilter }) => (
+                        <Fragment>
+                          <span
+                            className={`block truncate ${
+                              stitchingFilter ? 'font-medium' : 'font-normal'
+                            }`}
+                          >
+                            Crotchet
+                          </span>
+                          {stitchingFilter ? (
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </Fragment>
+                      )}
+                    </Listbox.Option>
                   </Listbox.Options>
                 </Transition>
               </div>

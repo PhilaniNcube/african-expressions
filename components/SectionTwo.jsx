@@ -6,7 +6,7 @@ const SectionTwo = () => {
     <section className="max-w-7xl mx-auto py-12 px-6 md:px-2 lg:px-0">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="w-full">
-          {' '}
+        
           <h2 className="uppercase font-georgiaBold text-2xl md:text-3xl text-accent my-2">
             About African Expressions
           </h2>
