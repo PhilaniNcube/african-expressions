@@ -741,7 +741,7 @@ const Patterns = ({ initialData, categories }) => {
                   <div
                     className={`absolute inset-0 h-full flex flex-col transition-all duration-300 justify-center items-center z-20 ${
                       hoveredIndex === i
-                        ? 'opacity-80 bg-blend-overlay bg-slate-800/50'
+                        ? ' bg-blend-overlay bg-slate-800/50'
                         : 'opacity-0 hidden '
                     }`}
                   >
@@ -771,7 +771,7 @@ const Patterns = ({ initialData, categories }) => {
                           />
                         </svg>
                       </span>
-                      <p className="py-3 px-4  bg-accent text-gray-800 font-georgia text-xs">
+                      <p className="py-3 w-fit px-4 md:w-40 text-center  bg-accent text-gray-800 font-georgia text-xs">
                         View Pattern
                       </p>
                     </div>
@@ -795,7 +795,7 @@ const Patterns = ({ initialData, categories }) => {
                           />
                         </svg>
                       </span>
-                      <p className="py-3 px-6 bg-accent/90 text-gray-800 font-georgia text-xs">
+                      <p className="py-3 w-fit px-4 md:w-40 text-center bg-accent text-gray-800 font-georgia text-xs">
                         Download Pattern
                       </p>
                     </div>
