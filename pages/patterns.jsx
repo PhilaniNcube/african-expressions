@@ -71,8 +71,15 @@ const Patterns = ({ initialData, categories }) => {
   return (
     <div className={`my-4 relative oveflow-scroll px-6 lg:px-4`}>
       <div className="max-w-7xl h-full mx-auto">
+        <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-slate-800 font-extrabold ">
+          Patterns
+        </h1>
+        <p className="my-4">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur
+          excepturi quod reiciendis?
+        </p>
         {show && <Modal image={image} setShow={setShow} />}
-        <div className="hidden lg:flex items-center z-30 py-2 border-y text-slate-800 text-xl border-gray-800 justify-center space-x-6">
+        <div className="hidden lg:flex items-center z-30 py-5 border-y text-slate-800 text-xl border-gray-800 justify-start space-x-6">
           <span className="font-extrabold uppercase border-r text-sm border-gray-700 px-3">
             {filteredPatterns.length} Items
           </span>
@@ -80,7 +87,7 @@ const Patterns = ({ initialData, categories }) => {
             {filter === '' ? 'Filters' : filter}
           </span>
 
-          <span className="font-light uppercase z-[800] self-end flex justify-end flex-1 px-3">
+          <span className="font-light uppercase z-[800] self-end flex justify-end  px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
@@ -168,7 +175,7 @@ const Patterns = ({ initialData, categories }) => {
             </Listbox>
           </span>
 
-          <span className="font-light uppercase z-[800] self-end flex justify-end flex-1 px-3">
+          <span className="font-light uppercase z-[800] self-end flex justify-end  px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
@@ -256,7 +263,7 @@ const Patterns = ({ initialData, categories }) => {
             </Listbox>
           </span>
 
-          <span className="font-light uppercase z-[800] self-end flex justify-end flex-1 px-3">
+          <span className="font-light uppercase z-[800] self-end flex justify-end  px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
@@ -418,7 +425,7 @@ const Patterns = ({ initialData, categories }) => {
                           />
                         </svg>
                       </span>
-                      <p className="py-3 px-6  bg-accent text-gray-50 text-xs">
+                      <p className="py-3 px-6 uppercase  bg-accent text-gray-50 text-xs">
                         View Pattern
                       </p>
                     </div>
@@ -442,7 +449,7 @@ const Patterns = ({ initialData, categories }) => {
                           />
                         </svg>
                       </span>
-                      <p className="py-3 px-6 bg-accent text-gray-50 text-xs">
+                      <p className="py-3 px-6 uppercase bg-accent text-gray-50 text-xs">
                         Download Pattern
                       </p>
                     </div>

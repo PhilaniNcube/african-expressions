@@ -49,21 +49,19 @@ const Yarn = ({ initialData, error }) => {
             Consequuntur excepturi quod reiciendis?
           </p>
 
-          <div className="hidden lg:flex z-30 py-4 border-y text-slate-800 text-xl border-gray-800 justify-center space-x-6">
-            <span className="font-extrabold uppercase border-r border-gray-700 px-3">
+          <div className="hidden lg:flex items-center z-30 py-4 border-y text-slate-800 text-xl border-gray-800 justify-start space-x-6">
+            <span className="text-sm uppercase border-r border-gray-700 px-3">
               {filteredProducts.length} Items
             </span>
-            <span className="font-light uppercase border-r border-gray-700 px-3">
+            <span className="text-sm uppercase border-r border-gray-700 px-3">
               Filter
             </span>
 
-            <span className="font-light uppercase z-[999] border-r border-gray-700 px-3">
+            <span className="uppercase z-[999] border-r border-gray-700 px-3">
               <Listbox value={filter} onChange={setFilter}>
                 <div className="relative">
-                  <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
-                    <span className="block truncate w-fit">
-                      {filter === '' ? 'By Yarn' : filter}
-                    </span>
+                  <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white pl-3 pr-10  uppercase text-left focus:outline-none">
+                    <span className="block text-sm">By Yarn</span>
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                       <ChevronDownIcon
                         className="h-5 w-5 text-gray-400"
