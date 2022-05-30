@@ -76,6 +76,10 @@
   }
 }
 
+body {
+  @apply font-futuraBook;
+}
+
 .my-masonry-grid {
   display: -webkit-box;
   display: -ms-flex-box;
