@@ -1,22 +1,37 @@
 import React, { Fragment } from 'react';
+import Link from 'next/link';
 import { CgInstagram } from 'react-icons/cg';
 import Image from 'next/image';
+import { FaFacebookF, FaInstagram } from 'react-icons/fa';
 
 const SectionOne = () => {
   return (
     <Fragment>
       <section className="max-w-7xl mx-auto py-12 px-6 md:px-2 lg:px-0">
-        <div className="flex flex-col md:flex-row w-full justify-around items-center">
-          <span className="bg-accent flex items-center pr-3 rounded-full">
-            <CgInstagram className="h-12 w-12 p-2 rounded-full border text-white font-light" />
-            <h2 className="uppercase pl-6 text-base text-white font-medium">
-              Follow African Expressions
-            </h2>
-          </span>
+        <div className="flex flex-col md:flex-row w-full justify-between items-center">
+          <Link
+            href="https://www.instagram.com/african_expressions_yarns/?hl=en"
+            passHref
+          >
+            <span className="bg-accent flex items-center pr-3 rounded-full">
+              <FaInstagram className="h-12 w-12 p-2 rounded-full border text-white font-light" />
+              <h2 className="uppercase pl-6 text-base text-white font-medium">
+                Follow African Expressions
+              </h2>
+            </span>
+          </Link>
 
-          <p className="text-base md:text-lg text-gray-700 font-medium">
-            @african_expressions_yarns
-          </p>
+          <Link
+            href="https://www.facebook.com/AfricanExpressionsYarn/"
+            passHref
+          >
+            <span className="bg-accent flex items-center pr-3 rounded-full">
+              <FaFacebookF className="h-12 w-12 p-2 rounded-full border text-white font-light" />
+              <h2 className="uppercase pl-6 text-base text-white font-medium">
+                African Expressions Facebook
+              </h2>
+            </span>
+          </Link>
         </div>
         <div className="w-full mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
