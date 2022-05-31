@@ -79,19 +79,19 @@ const Patterns = ({ initialData, categories }) => {
           excepturi quod reiciendis?
         </p>
         {show && <Modal image={image} setShow={setShow} />}
-        <div className="hidden lg:flex items-center z-30 py-5 border-y text-slate-800 text-xl border-gray-800 justify-start space-x-6">
-          <span className="font-extrabold uppercase border-r text-sm border-gray-700 px-3">
+        <div className="hidden lg:flex items-center z-30 py-6 border-y text-slate-800 text-xl border-gray-800 justify-start space-x-6">
+          <span className="font-futuraBold uppercase border-r py-1 text-sm border-gray-700 px-3">
             {filteredPatterns.length} Items
           </span>
-          <span className="uppercase font-extrabold text-sm border-r border-gray-700 px-3">
+          <span className="uppercase text-sm py-1 border-r border-gray-700 px-3">
             {filter === '' ? 'Filters' : filter}
           </span>
 
-          <span className="font-light uppercase z-[800] self-end flex justify-end  px-3">
+          <span className="font-light uppercase z-[800] py-1 border-r border-gray-700 self-end flex justify-end  px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
-                  <span className="block truncate text-sm font-extrabold w-fit">
+                  <span className="block truncate text-sm font-futuraBold w-fit">
                     {'By Yarn'}
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -175,7 +175,7 @@ const Patterns = ({ initialData, categories }) => {
             </Listbox>
           </span>
 
-          <span className="font-light uppercase z-[800] self-end flex justify-end  px-3">
+          <span className="font-futuraBold uppercase z-[800] py-1 border-r border-gray-700  self-end flex justify-end  px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
@@ -263,11 +263,11 @@ const Patterns = ({ initialData, categories }) => {
             </Listbox>
           </span>
 
-          <span className="font-light uppercase z-[800] self-end flex justify-end  px-3">
+          <span className="font-light uppercase z-[800] self-end flex border-r border-gray-700  py-1 justify-end  px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
-                  <span className="block text-sm truncate font-extrabold w-fit">
+                  <span className="block text-sm truncate font-futuraBold w-fit">
                     {'By Stitching'}
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

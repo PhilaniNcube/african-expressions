@@ -3,36 +3,36 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-zinc-800 px-6 ">
+    <footer className="bg-zinc-800 px-6">
       <div className="max-w-7xl mx-auto py-12 px-6 md:px-4 lg:px-0 text-white">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:grid-cols-3">
           <div className="flex flex-col space-y-3 uppercase">
             <Link href="/">
-              <a className="font-bold text-2xl">Home</a>
+              <a className=" text-xs">Home</a>
             </Link>
             <Link href="/about">
-              <a className="font-bold text-2xl">About Us</a>
+              <a className=" text-xs">About Us</a>
             </Link>
             <Link href="/yarns">
-              <a className="font-bold text-2xl">Our Yarns</a>
+              <a className=" text-xs">Our Yarns</a>
             </Link>
             <Link href="/express">
-              <a className="font-bold text-2xl">Express Yourself</a>
+              <a className=" text-xs">Express Yourself</a>
             </Link>
             <Link href="/patterns">
-              <a className="font-bold text-2xl">Patterns</a>
+              <a className=" text-xs">Patterns</a>
             </Link>
             <Link href="/stores">
-              <a className="font-bold text-2xl">Stores</a>
+              <a className=" text-xs">Stores</a>
             </Link>
             <Link href="/contact">
-              <a className="font-bold text-2xl">Get In Touch</a>
+              <a className=" text-xs">Get In Touch</a>
             </Link>
           </div>
 
           <div className="uppercase text-white">
-            <h2 className="font-bold text-2xl">Our Yarns</h2>
-            <div className="grid grid-cols-2 gap-4 mt-3">
+            <h2 className=" text-sm font-futuraBold">Our Yarns</h2>
+            <div className="grid text-xs grid-cols-2 gap-4 mt-3">
               <Link href="/yarns/adore">Adore</Link>
               <Link href="/yarns/joy">Joy</Link>
               <Link href="/yarns/comfort">comfort</Link>
@@ -48,8 +48,8 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="text-white text-lg uppercase flex flex-col space-y-4">
-            <h2 className="text-2xl font-bold">Contact Us</h2>
+          <div className="text-white text-sm uppercase flex flex-col space-y-4">
+            <h2 className="text-md font-futuraBold">Contact Us</h2>
             <a href="tel:+27414862430">+27(0)41 486 2430</a>
             <a href="tel:+27823275086">+27(0)82 327 5086</a>
             <a href="emailto:info@africanexpressions.co.za">

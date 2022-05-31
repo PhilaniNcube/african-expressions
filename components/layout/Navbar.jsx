@@ -57,11 +57,11 @@ const Navbar = () => {
   console.log(router);
 
   return (
-    <div className="border-b-4 border-accent py-6 px-6 md:px-4 lg:px-2 z-[999]">
+    <div className="border-b-4 border-accent py-6 md:py-10 px-6 md:px-4 lg:px-2 z-[999]">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" passHref>
           <img
-            className="h-12 object-cover cursor-pointer"
+            className="h-12 md:h-16 object-cover cursor-pointer"
             alt="African Expressions"
             src="/images/logo.png"
           />
@@ -80,17 +80,7 @@ const Navbar = () => {
                 <a>Home</a>
               </li>
             </Link>
-            <Link href="/about" passHref>
-              <li
-                className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === '/about'
-                    ? 'text-accent font-futuraBold'
-                    : 'text-deep'
-                }`}
-              >
-                <a>About</a>
-              </li>
-            </Link>
+
             <Link href="/yarns" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
