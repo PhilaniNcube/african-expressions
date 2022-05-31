@@ -42,10 +42,8 @@ const Map = () => {
 
   return (
     <Fragment>
-      <div className="max-w-7xl mx-auto px-6 lg:px-0 w-full">
-        <h1 className="text-4xl text-slate-800 font-georgiaBold my-6">
-          Stores
-        </h1>
+      <div className="max-w-7xl mx-auto px-6 lg:px-0 w-full my-12">
+        <h1 className="text-4xl text-deep font-georgiaBold my-6">Stores</h1>
 
         <div className="flex flex-col my-4">
           <Places
@@ -90,13 +88,11 @@ const Map = () => {
                       }
                     }}
                   >
-                    <h2 className="text-lg text-orange-600 font-medium">
+                    <h2 className="text-lg text-accent font-futuraBold">
                       {store.name}
                     </h2>
 
-                    <p className="text-base text-gray-700">
-                      {store.streetAddress}
-                    </p>
+                    <p className="text-base text-deep">{store.streetAddress}</p>
                     <p className="text-sm text-gray-500">
                       Contact Number: {store.contact}
                     </p>
