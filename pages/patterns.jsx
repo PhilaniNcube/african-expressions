@@ -9,13 +9,12 @@ import {
   SelectorIcon,
 } from '@heroicons/react/solid';
 import Masonry from 'react-masonry-css';
+import Link from 'next/link';
 import { useQuery } from 'react-query';
 import supabase from '../utils/supabase';
 
 const Patterns = ({ initialData, categories }) => {
   const [filter, setFilter] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [stitchingFilter, setStitchingFilter] = useState('');
 
   const [image, setImage] = useState('');
   const [show, setShow] = useState('');
@@ -51,10 +50,6 @@ const Patterns = ({ initialData, categories }) => {
 
   const patterns = patternsQuery.data;
 
-  console.log(categoryFilter);
-  console.log(filter);
-  console.log(stitchingFilter);
-
   let filteredPatterns = useMemo(
     () =>
       patterns.filter(
@@ -78,7 +73,7 @@ const Patterns = ({ initialData, categories }) => {
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur
           excepturi quod reiciendis?
         </p>
-        {show && <Modal image={image} setShow={setShow} />}
+
         <div className="hidden lg:flex items-center z-30 py-6 border-y text-slate-800 text-xl border-gray-800 justify-start space-x-6">
           <span className="font-futuraBold uppercase border-r py-1 text-sm border-gray-700 px-3">
             {filteredPatterns.length} Items
@@ -380,81 +375,86 @@ const Patterns = ({ initialData, categories }) => {
           <div className="columns-2 mt-24 lg:columns-4 gap-3 col-span-1 h-full ovef lg:col-span-4">
             {filteredPatterns.map((pattern, i) => {
               return (
-                <div
-                  className="relative mb-4 mx-1 rounded-md overflow-hidden"
+                <Link
                   key={pattern.id}
-                  onMouseEnter={() => setHoveredIndex(i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
+                  href={`/patterns/${pattern.id}`}
+                  passHref
                 >
-                  <img
-                    alt={pattern.name}
-                    src={pattern.image}
-                    className={`w-full h-full block z-10 shadow-xl  hover:shadow-sm object-cover rounded-md`}
-                  />
-
                   <div
-                    className={`absolute inset-0 h-full flex flex-col transition-all duration-300 justify-center items-center z-20 ${
-                      hoveredIndex === i
-                        ? 'bg-blend-overlay bg-slate-800/50'
-                        : 'opacity-0 hidden '
-                    }`}
+                    className="relative mb-4 mx-1 rounded-md overflow-hidden"
+                    onMouseEnter={() => setHoveredIndex(i)}
+                    onMouseLeave={() => setHoveredIndex(null)}
                   >
-                    <h2 className="font-georgiaBold uppercase text-center px-2 text-xl text-white pb-6">
-                      {pattern.name}
-                    </h2>
+                    <img
+                      alt={pattern.name}
+                      src={pattern.image}
+                      className={`w-full h-full block z-10 shadow-xl  hover:shadow-sm object-cover rounded-md`}
+                    />
+
                     <div
-                      onClick={() => {
-                        setShow(true);
-                        setImage(pattern.image);
-                      }}
-                      className="flex items-center min-w-[150px] my-2"
+                      className={`absolute inset-0 h-full flex flex-col transition-all duration-300 justify-center items-center z-20 ${
+                        hoveredIndex === i
+                          ? 'bg-blend-overlay bg-slate-800/50'
+                          : 'opacity-0 hidden '
+                      }`}
                     >
-                      <span className="bg-dark h-10 w-10 text-white flex items-center justify-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                          />
-                        </svg>
-                      </span>
-                      <p className="py-3 px-6 uppercase  bg-accent text-gray-50 text-xs">
-                        View Pattern
-                      </p>
-                    </div>
-                    <div
-                      onClick={() => router.push(pattern.document)}
-                      className="md:flex items-center hidden"
-                    >
-                      <span className="bg-dark h-10 w-10 text-white flex items-center justify-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                          />
-                        </svg>
-                      </span>
-                      <p className="py-3 px-6 uppercase bg-accent text-gray-50 text-xs">
-                        Download Pattern
-                      </p>
+                      <h2 className="font-georgiaBold uppercase text-center px-2 text-xl text-white pb-6">
+                        {pattern.name}
+                      </h2>
+                      <div
+                        onClick={() => {
+                          setShow(true);
+                          setImage(pattern.image);
+                        }}
+                        className="flex items-center min-w-[150px] my-2"
+                      >
+                        <span className="bg-dark h-10 w-10 text-white flex items-center justify-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            />
+                          </svg>
+                        </span>
+                        <p className="py-3 px-6 uppercase  bg-accent text-gray-50 text-xs">
+                          View Pattern
+                        </p>
+                      </div>
+                      <div
+                        onClick={() => router.push(pattern.document)}
+                        className="md:flex items-center hidden"
+                      >
+                        <span className="bg-dark h-10 w-10 text-white flex items-center justify-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                            />
+                          </svg>
+                        </span>
+                        <p className="py-3 px-6 uppercase bg-accent text-gray-50 text-xs">
+                          Download Pattern
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

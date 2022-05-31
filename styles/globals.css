@@ -77,7 +77,7 @@
 }
 
 body {
-  @apply font-futuraBook;
+  @apply font-futuraBook text-deep;
 }
 
 .my-masonry-grid {

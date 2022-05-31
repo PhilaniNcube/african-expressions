@@ -13,43 +13,49 @@ const ProductGrid = ({ products }) => {
         <Link href={`/yarns/${product.slug}`} passHref key={product.slug}>
           <div
             key={product.id}
-            className="rounded relative shadow-md shadow-slate-600/20 cursor-pointer"
+            className="rounded relative  cursor-pointer transition-all  duration-500 "
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
             <div
-              className={`absolute inset-0 h-full w-full flex flex-col transition-all px-8 py-12 duration-300 justify-center items-center z-20 ${
+              className={`absolute inset-0 h-full w-full flex flex-col transition-all  duration-800 justify-center items-center z-20 ${
                 hoveredIndex === i ? 'bg-blend-overlay' : 'opacity-0 hidden '
               }`}
             >
-              <div className="text-gray-800 w-full h-full rounded-lg bg-white/80 shadow-lg px-2 py-1 flex justify-center items-start flex-col">
-                <p className=" text-base font-medium w-full border-b border-gray-700">
-                  {product.name}
-                </p>
-                <p className="text-xs">
-                  <span className="font-medium">Composition:</span>
-                  {product.composition}
-                </p>
-                <p className="text-xs">
-                  <span className="font-medium">Ball Weight:</span>
-                  {product.ball_weight}g
-                </p>
-                <p className="text-xs">
-                  <span className="font-medium">Yarn Meterage:</span>
-                  {product.yarn_length}m
-                </p>
-                <p className="text-xs">
-                  <span className="font-medium">Tension:</span>
-                  {product.tension}
-                </p>
-                <p className="text-xs">
-                  <span className="font-medium">Needle Size:</span>
-                  {product.needle_size}
-                </p>
-                <p className="text-xs">
-                  <span className="font-medium">Count:</span>
-                  {product.count}
-                </p>
+              <div className="text-deep w-full h-full rounded-lg bg-gray-600/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
+                <div className="w-full h-full flex justify-center bg-white flex-col px-6 py-12">
+                  <p className=" text-md font-futuraBold  w-full">
+                    {product.name}
+                  </p>
+                  <p className=" text-xs  w-full border-b pb-2 border-gray-700">
+                    {product.description}
+                  </p>
+
+                  <p className="text-xs mt-1">
+                    <span className="font-futuraBold">Composition:</span>
+                    {product.composition}
+                  </p>
+                  <p className="text-xs">
+                    <span className="font-futuraBold">Ball Weight:</span>
+                    {product.ball_weight}g
+                  </p>
+                  <p className="text-xs">
+                    <span className="font-futuraBold">Yarn Meterage:</span>
+                    {product.yarn_length}m
+                  </p>
+                  <p className="text-xs">
+                    <span className="font-futuraBold">Tension:</span>
+                    {product.tension}
+                  </p>
+                  <p className="text-xs">
+                    <span className="font-futuraBold">Needle Size:</span>
+                    {product.needle_size}
+                  </p>
+                  <p className="text-xs ">
+                    <span className="font-futuraBold">Count:</span>
+                    {product.count}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -58,9 +64,12 @@ const ProductGrid = ({ products }) => {
               alt={product.name}
               className="h-[350px] w-full object-contain rounded-lg"
             />
-            <div className="flex flex-col items-center py-4">
-              <p className="text-base md:text-xl font-medium text-slate-800">
+            <div className="flex flex-col items-center px-8 py-4">
+              <p className="text-base md:text-xl font-futuraBold text-slate-800">
                 {product.name}
+              </p>
+              <p className=" text-xs text-center font-futuraBook w-full">
+                {product.description}
               </p>
             </div>
           </div>
