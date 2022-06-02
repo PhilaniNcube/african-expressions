@@ -7,7 +7,7 @@ import { FaFacebookF, FaInstagram } from 'react-icons/fa';
 const SectionOne = () => {
   return (
     <Fragment>
-      <section className="max-w-7xl mx-auto py-12 px-6 md:px-2 lg:px-0">
+      <section className="max-w-7xl mx-auto py-12 px-6 md:px-4">
         <div className="flex flex-col md:flex-row w-full justify-between items-center">
           <Link
             href="https://www.instagram.com/african_expressions_yarns/?hl=en"

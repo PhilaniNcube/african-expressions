@@ -35,7 +35,7 @@ const OnlineStores = ({ initialData }) => {
   );
 
   return (
-    <main className="max-w-7xl mx-auto my-8 px-6 md:px-4 lg:px-0">
+    <main className="max-w-7xl mx-auto my-8 px-6 md:px-4">
       <div className="w-full py-6">
         <h1 className="text-accent font-extrabold font-georgiaBold text-2xl md:text-4xl">
           Online Stockists

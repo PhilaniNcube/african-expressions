@@ -2,7 +2,7 @@ import React from 'react';
 
 const tutorials = () => {
   return (
-    <main className="max-w-7xl mx-auto py-8 px-6 md:px-4 lg:px-0 relative">
+    <main className="max-w-7xl mx-auto py-8 px-6 md:px-4 relative">
       <h1 className="text-4xl text-deep font-georgiaBold mb-6 text-center">
         Tutorials
       </h1>

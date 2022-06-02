@@ -64,14 +64,15 @@ const Patterns = ({ initialData, categories }) => {
   );
 
   return (
-    <div className={`my-4 relative oveflow-scroll px-6 lg:px-4`}>
+    <div className={`my-4 relative oveflow-scroll px-6 md:px-4`}>
       <div className="max-w-7xl h-full mx-auto">
         <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-slate-800 font-extrabold ">
           Patterns
         </h1>
         <p className="my-4">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur
-          excepturi quod reiciendis?
+          Our yarn allows each design pattern to be created using innovative
+          techniques. You can create unique textures, shapes and patterns as you
+          please.
         </p>
 
         <div className="hidden lg:flex items-center z-30 py-6 border-y text-slate-800 text-xl border-gray-800 justify-start space-x-6">

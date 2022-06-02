@@ -3,7 +3,7 @@ import React from 'react';
 
 const about = () => {
   return (
-    <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-0 my-8">
+    <div className="max-w-6xl mx-auto px-6 md:px-4 my-8">
       <h1 className="text-4xl text-deep font-georgiaBold mb-6">
         About African Expressions
       </h1>

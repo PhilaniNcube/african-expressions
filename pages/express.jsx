@@ -12,13 +12,14 @@ const Express = () => {
 
   return (
     <Fragment>
-      <div className="max-w-7xl mx-auto my-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-4 my-8">
         <h1 className="font-georgiaBold text-2xl md:text-4xl lg:text-5xl text-gray-800">
           Express Yourself
         </h1>
         <p className="my-4 text-gray-600">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur
-          excepturi quod reiciendis?
+          Express yourself with our tutorials and premium yarn. An awe-inspiring
+          result of lightweight, versatile and stylish garments which are
+          perfect for both men and women can be created.
         </p>
 
         <div className="w-10/12 mx-auto py-4 grid grid-cols-1 md:grid-cols-3 gap-12">

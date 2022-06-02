@@ -44,14 +44,14 @@ const Yarn = ({ initialData, error }) => {
         <title>Yarns | African Expressions</title>
         <meta name="description" content="Our range of yarns" />
       </Head>
-      <div className="max-w-6xl mx-auto px-6 lg:px-4 mt-4 text-deep">
+      <div className="max-w-6xl mx-auto px-6 md:px-4 mt-4 text-deep">
         <header>
           <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-deep font-extrabold ">
             Yarns
           </h1>
           <p className="my-4">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Consequuntur excepturi quod reiciendis?
+            The yarns are spun into a fine, lightweight fabric that is perfect
+            for sweaters, scarves, hats, gloves, blankets, and more.
           </p>
 
           <div className="hidden lg:flex items-center z-30 py-6 border-y text-deep text-xl border-deep justify-start space-x-6">

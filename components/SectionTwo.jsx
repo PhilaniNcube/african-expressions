@@ -3,7 +3,7 @@ import React from 'react';
 
 const SectionTwo = () => {
   return (
-    <section className="max-w-7xl mx-auto py-12 px-6 md:px-2 lg:px-0">
+    <section className="max-w-7xl mx-auto py-12 px-6 md:px-4">
       <h1 className="text-4xl text-deep font-georgiaBold mb-6">
         About African Expressions
       </h1>

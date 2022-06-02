@@ -50,14 +50,10 @@ const socials = [
 ];
 
 const Navbar = () => {
-  const [show, setShow] = useState(false);
-
   const router = useRouter();
 
-  console.log(router);
-
   return (
-    <div className="border-b-4 border-accent py-6 md:py-10 px-6 md:px-4 lg:px-2 z-[999]">
+    <div className="border-b-4 border-accent py-6 md:py-10 px-6 md:px-4 z-[999]">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" passHref>
           <img
