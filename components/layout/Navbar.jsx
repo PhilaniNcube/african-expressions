@@ -138,7 +138,7 @@ const Navbar = () => {
         <div className="md:flex items-center hidden">
           <div className="flex flex-col ">
             <div className="relative">
-              <div className="absolute text-gray-600 flex items-center pl-2 h-full">
+              <div className="absolute text-deep flex items-center pl-2 h-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon icon-tabler icon-tabler-search"
@@ -158,7 +158,7 @@ const Navbar = () => {
               </div>
               <input
                 id="search"
-                className="text-gray-600 bg-white  focus:outline-none focus:border focus:border-gray-700 font-normal pr-20 h-10 flex items-center pl-10 text-sm border-gray-300 rounded border shadow"
+                className="text-deep bg-white  focus:outline-none focus:border focus:border-gray-700 font-normal pr-20 h-10 flex items-center pl-10 text-sm border-gray-300 rounded border shadow"
                 placeholder="Search Yarns"
               />
             </div>

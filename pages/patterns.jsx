@@ -108,7 +108,7 @@ const Patterns = ({ initialData, categories }) => {
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                          active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
                       value=""
@@ -139,7 +139,7 @@ const Patterns = ({ initialData, categories }) => {
                         key={product.id}
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value={product.name}
@@ -196,7 +196,7 @@ const Patterns = ({ initialData, categories }) => {
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                          active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
                       value=""
@@ -227,7 +227,7 @@ const Patterns = ({ initialData, categories }) => {
                         key={category.id}
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value={category.name}
@@ -284,7 +284,7 @@ const Patterns = ({ initialData, categories }) => {
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                          active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
                       value=""
@@ -313,7 +313,7 @@ const Patterns = ({ initialData, categories }) => {
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                          active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
                       value="Knitting"
@@ -341,7 +341,7 @@ const Patterns = ({ initialData, categories }) => {
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                          active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
                       value="Crotchet"

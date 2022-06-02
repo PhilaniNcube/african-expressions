@@ -8,12 +8,12 @@ const SectionOne = () => {
   return (
     <Fragment>
       <section className="max-w-7xl mx-auto py-12 px-6 md:px-4">
-        <div className="flex flex-col md:flex-row w-full justify-between items-center">
+        <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row w-full justify-between items-center">
           <Link
             href="https://www.instagram.com/african_expressions_yarns/?hl=en"
             passHref
           >
-            <span className="bg-accent flex items-center pr-3 rounded-full">
+            <span className="bg-accent flex  items-center pr-3 rounded-full">
               <FaInstagram className="h-12 w-12 p-2 rounded-full border text-white font-light" />
               <h2 className="uppercase pl-6 text-xs md:text-sm  text-white font-medium">
                 Follow African Expressions

@@ -7,13 +7,13 @@ const about = () => {
       <h1 className="text-4xl text-deep font-georgiaBold mb-6">
         About African Expressions
       </h1>
-      <p className="text-sm md:text-base text-slate-700">
+      <p className="text-sm md:text-base text-deep">
         African Expressions was born from the desire for Africa to share her
         natural beauty with the rest of the world. Through our unique range of
         yarns we express the essence of that which makes Africa magical
       </p>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 py-4">
-        <div className="w-full text-slate-700 text-base">
+        <div className="w-full text-deep text-base">
           <h3 className="font-georgiaBold">Natural beauty</h3>
           <p className="pb-3">
             African Expressions was born from the desire for Africa to share her
@@ -48,7 +48,7 @@ const about = () => {
             className="w-full max-h-[400px] object-cover apsect-video rounded-sm shadow-lg"
           />
         </div>
-        <div className="w-full text-slate-700 text-base">
+        <div className="w-full text-deep text-base">
           <h3 className="font-georgiaBold">Natural Fibres</h3>
           <p className="pb-3">
             From farm to store, each and every process is handled with the

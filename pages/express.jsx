@@ -13,10 +13,10 @@ const Express = () => {
   return (
     <Fragment>
       <div className="max-w-7xl mx-auto px-6 md:px-4 my-8">
-        <h1 className="font-georgiaBold text-2xl md:text-4xl lg:text-5xl text-gray-800">
+        <h1 className="font-georgiaBold text-2xl md:text-4xl lg:text-5xl text-deep">
           Express Yourself
         </h1>
-        <p className="my-4 text-gray-600">
+        <p className="my-4 text-deep">
           Express yourself with our tutorials and premium yarn. An awe-inspiring
           result of lightweight, versatile and stylish garments which are
           perfect for both men and women can be created.
@@ -30,11 +30,11 @@ const Express = () => {
               onMouseLeave={() => setHoverInspire(false)}
             >
               <div
-                className={`absolute inset-0 h-full w-full flex flex-col transition-all  duration-800 justify-center items-center z-20 ${
-                  hoverInspire ? 'bg-blend-overlay' : 'opacity-0 hidden '
+                className={`absolute inset-0 h-full w-full pointer-events-none flex flex-col transition-opacity ease-in-out duration-1000 justify-center items-center z-20 ${
+                  hoverInspire ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className="text-deep w-full h-full rounded-lg bg-gray-600/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
+                <div className="text-deep w-full h-full rounded-lg bg-deep/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
                   <div className="w-full h-full flex justify-center bg-white flex-col px-6 py-12">
                     <p className=" text-md font-futuraBold  w-full">Inspire</p>
                     <p className=" text-xs  w-full border-b pb-2 border-gray-700">
@@ -91,11 +91,11 @@ const Express = () => {
               onMouseLeave={() => setHoverDesire(false)}
             >
               <div
-                className={`absolute inset-0 h-full w-full flex flex-col transition-all  duration-800 justify-center items-center z-20 ${
-                  hoverDesire ? 'bg-blend-overlay' : 'opacity-0 hidden '
+                className={`absolute inset-0 h-full w-full pointer-events-none flex flex-col transition-opacity ease-in-out duration-1000 justify-center items-center z-20 ${
+                  hoverDesire ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className="text-deep w-full h-full rounded-lg bg-gray-600/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
+                <div className="text-deep w-full h-full rounded-lg bg-deep/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
                   <div className="w-full h-full flex justify-center bg-white flex-col px-6 py-12">
                     <p className=" text-md font-futuraBold  w-full">Desire</p>
                     <p className=" text-xs  w-full border-b pb-2 border-gray-700">
@@ -154,11 +154,11 @@ const Express = () => {
               onMouseLeave={() => setHoverEuphoria(false)}
             >
               <div
-                className={`absolute inset-0 h-full w-full flex flex-col transition-all  duration-800 justify-center items-center z-20 ${
-                  hoverEuphoria ? 'bg-blend-overlay' : 'opacity-0 hidden '
+                className={`absolute inset-0 h-full w-full pointer-events-none flex flex-col transition-opacity ease-in-out duration-1000 justify-center items-center z-20 ${
+                  hoverEuphoria ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className="text-deep w-full h-full rounded-lg bg-gray-600/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
+                <div className="text-deep w-full h-full rounded-lg bg-deep/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
                   <div className="w-full h-full flex justify-center bg-white flex-col px-6 py-12">
                     <p className=" text-md font-futuraBold  w-full">Euphoria</p>
                     <p className=" text-xs  w-full border-b pb-2 border-gray-700">
@@ -215,11 +215,11 @@ const Express = () => {
               onMouseLeave={() => setHoverEnchanted(false)}
             >
               <div
-                className={`absolute inset-0 h-full w-full flex flex-col transition-all  duration-800 justify-center items-center z-20 ${
-                  hoverEnchanted ? 'bg-blend-overlay' : 'opacity-0 hidden '
+                className={`absolute inset-0 h-full w-full pointer-events-none flex flex-col transition-opacity ease-in-out duration-1000 justify-center items-center z-20 ${
+                  hoverEnchanted ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className="text-deep w-full h-full rounded-lg bg-gray-600/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
+                <div className="text-deep w-full h-full rounded-lg bg-deep/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
                   <div className="w-full h-full flex justify-center bg-white flex-col px-6 py-12">
                     <p className=" text-md font-futuraBold  w-full">
                       Enchanted
@@ -275,16 +275,16 @@ const Express = () => {
           </Link>
           <Link href={`/yarns/charmed`} passHref>
             <div
-              className="rounded relative  cursor-pointer transition-all  duration-500 "
+              className="rounded relative  cursor-pointer"
               onMouseEnter={() => setHoverCharmed(true)}
               onMouseLeave={() => setHoverCharmed(false)}
             >
               <div
-                className={`absolute inset-0 h-full w-full flex flex-col transition-all  duration-800 justify-center items-center z-20 ${
-                  hoverCharmed ? 'bg-blend-overlay' : 'opacity-0 hidden '
+                className={`absolute inset-0 h-full w-full pointer-events-none flex flex-col transition-opacity ease-in-out duration-1000 justify-center items-center z-20 ${
+                  hoverCharmed ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className="text-deep w-full h-full rounded-lg bg-gray-600/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
+                <div className="text-deep w-full h-full rounded-lg bg-deep/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
                   <div className="w-full h-full flex justify-center bg-white flex-col px-6 py-12">
                     <p className=" text-md font-futuraBold  w-full">Charmed</p>
                     <p className=" text-xs  w-full border-b pb-2 border-gray-700">
@@ -335,10 +335,10 @@ const Express = () => {
             </div>
           </Link>
         </div>
-        <h1 className="font-georgiaBold mt-6 text-2xl md:text-4xl lg:text-5xl text-gray-800">
+        <h1 className="font-georgiaBold mt-6 text-2xl md:text-4xl lg:text-5xl text-deep">
           Tutorials
         </h1>
-        <p className="my-2 text-gray-600">
+        <p className="my-2 text-deep">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur
           excepturi quod reiciendis?
         </p>

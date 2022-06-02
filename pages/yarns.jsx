@@ -87,7 +87,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value=""
@@ -117,9 +117,7 @@ const Yarn = ({ initialData, error }) => {
                           key={product.id}
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              active
-                                ? 'bg-gray-100 text-accent'
-                                : 'text-gray-800'
+                              active ? 'bg-gray-100 text-accent' : 'text-deep'
                             }`
                           }
                           value={product.name}
@@ -176,7 +174,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value=""
@@ -206,9 +204,7 @@ const Yarn = ({ initialData, error }) => {
                           key={i}
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              active
-                                ? 'bg-gray-100 text-accent'
-                                : 'text-gray-800'
+                              active ? 'bg-gray-100 text-accent' : 'text-deep'
                             }`
                           }
                           value={weight}
@@ -265,7 +261,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value=""
@@ -293,7 +289,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value="cotton"
@@ -321,7 +317,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value="mohair"
@@ -349,7 +345,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value="viscose"
@@ -377,7 +373,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value="polyamide"
@@ -405,7 +401,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value="silk"
@@ -433,7 +429,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value="mulberry"
@@ -461,7 +457,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value="alpaca"
@@ -489,7 +485,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value="nylon"
@@ -517,7 +513,7 @@ const Yarn = ({ initialData, error }) => {
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-gray-800'
+                            active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
                         value="acrylic"

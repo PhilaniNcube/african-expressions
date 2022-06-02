@@ -37,14 +37,14 @@ const OnlineStores = ({ initialData }) => {
   return (
     <main className="max-w-7xl mx-auto my-8 px-6 md:px-4">
       <div className="w-full py-6">
-        <h1 className="text-accent font-extrabold font-georgiaBold text-2xl md:text-4xl">
+        <h1 className="text-deep font-extrabold font-georgiaBold text-2xl md:text-4xl">
           Online Stockists
         </h1>
 
         <div className="flex mt-3 items-center ">
           <div className="flex flex-col ">
             <div className="relative">
-              <div className="absolute text-gray-600 flex items-center pl-3 h-full">
+              <div className="absolute text-deep flex items-center pl-3 h-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon icon-tabler icon-tabler-search"
@@ -66,7 +66,7 @@ const OnlineStores = ({ initialData }) => {
                 id="search"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                className="text-gray-600 dark:text-gray-400 bg-white  focus:outline-none focus:border focus:border-gray-700 font-normal pr-20 sm:pr-32 h-10 flex items-center pl-10 text-sm border-gray-300 rounded border shadow"
+                className="text-deep bg-white  focus:outline-none focus:border focus:border-gray-700 font-normal pr-20 sm:pr-32 h-10 flex items-center pl-10 text-sm border-gray-300 rounded border shadow"
                 placeholder="Search Online Stores"
               />
             </div>
@@ -85,13 +85,13 @@ const OnlineStores = ({ initialData }) => {
                 className="bg-white w-full rounded-lg shadow-lg shadow-zinc-800/10 p-4"
               >
                 <h3 className="text-accent font-bold text-lg">{store.name}</h3>
-                <p className="mt-2 text-gray-800">
+                <p className="mt-2 text-deep">
                   Website:
                   <span className="pl-3 text-sky-700 cursor-pointer">
                     <a href={`https://${store.website}`}>{store.website}</a>
                   </span>
                 </p>
-                <p className="mt-2 text-gray-800">
+                <p className="mt-2 text-deep">
                   Contact: <span className="pl-3">{store.contact}</span>
                 </p>
               </div>

@@ -4,22 +4,21 @@ import Link from 'next/link';
 import IMAGE_URL from '../../lib/image';
 
 const ProductGrid = ({ products }) => {
-  const [show, setShow] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 my-8 px-6 lg:px-0">
+    <div className="grid grid-cols-1 md:grid-cols-2 transition-all duration-500 ease-in-out lg:grid-cols-3 gap-x-10 gap-y-10 my-8 px-6 lg:px-0">
       {products.map((product, i) => (
         <Link href={`/yarns/${product.slug}`} passHref key={product.slug}>
           <div
             key={product.id}
-            className="rounded relative  cursor-pointer transition-all  duration-500 "
+            className="rounded relative  cursor-pointer"
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
             <div
-              className={`absolute inset-0 h-full w-full flex flex-col transition-all  duration-800 justify-center items-center z-20 ${
-                hoveredIndex === i ? 'bg-blend-overlay' : 'opacity-0 hidden '
+              className={`absolute inset-0 h-full pointer-events-none w-full flex flex-col transition-opacity duration-1000 ease-in-out justify-center items-center z-20 ${
+                hoveredIndex === i ? 'opacity-100' : 'opacity-0 '
               }`}
             >
               <div className="text-deep w-full h-full rounded-lg bg-gray-600/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
@@ -65,7 +64,7 @@ const ProductGrid = ({ products }) => {
               className="h-[350px] w-full object-contain rounded-lg"
             />
             <div className="flex flex-col items-center px-8 py-4">
-              <p className="text-base md:text-xl font-futuraBold text-slate-800">
+              <p className="text-base md:text-xl font-futuraBold text-deep">
                 {product.name}
               </p>
               <p className=" text-xs text-center font-futuraBook w-full">
@@ -85,7 +84,7 @@ const ProductDetails = ({ product }) => {
   return (
     <div className="bg-white/60 absolute inset-0 h-full w-full">
       <div className="flex justify-center items-center">
-        <p className="text-lg text-gray-700 underline underline-offset-2">
+        <p className="text-lg text-deep underline underline-offset-2">
           {product.name}
         </p>
       </div>

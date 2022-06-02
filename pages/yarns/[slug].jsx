@@ -14,7 +14,7 @@ const Product = ({ product }) => {
     <Fragment>
       <section>
         <div className="max-w-7xl mx-auto my-12 px-6 lg:px-0">
-          <span className="text-gray-700 text-xl font-medium">
+          <span className="text-deep text-xl font-medium">
             <span className="text-accent">
               <Link href="/">Home</Link>
             </span>{' '}
@@ -53,84 +53,84 @@ const Product = ({ product }) => {
                 <tbody className="w-full">
                   <tr className="text-deep w-full text-xs">
                     <td className="px-3 w-2/6">
-                      <p className="text-xs font-futuraBold text-gray-900 w-4/6 mr-3">
+                      <p className="text-xs font-futuraBold text-deep w-4/6 mr-3">
                         Composition:
                       </p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-gray-700 text-left">
+                      <p className="text-xs text-deep text-left">
                         {product.composition}
                       </p>
                     </td>
                   </tr>
                   <tr className="text-deep text-xs">
                     <td className="px-3">
-                      <p className="text-xs font-futuraBold text-gray-900 w-4/6">
+                      <p className="text-xs font-futuraBold text-deep w-4/6">
                         Ball Weight:
                       </p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-gray-700 text-left">
+                      <p className="text-xs text-deep text-left">
                         {product.ball_weight}g
                       </p>
                     </td>
                   </tr>
                   <tr className="text-deep text-xs">
                     <td className="px-3">
-                      <p className="text-xs text-gray-900 font-futuraBold w-4/6">
+                      <p className="text-xs text-deep font-futuraBold w-4/6">
                         Yarn Meterage:
                       </p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-gray-700 text-left">
+                      <p className="text-xs text-deep text-left">
                         {product.yarn_length}m
                       </p>
                     </td>
                   </tr>
                   <tr className="text-deep text-xs">
                     <td className="px-3">
-                      <p className="text-xs text-gray-900 font-futuraBold w-4/6">
+                      <p className="text-xs text-deep font-futuraBold w-4/6">
                         Tension:
                       </p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-gray-700 text-left">
+                      <p className="text-xs text-deep text-left">
                         {product.tension}
                       </p>
                     </td>
                   </tr>
                   <tr className="text-deep text-xs">
                     <td className="px-3">
-                      <p className="text-xs text-gray-900 font-futuraBold w-4/6">
+                      <p className="text-xs text-deep font-futuraBold w-4/6">
                         Needle Size:
                       </p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-gray-700 text-left">
+                      <p className="text-xs text-deep text-left">
                         {product.needle_size}
                       </p>
                     </td>
                   </tr>
                   <tr className="text-deep text-xs">
                     <td className="px-3">
-                      <p className="text-xs text-gray-900 font-futuraBold w-4/6">
+                      <p className="text-xs text-deep font-futuraBold w-4/6">
                         Count:
                       </p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-gray-700 text-left">
+                      <p className="text-xs text-deep text-left">
                         {product.count}
                       </p>
                     </td>
                   </tr>
                   <tr className="text-deep text-xs">
                     <td className="px-3">
-                      <p className="text-xs font-futuraBold text-gray-900 w-4/6">
+                      <p className="text-xs font-futuraBold text-deep w-4/6">
                         Yarn Weight:
                       </p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-gray-700 self-start">
+                      <p className="text-xs text-deep self-start">
                         {product.yarn_weight}
                       </p>
                     </td>
@@ -152,9 +152,7 @@ const Product = ({ product }) => {
           </div>
 
           <div className="mt-4 w-full flex flex-col items-center justify-center">
-            <p className="text-lg font-medium text-gray-800">
-              Available Colours
-            </p>
+            <p className="text-lg font-medium text-deep">Available Colours</p>
 
             <div className="flex flex-wrap gap-4 p-6">
               {product.images.map((url, i) => (
