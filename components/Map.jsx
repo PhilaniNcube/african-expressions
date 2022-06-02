@@ -43,7 +43,7 @@ const Map = () => {
   return (
     <Fragment>
       <div className="max-w-7xl mx-auto px-6 md:px-4 w-full my-12">
-        <h1 className="text-4xl text-deep font-georgiaBold my-6">Stores</h1>
+        <h1 className="text-4xl text-accent font-georgiaBold my-6">Stores</h1>
 
         <div className="flex flex-col my-4">
           <Places

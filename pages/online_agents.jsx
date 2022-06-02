@@ -13,7 +13,8 @@ const OnlineStores = ({ initialData }) => {
     async () => {
       let { data: online_stores, error } = await supabase
         .from('online_stores')
-        .select('*');
+        .select('*')
+        .order('name');
 
       return online_stores;
     },
@@ -37,7 +38,7 @@ const OnlineStores = ({ initialData }) => {
   return (
     <main className="max-w-7xl mx-auto my-8 px-6 md:px-4">
       <div className="w-full py-6">
-        <h1 className="text-deep font-extrabold font-georgiaBold text-2xl md:text-4xl">
+        <h1 className="text-accent font-extrabold font-georgiaBold text-2xl md:text-4xl">
           Online Stockists
         </h1>
 
@@ -84,7 +85,9 @@ const OnlineStores = ({ initialData }) => {
                 key={store.id}
                 className="bg-white w-full rounded-lg shadow-lg shadow-zinc-800/10 p-4"
               >
-                <h3 className="text-accent font-bold text-lg">{store.name}</h3>
+                <h3 className="text-accent font-futuraBold uppercase text-lg">
+                  {store.name}
+                </h3>
                 <p className="mt-2 text-deep">
                   Website:
                   <span className="pl-3 text-sky-700 cursor-pointer">
