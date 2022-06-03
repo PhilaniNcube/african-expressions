@@ -44,9 +44,9 @@ const Yarn = ({ initialData, error }) => {
         <title>Yarns | African Expressions</title>
         <meta name="description" content="Our range of yarns" />
       </Head>
-      <div className="max-w-6xl mx-auto px-6 md:px-4 mt-4 text-deep">
-        <header>
-          <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-deep font-extrabold ">
+      <div className="max-w-7xl mx-auto mt-4 px-6 md:px-4 text-deep">
+        <header className="w-full">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-accent font-extrabold ">
             Yarns
           </h1>
           <p className="my-4">

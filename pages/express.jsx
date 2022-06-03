@@ -13,7 +13,7 @@ const Express = () => {
   return (
     <Fragment>
       <div className="max-w-7xl mx-auto px-6 md:px-4 my-8">
-        <h1 className="font-georgiaBold text-2xl md:text-4xl lg:text-5xl text-deep">
+        <h1 className="font-georgiaBold text-2xl md:text-4xl lg:text-5xl text-accent">
           Express Yourself
         </h1>
         <p className="my-4 text-deep">
