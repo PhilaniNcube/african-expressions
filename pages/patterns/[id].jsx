@@ -8,11 +8,6 @@ import InnerImageZoom from 'react-inner-image-zoom';
 const Pattern = ({ pattern }) => {
   const imageRef = useRef(null);
 
-  const [imageHeight, setImageHeight] = useState(null);
-  const [imageWidth, setImageWidth] = useState(null);
-
-  console.log({ imageHeight, imageWidth });
-
   return (
     <main className="max-w-7xl py-12 mx-auto px-6 lg:px-4">
       <h1 className="font-georgia uppercase text-2xl text-accent md:text-4xl">

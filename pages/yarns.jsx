@@ -13,8 +13,6 @@ import getProducts from '../lib/getProducts';
 const Yarn = ({ initialData, error }) => {
   const [filter, setFilter] = useState('');
 
-  console.log(filter);
-
   const productsQuery = useQuery('yarns', getProducts, {
     initialData: initialData,
     refetchOnMount: false,

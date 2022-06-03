@@ -6,8 +6,6 @@ import supabase from '../../utils/supabase';
 import IMAGE_URL from '../../lib/image';
 
 const Product = ({ product }) => {
-  console.log(product);
-
   const [image, setImage] = useState(product.images[0]);
 
   return (

@@ -10,8 +10,6 @@ const AddPattern = ({ categories, products, stitching }) => {
   const [productId, setProductId] = useState('');
   const [loading, setLoading] = useState(false);
 
-  console.log(categories);
-
   const handleImageUpload = async (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       throw new Error('You must select an image to upload.');
@@ -85,8 +83,6 @@ const AddPattern = ({ categories, products, stitching }) => {
     });
 
     const response = await patternReq.json();
-
-    console.log(response);
 
     if (response.status === 200) {
       alert('Pattern has been added succesfull');
