@@ -4,7 +4,7 @@ import Link from 'next/link';
 const Footer = () => {
   return (
     <footer className="bg-zinc-800 px-6 md:px-4">
-      <div className="max-w-7xl mx-auto py-12 px-6 md:px-4 lg:px-0 text-white">
+      <div className="max-w-7xl mx-auto py-12  text-white">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:grid-cols-3">
           <div className="flex flex-col space-y-3 uppercase">
             <Link href="/">
@@ -49,7 +49,11 @@ const Footer = () => {
           </div>
 
           <div className="text-white text-sm uppercase flex flex-col space-y-4">
-            <h2 className="text-md font-futuraBold">Contact Us</h2>
+            <Link href="/contact" passHref>
+              <h2 className="text-md font-futuraBold cursor-pointer">
+                Contact Us
+              </h2>
+            </Link>
             <a href="tel:+27414862430">+27(0)41 486 2430</a>
             <a href="tel:+27823275086">+27(0)82 327 5086</a>
             <a href="emailto:info@africanexpressions.co.za">

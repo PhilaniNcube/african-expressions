@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import supabase from '../../utils/supabase';
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
+import InnerImageZoom from 'react-inner-image-zoom';
 
 const Pattern = ({ pattern }) => {
   const imageRef = useRef(null);
@@ -11,16 +13,14 @@ const Pattern = ({ pattern }) => {
 
   console.log({ imageHeight, imageWidth });
 
-  useEffect(() => {
-    setImageWidth(imageRef.current.clientWidth);
-    setImageHeight(imageRef.current.clientHeight);
-  }, []);
-
   return (
     <main className="max-w-7xl py-12 mx-auto px-6 lg:px-4">
       <h1 className="font-georgia uppercase text-2xl text-accent md:text-4xl">
         {pattern.name}
       </h1>
+      <button className="mt-8 bg-accent px-6 py-1 rounded text-white uppercase">
+        Back To Patterns
+      </button>
       <div className="my-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         <img
           ref={imageRef}

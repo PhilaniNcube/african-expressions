@@ -66,7 +66,7 @@ const Patterns = ({ initialData, categories }) => {
   return (
     <div className={`my-4 relative oveflow-scroll px-6 md:px-4`}>
       <div className="max-w-7xl h-full mx-auto">
-        <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-slate-800 font-extrabold ">
+        <h1 className="text-2xl md:text-3xl lg:text-5xl font-georgiaBold text-accent font-extrabold ">
           Patterns
         </h1>
         <p className="my-4">
@@ -75,7 +75,7 @@ const Patterns = ({ initialData, categories }) => {
           please.
         </p>
 
-        <div className="hidden lg:flex items-center z-30 py-6 border-y text-slate-800 text-xl border-gray-800 justify-start space-x-6">
+        <div className="hidden lg:flex items-center z-30 py-6 border-y text-deep text-xl border-gray-800 justify-start space-x-6">
           <span className="font-futuraBold uppercase border-r py-1 text-sm border-gray-700 px-3">
             {filteredPatterns.length} Items
           </span>

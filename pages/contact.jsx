@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Link from 'next/link';
 
 const Contact = () => {
   return (
@@ -99,16 +100,16 @@ const Contact = () => {
                 <p className="font-bold ">Phone:</p>
                 <p className="px-2">+27(0)41 486 2433</p>
               </span>
-
-              <button
-                type="button"
-                className="text-white text-lg uppercase font-medium bg-yellow-800/75 hover:bg-yellow-800/80 px-16 rounded cursor-pointer shadow-lg hover:shadow-sm py-3 mt-4"
-              >
-                Click Here
-              </button>
-
+              <Link href="/stores" passHref>
+                <button
+                  type="button"
+                  className="text-white text-lg uppercase font-medium bg-yellow-800/75 hover:bg-yellow-800/80 px-16 rounded cursor-pointer shadow-lg hover:shadow-sm py-3 mt-4"
+                >
+                  Stores
+                </button>
+              </Link>
               <p className="px-2 text-sm text-deep">
-                to find your nearest African Expressions stockists
+                to find your nearest African Expressions store
               </p>
             </div>
           </div>
