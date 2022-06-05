@@ -53,8 +53,8 @@ const Navbar = () => {
   const router = useRouter();
 
   return (
-    <div className="border-b-4 border-accent py-6 md:py-10 px-6 md:px-4 z-[999]">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <div className="border-b-4 border-accent py-6 md:py-10 px-6  z-[999]">
+      <div className="max-w-7xl mx-auto flex items-center px-4 justify-between">
         <Link href="/" passHref>
           <img
             className="h-12 md:h-16 object-cover cursor-pointer"
@@ -64,10 +64,10 @@ const Navbar = () => {
         </Link>
 
         <nav className="hidden md:flex">
-          <ul className="flex items-center uppercase text-sm space-x-3 font-medium">
+          <ul className="flex items-center uppercase text-xs space-x-3 font-medium">
             <Link href="/" passHref>
               <li
-                className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
+                className={`cursor-pointer hover:text-accent transition-all duration-300 ${
                   router.route === '/'
                     ? 'text-accent font-futuraBold'
                     : 'text-deep'

@@ -10,12 +10,11 @@ const Pattern = ({ pattern }) => {
 
   return (
     <main className="max-w-7xl py-12 mx-auto px-6 lg:px-4">
-      <h1 className="font-georgia uppercase text-2xl text-accent md:text-4xl">
-        {pattern.name}
-      </h1>
+      <Link href="/patterns" passHref>
       <button className="mt-8 bg-accent px-6 py-1 rounded text-white uppercase">
         Back To Patterns
       </button>
+      </Link>
       <div className="my-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         <img
           ref={imageRef}
@@ -24,15 +23,19 @@ const Pattern = ({ pattern }) => {
           src={pattern.image}
         />
         <div className="w-full">
-          <p className="text-2xl text-deep mb-2">
+      <h1 className="font-georgia uppercase text-2xl text-accent md:text-4xl">
+        {pattern.name}
+      </h1>
+
+          <p className="text-md text-deep mb-2">
             <span className="font-futuraBold mr-6">Stitching:</span>
             <span className="font-futuraBook">{pattern.stitching.name}</span>
           </p>
-          <p className="text-2xl text-deep mb-2">
+          <p className="text-md text-deep mb-2">
             <span className="font-futuraBold mr-6">Category:</span>
             <span className="font-futuraBook">{pattern.category.name}</span>
           </p>
-          <p className="text-2xl text-deep mb-6">
+          <p className="text-md text-deep mb-6">
             <span className="font-futuraBold mr-6">Yarns:</span>
             <span className="font-futuraBook">{pattern.product_id.name}</span>
           </p>

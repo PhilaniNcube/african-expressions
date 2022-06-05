@@ -14,7 +14,7 @@ const SectionOne = () => {
             passHref
           >
             <span className="bg-accent flex  items-center pr-3 rounded-full">
-              <FaInstagram className="h-12 w-12 p-2 rounded-full border text-white font-light" />
+              <FaInstagram className="h-12 w-12 p-2 rounded-full text-white font-light" />
               <h2 className="uppercase pl-6 text-xs md:text-sm  text-white font-medium">
                 Follow African Expressions
               </h2>
@@ -26,7 +26,7 @@ const SectionOne = () => {
             passHref
           >
             <span className="bg-accent flex items-center pr-3 rounded-full">
-              <FaFacebookF className="h-12 w-12 p-2 rounded-full border text-white font-light" />
+              <FaFacebookF className="h-12 w-12 p-2 rounded-full  text-white font-light" />
               <h2 className="uppercase pl-6 text-xs md:text-sm  text-white font-medium">
                 African Expressions Facebook
               </h2>
