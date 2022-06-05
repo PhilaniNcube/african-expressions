@@ -86,7 +86,7 @@ const Patterns = ({ initialData, categories }) => {
           <span className="font-light uppercase z-[800] py-1 border-r border-gray-700 self-end flex justify-end  px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
-                <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
+                <Listbox.Button className="relative w-full  cursor-pointer rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
                   <span className="block truncate text-sm font-futuraBold w-fit">
                     {'By Yarn'}
                   </span>
@@ -107,7 +107,7 @@ const Patterns = ({ initialData, categories }) => {
                   <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     <Listbox.Option
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                           active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
@@ -138,7 +138,7 @@ const Patterns = ({ initialData, categories }) => {
                       <Listbox.Option
                         key={product.id}
                         className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                             active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
@@ -174,7 +174,7 @@ const Patterns = ({ initialData, categories }) => {
           <span className="font-futuraBold uppercase z-[800] py-1 border-r border-gray-700  self-end flex justify-end  px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
-                <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
+                <Listbox.Button className="relative w-full  cursor-pointer rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
                   <span className="block text-sm truncate font-extrabold w-fit">
                     {'By Category'}
                   </span>
@@ -195,7 +195,7 @@ const Patterns = ({ initialData, categories }) => {
                   <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     <Listbox.Option
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                           active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
@@ -226,7 +226,7 @@ const Patterns = ({ initialData, categories }) => {
                       <Listbox.Option
                         key={category.id}
                         className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                             active ? 'bg-gray-100 text-accent' : 'text-deep'
                           }`
                         }
@@ -262,7 +262,7 @@ const Patterns = ({ initialData, categories }) => {
           <span className="font-light uppercase z-[800] self-end flex border-r border-gray-700  py-1 justify-end  px-3">
             <Listbox value={filter} onChange={setFilter}>
               <div className="relative">
-                <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
+                <Listbox.Button className="relative w-full  cursor-pointer rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
                   <span className="block text-sm truncate font-futuraBold w-fit">
                     {'By Stitching'}
                   </span>
@@ -283,7 +283,7 @@ const Patterns = ({ initialData, categories }) => {
                   <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     <Listbox.Option
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                           active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
@@ -312,7 +312,7 @@ const Patterns = ({ initialData, categories }) => {
 
                     <Listbox.Option
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                           active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
@@ -340,7 +340,7 @@ const Patterns = ({ initialData, categories }) => {
                     </Listbox.Option>
                     <Listbox.Option
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                           active ? 'bg-gray-100 text-accent' : 'text-deep'
                         }`
                       }
@@ -403,13 +403,10 @@ const Patterns = ({ initialData, categories }) => {
                         {pattern.name}
                       </h2>
                       <div
-                        onClick={() => {
-                          setShow(true);
-                          setImage(pattern.image);
-                        }}
-                        className="flex items-center min-w-[150px] my-2"
+
+                        className="flex items-center my-2"
                       >
-                        <span className="bg-dark h-10 w-10 text-white flex items-center justify-center">
+                        <span className="bg-dark h-10 w-10 text-white rounded-l flex items-center justify-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6"
@@ -425,7 +422,7 @@ const Patterns = ({ initialData, categories }) => {
                             />
                           </svg>
                         </span>
-                        <p className="py-3 px-6 uppercase  bg-accent text-gray-50 text-xs">
+                        <p className="py-3 uppercase rounded-r bg-accent cursor-pointer text-center hidden md:block w-[60%] md:w-[180px] text-gray-50 text-xs">
                           View Pattern
                         </p>
                       </div>
@@ -433,7 +430,7 @@ const Patterns = ({ initialData, categories }) => {
                         onClick={() => router.push(pattern.document)}
                         className="md:flex items-center hidden"
                       >
-                        <span className="bg-dark h-10 w-10 text-white flex items-center justify-center">
+                        <span className="bg-dark h-10 w-10 text-white rounded-l flex items-center justify-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6"
@@ -449,7 +446,7 @@ const Patterns = ({ initialData, categories }) => {
                             />
                           </svg>
                         </span>
-                        <p className="py-3 px-6 uppercase bg-accent text-gray-50 text-xs">
+                        <p className="py-3 uppercase rounded-r cursor-pointer bg-accent text-gray-50 text-center w-[60%] md:w-[180px] text-xs">
                           Download Pattern
                         </p>
                       </div>

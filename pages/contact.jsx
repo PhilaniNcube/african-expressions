@@ -81,7 +81,7 @@ const Contact = () => {
 
             <button
               type="submit"
-              className="text-white text-lg uppercase font-medium bg-yellow-800/75 hover:bg-yellow-800/80 px-16 rounded cursor-pointer shadow-lg hover:shadow-sm py-3 mt-4"
+              className="text-white text-lg uppercase font-medium bg-accent hover:bg-yellow-800/80 px-16 rounded cursor-pointer shadow-lg hover:shadow-sm py-3 mt-4"
             >
               Submit
             </button>
@@ -103,9 +103,9 @@ const Contact = () => {
               <Link href="/stores" passHref>
                 <button
                   type="button"
-                  className="text-white text-lg uppercase font-medium bg-yellow-800/75 hover:bg-yellow-800/80 px-16 rounded cursor-pointer shadow-lg hover:shadow-sm py-3 mt-4"
+                  className="text-white text-lg uppercase font-medium bg-accent hover:bg-yellow-800/80 px-16 rounded cursor-pointer shadow-lg hover:shadow-sm py-3 mt-4"
                 >
-                  Stores
+                 View Stores
                 </button>
               </Link>
               <p className="px-2 text-sm text-deep">
