@@ -23,6 +23,7 @@ const Map = () => {
       mapId: '17c68adb37540aef',
       disableDefaultUI: true,
       clickableIcons: false,
+      styles: 'greyscale'
     }),
     [],
   );
