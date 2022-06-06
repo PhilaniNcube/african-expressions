@@ -9,10 +9,10 @@ const Hero = () => {
     <div className="min-h-[75vh] bg-home-bg bg-center  bg-blend-overlay bg-cover bg-no-repeat px-6 md:px-4">
       <div className="min-h-[60vh] my-auto max-w-7xl mx-auto py-12 flex flex-col items-center justify-center">
         <h1 className="font-georgiaBold text-deep text-center text-2xl md:text-4xl lg:text-6xl">
-          Classically Elegant <br /> & Naturally Soft
+          A premium  <br /> twist
         </h1>
         <p className="text-deep text-center text-md md:text-lg w-full font-bold mt-4">
-          Thoughtfully blended <br /> for a creative twist
+          Perfectly blended <br /> for any design.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 mt-12 gap-12">
