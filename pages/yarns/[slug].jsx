@@ -3,6 +3,7 @@
 import React, { Fragment, useState } from 'react';
 import Link from 'next/link';
 import supabase from '../../utils/supabase';
+import Image from 'next/future/image';
 import IMAGE_URL from '../../lib/image';
 
 const Product = ({ product }) => {
@@ -25,10 +26,12 @@ const Product = ({ product }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="w-full flex justify-center items-center py-2">
-              <img
+              <Image
+                width={1080}
+                height={1080}
                 src={`${IMAGE_URL}/${product.slug}/${image}`}
                 alt="Product"
-                className="w-full h-[600px] object-contain"
+                className="w-full h-[400px] object-contain"
               />
             </div>
 
@@ -155,7 +158,7 @@ const Product = ({ product }) => {
             <div className="flex flex-wrap gap-4 p-6">
               {product.images.map((url, i) => (
                 <div key={i} className="flex flex-col items-center">
-                  <img
+                  <Image width={600} height={600}
                     src={`${IMAGE_URL}/${product.slug}/${url}`}
                     className="md:h-20 md:w-20 w-10 h-10  rounded object-cover cursor-pointer"
                     alt={url}

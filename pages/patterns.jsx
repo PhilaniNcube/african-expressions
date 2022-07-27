@@ -80,7 +80,7 @@ const Patterns = ({ initialData, categories }) => {
             {filteredPatterns.length} Items
           </span>
           <span className="uppercase text-sm py-1 border-r border-gray-700 px-3">
-            {filter === '' ? 'Filters' : filter}
+            {filter === "" ? "Filters" : filter}
           </span>
 
           <span className="font-light uppercase z-[800] py-1 border-r border-gray-700 self-end flex justify-end  px-3">
@@ -88,7 +88,7 @@ const Patterns = ({ initialData, categories }) => {
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-pointer rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
                   <span className="block truncate text-sm font-futuraBold w-fit">
-                    {'By Yarn'}
+                    {"By Yarn"}
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronDownIcon
@@ -104,11 +104,11 @@ const Patterns = ({ initialData, categories }) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] md:w-[350px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-deep'
+                          active ? "bg-gray-100 text-accent" : "text-deep"
                         }`
                       }
                       value=""
@@ -117,7 +117,7 @@ const Patterns = ({ initialData, categories }) => {
                         <Fragment>
                           <span
                             className={`block truncate ${
-                              filter ? 'font-medium' : 'font-normal'
+                              filter ? "font-medium" : "font-normal"
                             }`}
                           >
                             All
@@ -139,7 +139,7 @@ const Patterns = ({ initialData, categories }) => {
                         key={product.id}
                         className={({ active }) =>
                           `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-deep'
+                            active ? "bg-gray-100 text-accent" : "text-deep"
                           }`
                         }
                         value={product.name}
@@ -148,7 +148,7 @@ const Patterns = ({ initialData, categories }) => {
                           <Fragment>
                             <span
                               className={`block truncate ${
-                                categoryFilter ? 'font-medium' : 'font-normal'
+                                categoryFilter ? "font-medium" : "font-normal"
                               }`}
                             >
                               {product.name}
@@ -176,7 +176,7 @@ const Patterns = ({ initialData, categories }) => {
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-pointer rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
                   <span className="block text-sm truncate font-extrabold w-fit">
-                    {'By Category'}
+                    {"By Category"}
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronDownIcon
@@ -192,11 +192,11 @@ const Patterns = ({ initialData, categories }) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-[200px] md:w-[350px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-deep'
+                          active ? "bg-gray-100 text-accent" : "text-deep"
                         }`
                       }
                       value=""
@@ -204,9 +204,7 @@ const Patterns = ({ initialData, categories }) => {
                       {({ filter }) => (
                         <Fragment>
                           <span
-                            className={`block truncate ${
-                              filter ? 'font-medium' : 'font-normal'
-                            }`}
+                            className={`block truncate ${filter ? "font-futuraBold" : "font-futuraBook"}`}
                           >
                             All
                           </span>
@@ -227,7 +225,7 @@ const Patterns = ({ initialData, categories }) => {
                         key={category.id}
                         className={({ active }) =>
                           `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-deep'
+                            active ? "bg-gray-100 text-accent" : "text-deep "
                           }`
                         }
                         value={category.name}
@@ -235,8 +233,8 @@ const Patterns = ({ initialData, categories }) => {
                         {({ filter }) => (
                           <Fragment>
                             <span
-                              className={`block truncate ${
-                                filter ? 'font-medium' : 'font-normal'
+                              className={`block truncate  ${
+                                filter ? "font-futuraBold" : "font-futuraBook"
                               }`}
                             >
                               {category.name}
@@ -264,7 +262,7 @@ const Patterns = ({ initialData, categories }) => {
               <div className="relative">
                 <Listbox.Button className="relative w-full  cursor-pointer rounded-lg bg-white pl-3 pr-10 font-light uppercase text-left focus:outline-none">
                   <span className="block text-sm truncate font-futuraBold w-fit">
-                    {'By Stitching'}
+                    {"By Stitching"}
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronDownIcon
@@ -284,7 +282,7 @@ const Patterns = ({ initialData, categories }) => {
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-deep'
+                          active ? "bg-gray-100 text-accent" : "text-deep"
                         }`
                       }
                       value=""
@@ -293,7 +291,7 @@ const Patterns = ({ initialData, categories }) => {
                         <Fragment>
                           <span
                             className={`block truncate ${
-                              filter ? 'font-medium' : 'font-normal'
+                              filter ? "font-medium" : "font-normal"
                             }`}
                           >
                             All
@@ -313,7 +311,7 @@ const Patterns = ({ initialData, categories }) => {
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-deep'
+                          active ? "bg-gray-100 text-accent" : "text-deep"
                         }`
                       }
                       value="Knitting"
@@ -322,7 +320,7 @@ const Patterns = ({ initialData, categories }) => {
                         <Fragment>
                           <span
                             className={`block truncate ${
-                              filter ? 'font-medium' : 'font-normal'
+                              filter ? "font-medium" : "font-normal"
                             }`}
                           >
                             Knitting
@@ -341,7 +339,7 @@ const Patterns = ({ initialData, categories }) => {
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100 text-accent' : 'text-deep'
+                          active ? "bg-gray-100 text-accent" : "text-deep"
                         }`
                       }
                       value="Crotchet"
@@ -350,7 +348,7 @@ const Patterns = ({ initialData, categories }) => {
                         <Fragment>
                           <span
                             className={`block truncate ${
-                              filter ? 'font-medium' : 'font-normal'
+                              filter ? "font-medium" : "font-normal"
                             }`}
                           >
                             Crotchet
@@ -395,17 +393,14 @@ const Patterns = ({ initialData, categories }) => {
                     <div
                       className={`absolute inset-0 h-full flex flex-col transition-all duration-300 justify-center items-center z-20 ${
                         hoveredIndex === i
-                          ? 'bg-blend-overlay bg-slate-800/50'
-                          : 'opacity-0 hidden '
+                          ? "bg-blend-overlay bg-slate-800/50"
+                          : "opacity-0 hidden "
                       }`}
                     >
                       <h2 className="font-georgiaBold uppercase text-center px-2 text-xl text-white pb-6">
                         {pattern.name}
                       </h2>
-                      <div
-
-                        className="flex items-center my-2"
-                      >
+                      <div className="flex items-center my-2">
                         <span className="bg-dark h-10 w-10 text-white rounded-l flex items-center justify-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -464,7 +459,7 @@ const Patterns = ({ initialData, categories }) => {
 
 export default Patterns;
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let { data: patterns, error } = await supabase
     .from('patterns')
     .select('*, stitching(id, name), category(id, name), product_id(id, name)');
