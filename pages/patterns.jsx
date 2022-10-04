@@ -6,9 +6,8 @@ import { Listbox, Transition } from '@headlessui/react';
 import {
   CheckIcon,
   ChevronDownIcon,
-  SelectorIcon,
+
 } from '@heroicons/react/solid';
-import Masonry from 'react-masonry-css';
 import Link from 'next/link';
 import { useQuery } from 'react-query';
 import supabase from '../utils/supabase';
@@ -16,8 +15,7 @@ import supabase from '../utils/supabase';
 const Patterns = ({ initialData, categories }) => {
   const [filter, setFilter] = useState('');
 
-  const [image, setImage] = useState('');
-  const [show, setShow] = useState('');
+
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const router = useRouter();
