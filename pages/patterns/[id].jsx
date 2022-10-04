@@ -66,7 +66,7 @@ const [ref, bounds] = useMeasure();
 export default Pattern;
 
 export async function getServerSideProps({ params: { id } }) {
-  console.log(id);
+
 
   let { data: patterns, error } = await supabase
     .from('patterns')

@@ -5,7 +5,7 @@ import supabase from "../../../utils/supabase";
 
 const Products = ({products}) => {
 
-  console.log(products)
+
 
     return (
       <div className="bg-white">

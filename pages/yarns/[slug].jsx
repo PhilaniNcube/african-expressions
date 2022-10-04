@@ -7,6 +7,7 @@ import Image from 'next/future/image';
 import IMAGE_URL from '../../lib/image';
 
 const Product = ({ product }) => {
+
   const [image, setImage] = useState(product.images[0]);
 
   return (

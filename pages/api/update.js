@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     ])
     .eq("id", req.body.id);
 
-console.log(data)
+
 
   if (error) {
     res.send(error);

@@ -9,7 +9,7 @@ const Product = ({product}) => {
   const [loading, setLoading] = useState(false)
   const [image, setImage] = useState('')
 
-  console.log({product})
+
 
     const handleImageUpload = async (e) => {
       if (!e.target.files || e.target.files.length === 0) {

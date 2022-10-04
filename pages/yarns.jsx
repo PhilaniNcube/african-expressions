@@ -23,7 +23,7 @@ const Yarn = ({ initialData, error }) => {
 
   const weights = [...new Set(products.map((product) => product.yarn_weight))];
 
-  console.log(weights);
+
 
   const filteredProducts = useMemo(
     () =>
@@ -557,7 +557,7 @@ export default Yarn;
 export async function getServerSideProps() {
   const { products, error } = await getProducts();
 
-  console.log(products);
+
 
   return {
     props: {
