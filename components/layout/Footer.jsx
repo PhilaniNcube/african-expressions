@@ -48,9 +48,9 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="text-white text-sm uppercase flex flex-col space-y-4">
+          <div className="text-white text-sm  flex flex-col space-y-4">
             <Link href="/contact" passHref>
-              <h2 className="text-md font-futuraBold cursor-pointer">
+              <h2 className="text-md font-futuraBold uppercase cursor-pointer">
                 Contact Us
               </h2>
             </Link>
