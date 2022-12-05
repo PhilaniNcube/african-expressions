@@ -284,34 +284,7 @@ const Yarn = ({ initialData, error }) => {
                           </Fragment>
                         )}
                       </Listbox.Option>
-                      <Listbox.Option
-                        className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active ? 'bg-gray-100 text-accent' : 'text-deep'
-                          }`
-                        }
-                        value="cotton"
-                      >
-                        {({ filter }) => (
-                          <Fragment>
-                            <span
-                              className={`block truncate ${
-                                filter ? 'font-medium' : 'font-normal'
-                              }`}
-                            >
-                              Cotton
-                            </span>
-                            {filter ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-accent">
-                                <CheckIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              </span>
-                            ) : null}
-                          </Fragment>
-                        )}
-                      </Listbox.Option>
+                     
                       <Listbox.Option
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
