@@ -15,8 +15,8 @@ const SectionOne = () => {
           >
             <span className="bg-accent flex  items-center pr-3 rounded-full">
               <FaInstagram className="h-12 w-12 p-2 rounded-full text-white font-light" />
-              <h2 className="uppercase pl-6 text-xs md:text-sm  text-white font-medium">
-                Follow African Expressions
+              <h2 className="pl-6 text-xs md:text-sm  text-white font-medium">
+                @african_expressions_yarns
               </h2>
             </span>
           </Link>
@@ -27,8 +27,8 @@ const SectionOne = () => {
           >
             <span className="bg-accent flex items-center pr-3 rounded-full">
               <FaFacebookF className="h-12 w-12 p-2 rounded-full  text-white font-light" />
-              <h2 className="uppercase pl-6 text-xs md:text-sm  text-white font-medium">
-                African Expressions Facebook
+              <h2 className="pl-6 text-xs md:text-sm  text-white font-medium">
+                African Expressions
               </h2>
             </span>
           </Link>
