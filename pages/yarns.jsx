@@ -2,13 +2,14 @@ import { Listbox, Transition } from '@headlessui/react';
 import {
   CheckIcon,
   ChevronDownIcon,
-  SelectorIcon,
-} from '@heroicons/react/solid';
+
+} from '@heroicons/react/24/solid';
 import Head from 'next/head';
 import React, { Fragment, useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 import ProductGrid from '../components/layout/ProductGrid';
 import getProducts from '../lib/getProducts';
+import { useRouter } from 'next/router';
 
 const composition = [
   {
@@ -27,10 +28,7 @@ const composition = [
     name: "Mohair",
     value: "mohair"
   },
-  {
-    name: "Mulberry",
-    value: "mulberry"
-  },
+
   {
     name: "Nylon",
     value: "nylon"
@@ -50,23 +48,30 @@ const composition = [
 ]
 
 const Yarn = ({ initialData, error }) => {
-  const [filter, setFilter] = useState('');
 
-  const productsQuery = useQuery('yarns', getProducts, {
+  const router = useRouter();
+
+  const query = router.query?.search || ''
+
+  const [filter, setFilter] = useState(query);
+
+
+
+  const {data:products, isLoading, isSuccess} = useQuery(['yarns'], getProducts, {
     initialData: initialData,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
-  const products = productsQuery.data;
 
-  const weights = [...new Set(products.map((product) => product.yarn_weight))];
+
+  const weights = [...new Set(products?.map((product) => product.yarn_weight))];
 
 
 
   const filteredProducts = useMemo(
     () =>
-      products.filter(
+      products?.filter(
         (product) =>
           product.name.toLowerCase().includes(filter.toLowerCase()) ||
           product.yarn_weight.toLowerCase().includes(filter.toLowerCase()) ||
@@ -93,7 +98,7 @@ const Yarn = ({ initialData, error }) => {
 
           <div className="hidden lg:flex items-center z-30 py-6 border-y text-deep text-xl border-deep justify-start space-x-6">
             <span className="text-sm uppercase font-futuraBold border-r py-1 border-deep px-3">
-              {filteredProducts.length} Items
+              {filteredProducts?.length} Items
             </span>
             <span className="text-sm uppercase border-r py-1 border-gray-700 px-3">
               {filter ? `${filter}` : "Filters"}
@@ -345,14 +350,13 @@ const Yarn = ({ initialData, error }) => {
 export default Yarn;
 
 export async function getServerSideProps() {
-  const { products, error } = await getProducts();
+  const products = await getProducts();
 
 
 
   return {
     props: {
       initialData: products,
-      error,
     },
   };
 }

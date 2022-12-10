@@ -7,26 +7,26 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto py-12 px-4 text-white">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:grid-cols-3">
           <div className="flex flex-col space-y-3 uppercase">
-            <Link href="/">
-              <a className=" text-xs">Home</a>
+            <Link className=" text-xs" href="/">
+              Home
             </Link>
-            <Link href="/about">
-              <a className=" text-xs">About Us</a>
+            <Link className=" text-xs" href="/about">
+              About Us
             </Link>
-            <Link href="/yarns">
-              <a className=" text-xs">Our Yarns</a>
+            <Link className=" text-xs" href="/yarns">
+              Our Yarns
             </Link>
-            <Link href="/express">
-              <a className=" text-xs">Express Yourself</a>
+            <Link className=" text-xs" href="/express">
+              Express Yourself
             </Link>
-            <Link href="/patterns">
-              <a className=" text-xs">Patterns</a>
+            <Link className=" text-xs" href="/patterns">
+              Patterns
             </Link>
-            <Link href="/stores">
-              <a className=" text-xs">Stores</a>
+            <Link className=" text-xs" href="/stores">
+              Stores
             </Link>
-            <Link href="/contact">
-              <a className=" text-xs">Get In Touch</a>
+            <Link className=" text-xs" href="/contact">
+              Get In Touch
             </Link>
           </div>
 
@@ -54,11 +54,11 @@ const Footer = () => {
                 Contact Us
               </h2>
             </Link>
-            <a href="tel:+27414862430">+27(0)41 486 2430</a>
-            <a href="tel:+27823275086">+27(0)82 327 5086</a>
-            <a href="emailto:info@africanexpressions.co.za">
+            <Link href="tel:+27414862430">+27(0)41 486 2430</Link>
+            <Link href="tel:+27823275086">+27(0)82 327 5086</Link>
+            <Link href="emailto:info@africanexpressions.co.za">
               info@africanexpressions.co.za
-            </a>
+            </Link>
           </div>
         </div>
       </div>

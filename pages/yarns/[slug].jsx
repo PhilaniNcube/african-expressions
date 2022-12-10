@@ -3,7 +3,7 @@
 import React, { Fragment, useState } from 'react';
 import Link from 'next/link';
 import supabase from '../../utils/supabase';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import IMAGE_URL from '../../lib/image';
 
 const Product = ({ product }) => {
@@ -17,11 +17,11 @@ const Product = ({ product }) => {
           <span className="text-deep text-xl font-medium">
             <span className="text-accent">
               <Link href="/">Home</Link>
-            </span>{' '}
-            /{' '}
+            </span>{" "}
+            /{" "}
             <span className="text-accent cursor-pointer font-medium">
               <Link href="/yarns">Yarns</Link>
-            </span>{' '}
+            </span>{" "}
             / {product.name}
           </span>
 
@@ -145,7 +145,7 @@ const Product = ({ product }) => {
                 should be dry cleaned
               </p>
 
-              <Link href="/patterns" passHref>
+              <Link href={`/patterns?search=${product.name}`} passHref>
                 <button className="bg-accent text-white hover:bg-accent/90 hover:shadow-md mt-8 px-6 py-2 rounded-md text-base uppercase">
                   View Pattern
                 </button>
@@ -159,7 +159,9 @@ const Product = ({ product }) => {
             <div className="flex flex-wrap gap-4 p-6">
               {product.images.map((url, i) => (
                 <div key={i} className="flex flex-col items-center">
-                  <Image width={600} height={600}
+                  <Image
+                    width={600}
+                    height={600}
                     src={`${IMAGE_URL}/${product.slug}/${url}`}
                     className="md:h-20 md:w-20 w-10 h-10  rounded object-cover cursor-pointer"
                     alt={url}
@@ -167,11 +169,11 @@ const Product = ({ product }) => {
                       setImage(url);
                       window.scrollTo({
                         top: 0,
-                        behavior: 'smooth',
+                        behavior: "smooth",
                       });
                     }}
                   />
-                  <p className="text-xs text-deep">{url.split('.')[0]}</p>
+                  <p className="text-xs text-deep">{url.split(".")[0]}</p>
                 </div>
               ))}
             </div>

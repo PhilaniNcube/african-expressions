@@ -1,4 +1,4 @@
-import Image from "next/future/image";
+import Image from "next/image";
 import Link from "next/link";
 import IMAGE_URL from "../../../lib/image";
 import supabase from "../../../utils/supabase";
@@ -14,8 +14,13 @@ const Products = ({products}) => {
 
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {products.map((product) => (
-              <Link key={product.id} href={`/admin/products/${product.id}`} passHref>
-                <a href={product.id} className="group">
+              <Link
+                key={product.id}
+                className="group"
+                href={`/admin/products/${product.id}`}
+                passHref
+              >
+
                   <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                     <Image
                       width={500}
@@ -29,7 +34,7 @@ const Products = ({products}) => {
                   <p className="mt-1 text-lg font-medium text-gray-900">
                     {product.price}
                   </p>
-                </a>
+
               </Link>
             ))}
           </div>

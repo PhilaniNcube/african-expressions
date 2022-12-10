@@ -8,7 +8,7 @@ const ProductGrid = ({ products }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 transition-all duration-500 ease-in-out lg:grid-cols-3 gap-x-10 gap-y-10 my-8 px-6 lg:px-0">
-      {products.map((product, i) => (
+      {products?.map((product, i) => (
         <Link href={`/yarns/${product.slug}`} passHref key={product.slug}>
           <div
             key={product.id}

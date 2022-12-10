@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
 import React from 'react';
 
 const SectionTwo = () => {
@@ -30,17 +31,21 @@ const SectionTwo = () => {
         </div>
 
         <div className="w-full">
-          <img
-            src="/images/sheep.jpg"
-            alt="goats"
+          <Image
+            src="/images/sheep.jpeg"
+            alt="sheep"
+            width={320}
+            height={213}
             className="w-full max-h-[400px] object-cover apsect-video rounded-sm shadow-lg"
           />
         </div>
 
         <div className="w-full">
-          <img
-            src="/images/fibre.jpg"
-            alt="fibre"
+          <Image
+            src="/images/sheep_2.jpeg"
+            alt="Sheep"
+            width={320}
+            height={175}
             className="w-full max-h-[400px] object-cover apsect-video rounded-sm shadow-lg"
           />
         </div>

@@ -1,24 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { Fragment } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/future/image';
+import Image from 'next/image';
 
 const Hero = () => {
   const router = useRouter();
 
   return (
-    <div className="min-h-[75vh] bg-home-bg bg-center  bg-blend-overlay bg-cover bg-no-repeat relative">
+    <div className="min-h-[75vh] bg-center bg-slate-600 bg-blend-overlay bg-cover bg-no-repeat relative">
       <Image
         src="/images/hero.jpeg"
         alt="hero"
+        priority
+        quality={100}
         className="aspect-video object-cover h-full w-full"
         height={6000}
         width={4000}
       />
       <div className="absolute inset-0">
         <div className="min-h-[60vh] my-auto max-w-7xl mx-auto py-12 flex flex-col items-center justify-center">
-          <h1 className="font-georgiaBold text-deep text-center text-2xl md:text-4xl lg:text-6xl">
-            A premium <br /> twist
+          <h1 className="font-georgiaBold text-white text-center text-2xl md:text-4xl lg:text-6xl">
+            A premium twist
           </h1>
           <p className="text-deep text-center text-md md:text-lg w-full font-bold mt-4">
             Perfectly blended <br /> for any design.

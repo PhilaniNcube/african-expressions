@@ -1,23 +1,16 @@
 import React, { useMemo, useState } from 'react';
 import supabase from '../utils/supabase';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 import Link from 'next/link';
+import getStores from '../lib/getStores';
 
 const OnlineStores = ({ initialData }) => {
   const [filter, setFilter] = useState('');
   const router = useRouter();
 
   const onlineStoresQuery = useQuery(
-    'online-stores',
-    async () => {
-      let { data: online_stores, error } = await supabase
-        .from('online_stores')
-        .select('*')
-        .order('name');
-
-      return online_stores;
-    },
+    ['online-stores'],getStores,
     {
       initialData: initialData,
       refetchOnMount: false,
@@ -25,7 +18,7 @@ const OnlineStores = ({ initialData }) => {
     },
   );
 
-  const stores = onlineStoresQuery.data;
+  const stores = onlineStoresQuery.data.filter(item => item.website !== null || "");
 
   const filteredStores = useMemo(
     () =>
@@ -91,11 +84,17 @@ const OnlineStores = ({ initialData }) => {
                 <p className="mt-2 text-deep">
                   Website:
                   <span className="pl-3 text-sky-700 cursor-pointer">
-                    <a href={`https://${store.website}`}>{store.website}</a>
+                    <Link href={`https://${store.website}`}>{store.website}</Link>
                   </span>
                 </p>
                 <p className="mt-2 text-deep">
                   Contact: <span className="pl-3">{store.contact}</span>
+                </p>
+                <p className="mt-2 text-deep">
+                  Address: <span className="pl-3">{store.streetAddress}</span>
+                </p>
+                <p className="mt-2 text-deep">
+                  Ciy: <span className="pl-3">{store.city}</span>
                 </p>
               </div>
             ))}
@@ -108,13 +107,12 @@ const OnlineStores = ({ initialData }) => {
 export default OnlineStores;
 
 export async function getServerSideProps() {
-  let { data: online_stores, error } = await supabase
-    .from('online_stores')
-    .select('*');
+
+  const stores = await getStores();
 
   return {
     props: {
-      initialData: online_stores,
+      initialData: stores,
     },
   };
 }

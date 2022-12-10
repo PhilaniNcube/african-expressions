@@ -1,20 +1,26 @@
-import React, { Fragment } from 'react';
-import { useLoadScript } from '@react-google-maps/api';
-import Map from '../components/Map';
+import { Fragment } from "react";
 
-const Stores = () => {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY,
-    libraries: ['places'],
-  });
+import MapComponent from "../components/MapComponent";
+import getStores from "../lib/getStores";
 
-  if (!isLoaded) return <div>Loading...</div>;
-
+const stores = ({stores}) => {
   return (
     <Fragment>
-      <Map />
+      <div className="max-w-7xl mx-auto">
+        <MapComponent stores={stores} />
+      </div>
     </Fragment>
   );
 };
+export default stores;
 
-export default Stores;
+
+export async function getServerSideProps() {
+  const stores = await getStores();
+
+  return {
+    props: {
+      stores,
+    },
+  };
+}

@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
 import Link from 'next/link';
 import { CgInstagram } from 'react-icons/cg';
+import {motion} from 'framer-motion'
 import Image from 'next/image';
 import { FaFacebookF, FaInstagram } from 'react-icons/fa';
+
+
 
 const SectionOne = () => {
   return (
@@ -12,25 +15,22 @@ const SectionOne = () => {
           <Link
             href="https://www.instagram.com/african_expressions_yarns/?hl=en"
             passHref
+            className="h-12 w-12 p-2 bg-accent flex items-center justify-center rounded-full text-white font-light"
           >
-            <span className="bg-accent flex  items-center pr-3 rounded-full">
-              <FaInstagram className="h-12 w-12 p-2 rounded-full text-white font-light" />
-              <h2 className="pl-6 text-xs md:text-sm  text-white font-medium">
-                @african_expressions_yarns
-              </h2>
-            </span>
+            <FaInstagram className="h-8 w-8" />
           </Link>
 
           <Link
             href="https://www.facebook.com/AfricanExpressionsYarn/"
             passHref
+            className="h-12 w-12 p-2 bg-accent flex items-center justify-center rounded-full text-white font-light"
           >
-            <span className="bg-accent flex items-center pr-3 rounded-full">
-              <FaFacebookF className="h-12 w-12 p-2 rounded-full  text-white font-light" />
-              <h2 className="pl-6 text-xs md:text-sm  text-white font-medium">
-                African Expressions
-              </h2>
-            </span>
+            <motion.div
+              initial={false}
+              whileHover={{ backgroundColor: "rgb(160 146 88" }}
+            >
+              <FaFacebookF className="h-8 w-8 p-2 rounded-full  text-white font-light" />
+            </motion.div>
           </Link>
         </div>
         <div className="w-full mx-auto">

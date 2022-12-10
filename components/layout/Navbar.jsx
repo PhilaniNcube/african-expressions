@@ -8,11 +8,6 @@ import {
   FaYoutube,
 } from 'react-icons/fa';
 import { Menu, Popover, Transition } from '@headlessui/react';
-import {
-  ChevronDownIcon,
-  MenuAlt1Icon,
-  MenuIcon,
-} from '@heroicons/react/solid';
 import Link from 'next/link';
 
 const solutions = [
@@ -52,6 +47,14 @@ const socials = [
 const Navbar = () => {
   const router = useRouter();
 
+  const [search, setSearch] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    router.push(`/yarns?search=${search}`)
+  }
+
   return (
     <div className="border-b-4 border-accent py-6 md:py-10 px-6  z-[999]">
       <div className="max-w-7xl mx-auto flex items-center px-4 justify-between">
@@ -68,74 +71,74 @@ const Navbar = () => {
             <Link href="/" passHref>
               <li
                 className={`cursor-pointer hover:text-accent transition-all duration-300 ${
-                  router.route === '/'
-                    ? 'text-accent font-futuraBold'
-                    : 'text-deep'
+                  router.route === "/"
+                    ? "text-accent font-futuraBold"
+                    : "text-deep"
                 }`}
               >
-                <a>Home</a>
+                Home
               </li>
             </Link>
 
             <Link href="/yarns" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === '/yarns'
-                    ? 'text-accent font-futuraBold'
-                    : 'text-deep'
+                  router.route === "/yarns"
+                    ? "text-accent font-futuraBold"
+                    : "text-deep"
                 }`}
               >
-                <a>Yarns</a>
+                Yarn
               </li>
             </Link>
             <Link href="/patterns" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === '/patterns'
-                    ? 'text-accent font-futuraBold'
-                    : 'text-deep'
+                  router.route === "/patterns"
+                    ? "text-accent font-futuraBold"
+                    : "text-deep"
                 }`}
               >
-                <a>Patterns</a>
+                Patterns
               </li>
             </Link>
             <Link href="/express" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === '/express'
-                    ? 'text-accent font-futuraBold'
-                    : 'text-deep'
+                  router.route === "/express"
+                    ? "text-accent font-futuraBold"
+                    : "text-deep"
                 }`}
               >
-                <a>Express Yourself</a>
+                Express Yourself
               </li>
             </Link>
             <Link href="/online_agents" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === '/online_agents'
-                    ? 'text-accent font-futuraBold'
-                    : 'text-deep'
+                  router.route === "/online_agents"
+                    ? "text-accent font-futuraBold"
+                    : "text-deep"
                 }`}
               >
-                <a>Online Stockists</a>
+                Online Stockists
               </li>
             </Link>
             <Link href="/stores" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === '/stores'
-                    ? 'text-accent font-futuraBold'
-                    : 'text-deep'
+                  router.route === "/stores"
+                    ? "text-accent font-futuraBold"
+                    : "text-deep"
                 }`}
               >
-                <a>Stores</a>
+                Stores
               </li>
             </Link>
           </ul>
         </nav>
 
-        <div className="md:flex items-center hidden">
+        <form onSubmit={handleSubmit} className="md:flex items-center hidden">
           <div className="flex flex-col ">
             <div className="relative">
               <div className="absolute text-deep flex items-center pl-2 h-full">
@@ -158,12 +161,16 @@ const Navbar = () => {
               </div>
               <input
                 id="search"
+                type="text"
+                name="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 className="text-deep bg-white  focus:outline-none focus:border focus:border-gray-700 font-normal pr-20 h-10 flex items-center pl-10 text-sm border-gray-300 rounded border shadow"
                 placeholder="Search Yarns"
               />
             </div>
           </div>
-        </div>
+        </form>
 
         <div className="hidden lg:flex space-x-2">
           {socials.map((social, i) => {
@@ -185,7 +192,20 @@ const Navbar = () => {
           <Menu as="div" className="relative inline-block text-left">
             <div>
               <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-yellow-600 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                <MenuIcon className="text-yellow-600 h-8 w-8" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-8 h-8 text-yellow-800"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
               </Menu.Button>
             </div>
             <Transition
@@ -202,11 +222,11 @@ const Navbar = () => {
                   {({ active }) => (
                     <Menu.Button
                       className={`${
-                        active ? 'bg-yellow-600 text-white' : 'text-slate-800'
+                        active ? "bg-yellow-600 text-white" : "text-slate-800"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <Link href="/">
-                        <a className="w-full">Home</a>
+                        Home
                       </Link>
                     </Menu.Button>
                   )}
@@ -215,11 +235,11 @@ const Navbar = () => {
                   {({ active }) => (
                     <Menu.Button
                       className={`${
-                        active ? 'bg-yellow-600 text-white' : 'text-slate-800'
+                        active ? "bg-yellow-600 text-white" : "text-slate-800"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <Link href="/about">
-                        <a className="w-full">About</a>
+                        About
                       </Link>
                     </Menu.Button>
                   )}
@@ -228,11 +248,11 @@ const Navbar = () => {
                   {({ active }) => (
                     <Menu.Button
                       className={`${
-                        active ? 'bg-yellow-600 text-white' : 'text-slate-800'
+                        active ? "bg-yellow-600 text-white" : "text-slate-800"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <Link href="/yarns">
-                        <a className="w-full">Yarns</a>
+                        Yarns
                       </Link>
                     </Menu.Button>
                   )}
@@ -241,11 +261,11 @@ const Navbar = () => {
                   {({ active }) => (
                     <Menu.Button
                       className={`${
-                        active ? 'bg-yellow-600 text-white' : 'text-slate-800'
+                        active ? "bg-yellow-600 text-white" : "text-slate-800"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <Link href="/patterns">
-                        <a className="w-full">Patterns</a>
+                        Patterns
                       </Link>
                     </Menu.Button>
                   )}
@@ -254,11 +274,11 @@ const Navbar = () => {
                   {({ active }) => (
                     <Menu.Button
                       className={`${
-                        active ? 'bg-yellow-600 text-white' : 'text-slate-800'
+                        active ? "bg-yellow-600 text-white" : "text-slate-800"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <Link href="/express">
-                        <a className="w-full">Express Yourself</a>
+                        Express Yourself
                       </Link>
                     </Menu.Button>
                   )}
@@ -267,11 +287,11 @@ const Navbar = () => {
                   {({ active }) => (
                     <Menu.Button
                       className={`${
-                        active ? 'bg-yellow-600 text-white' : 'text-slate-800'
+                        active ? "bg-yellow-600 text-white" : "text-slate-800"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <Link href="/stores">
-                        <a className="w-full">Stores</a>
+                        Stores
                       </Link>
                     </Menu.Button>
                   )}
@@ -280,11 +300,11 @@ const Navbar = () => {
                   {({ active }) => (
                     <Menu.Button
                       className={`${
-                        active ? 'bg-yellow-600 text-white' : 'text-slate-800'
+                        active ? "bg-yellow-600 text-white" : "text-slate-800"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <Link href="/online_agents">
-                        <a className="w-full">Online Stockists</a>
+                        Online Stockists
                       </Link>
                     </Menu.Button>
                   )}

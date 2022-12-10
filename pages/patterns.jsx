@@ -5,31 +5,37 @@ import React, { Fragment, useMemo, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import {
   CheckIcon,
-  ChevronDownIcon,
-
-} from '@heroicons/react/solid';
+  ChevronDownIcon
+} from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import supabase from '../utils/supabase';
+import getProducts from '../lib/getProducts';
 
 const Patterns = ({ initialData, categories }) => {
-  const [filter, setFilter] = useState('');
-
-
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
   const router = useRouter();
 
-  const productsQuery = useQuery('yarns', async () => {
-    let { data: products, error } = await supabase.from('products').select('*');
+  const search = router.query?.search || "";
 
-    return products;
-  });
 
-  const products = productsQuery.data;
+  const [filter, setFilter] = useState(search);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+
+    const {
+      data: products,
+      isLoading,
+      isSuccess,
+    } = useQuery(["yarns"], getProducts, {
+      initialData: initialData,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    });
+
+
 
   const patternsQuery = useQuery(
-    'patterns',
+    ['patterns'],
     async () => {
       let { data: patterns, error } = await supabase
         .from('patterns')
@@ -368,8 +374,8 @@ const Patterns = ({ initialData, categories }) => {
             </Listbox>
           </span>
         </div>
-        <div className="w-full grid gap-3 grid-cols-1 relative lg:grid-cols-4">
-          <div className="columns-2 mt-24 lg:columns-4 gap-3 col-span-1 h-full ovef lg:col-span-4">
+        <div className="w-full py-3">
+          <div className="columns-2 md:columns-3 ">
             {filteredPatterns.map((pattern, i) => {
               return (
                 <Link
@@ -398,27 +404,7 @@ const Patterns = ({ initialData, categories }) => {
                       <h2 className="font-georgiaBold uppercase text-center px-2 text-xl text-white pb-6">
                         {pattern.name}
                       </h2>
-                      <div className="flex items-center my-2">
-                        <span className="bg-dark h-10 w-10 text-white rounded-l flex items-center justify-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                            />
-                          </svg>
-                        </span>
-                        <p className="py-3 uppercase rounded-r bg-accent cursor-pointer text-center hidden md:block w-[60%] md:w-[180px] text-gray-50 text-xs">
-                          View Pattern
-                        </p>
-                      </div>
+
                       <div
                         onClick={() => router.push(pattern.document)}
                         className="md:flex items-center hidden"
@@ -440,7 +426,7 @@ const Patterns = ({ initialData, categories }) => {
                           </svg>
                         </span>
                         <p className="py-3 uppercase rounded-r cursor-pointer bg-accent text-gray-50 text-center w-[60%] md:w-[180px] text-xs">
-                          Download Pattern
+                          View Pattern
                         </p>
                       </div>
                     </div>
