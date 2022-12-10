@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import IMAGE_URL from '../../lib/image';
+import Image from 'next/image';
 
 const ProductGrid = ({ products }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -58,10 +59,13 @@ const ProductGrid = ({ products }) => {
               </div>
             </div>
 
-            <img
+            <Image
+              width={500}
+              height={500}
               src={`${IMAGE_URL}/${product.slug}/${product.images[0]}`}
               alt={product.name}
-              className="h-[350px] w-full object-contain rounded-lg"
+              qaulity={100}
+              className="h-[350px] object-contain aspect-square rounded-lg"
             />
             <div className="flex flex-col items-center px-8 py-4">
               <p className="text-base md:text-xl font-futuraBold text-deep">
