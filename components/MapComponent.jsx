@@ -114,7 +114,21 @@ const MapComponent = ({ stores }) => {
         <div className="border-t-2 p-2 mt-3 border-accent h-full overflow-y-scroll grid gap-4">
           {filteredStores.map((store) => (
             <div
-              onClick={() => setSelected(store)}
+              onClick={() => {
+              if(store.lat === null || store.long === null ) {
+                 alert("We do not have the coordnates for this store");
+                 return;
+              } else {
+                setOffice({
+                  lat: parseFloat(store.lat),
+                  lng: parseFloat(store.long),
+                });
+                 mapRef.current?.panTo({
+                   lat: parseFloat(store.lat),
+                   lng: parseFloat(store.long),
+                 });
+              }
+              }}
               key={store.id}
               className="bg-slate-200 hover:bg-slate-300 transition-all duration-200 cursor-pointer rounded-xl shadow-lg  w-full p-4"
             >
