@@ -75,7 +75,7 @@ const MapComponent = ({ stores }) => {
      if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <div className="flex h-screen mb-16">
+    <div className="flex flex-col lg:flex-row h-screen mb-16">
       <div className="w-fit lg:w-1/3 h-full  py-6">
         <h1 className="font-medium font-georgiaBold text-accent text-2xl lg:text-3xl">
           Store List
