@@ -15,6 +15,8 @@ import {
 const MapComponent = ({ stores }) => {
   const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
 
+  const [selected, setSelected] = useState(stores[0])
+
    const [filter, setFilter] = useState("");
 
     const { isLoaded } = useLoadScript({
@@ -25,7 +27,7 @@ const MapComponent = ({ stores }) => {
      const mapRef = useRef();
      const [office, setOffice] = useState();
 
-      const center = useMemo(() => ({ lat: -34.0340047, lng: 18.4620655 }), []);
+      const center = useMemo(() => ({ lat: selected.lat, lng: selected.long }), [selected]);
 
         const options = useMemo(
           () => ({
@@ -110,7 +112,7 @@ const MapComponent = ({ stores }) => {
         <div className="border-t-2 p-2 mt-3 border-accent h-full overflow-y-scroll grid gap-4">
           {filteredStores.map((store) => (
             <div
-              onClick={() => setOffice({ lat: store.lat, lng: store.long })}
+              onClick={() => setSelected(store)}
               key={store.id}
               className="bg-slate-200 hover:bg-slate-300 transition-all duration-200 cursor-pointer rounded-xl shadow-lg  w-full p-4"
             >
