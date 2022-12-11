@@ -17,6 +17,8 @@ const MapComponent = ({ stores }) => {
 
   const [selected, setSelected] = useState(stores[0])
 
+  console.log({selected})
+
    const [filter, setFilter] = useState("");
 
     const { isLoaded } = useLoadScript({
@@ -27,7 +29,7 @@ const MapComponent = ({ stores }) => {
      const mapRef = useRef();
      const [office, setOffice] = useState();
 
-      const center = useMemo(() => ({ lat: selected.lat, lng: selected.long }), [selected]);
+      const center = useMemo(() => ({ lat: -34.0340047, lng: 18.4620655 }), []);
 
         const options = useMemo(
           () => ({
