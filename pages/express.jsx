@@ -29,33 +29,30 @@ const Express = ({products}) => {
         <h1 className="font-georgiaBold mt-6 text-2xl md:text-4xl lg:text-5xl text-deep">
           Tutorials
         </h1>
-        <p className="my-2 text-deep">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur
-          excepturi quod reiciendis?
-        </p>
+
 
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
-          <div className="w-full aspect-video">
+          <div className="w-full object-cover h-full aspect-[5/4]">
             <iframe
-              className="w-full aspect-video"
+              className="w-full object-cover h-full aspect-[5/4]"
               src="https://www.youtube.com/embed/st_qKR9lrZE"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             ></iframe>
           </div>
-          <div className="w-full aspect-video">
+          <div className="w-full object-cover h-full aspect-[5/4]">
             <iframe
-              className="w-full aspect-video"
+              className="w-full object-cover h-full aspect-[5/4]"
               src="https://www.youtube.com/embed/t0bVjMmdi0o"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             ></iframe>
           </div>
-          <div className="w-full aspect-video">
+          <div className="w-full object-cover h-full aspect-[5/4]">
             <iframe
-              className="w-full aspect-video"
+              className="w-full object-cover h-full aspect-[5/4]"
               src="https://www.youtube.com/embed/T11flBhXCzo"
               title="YouTube video player"
               frameBorder="0"
