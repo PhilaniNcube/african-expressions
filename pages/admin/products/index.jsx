@@ -26,7 +26,7 @@ const Products = ({products}) => {
                       width={500}
                       height={500}
                       src={product.main_image}
-                      alt={product.imageAlt}
+                      alt={product.name}
                       className="w-full aspect-w-4 aspect-h-6 w-full-object-center object-cover group-hover:opacity-75"
                     />
                   </div>

@@ -16,6 +16,8 @@ const Product = ({product}) => {
         throw new Error("You must select an image to upload.");
       }
 
+      console.log(e)
+
       setLoading(true);
 
       const file = e.target.files[0];
@@ -55,10 +57,10 @@ const Product = ({product}) => {
         const response = await productImage.json();
 
         if (response.status === 200) {
-          alert("Pattern has been added succesfull");
+          alert("Image has been added succesfull");
           router.push('/admin/products')
         } else {
-          alert("There was a problem saving the pattern");
+          alert("There was a problem saving the Image");
         }
 
         setImage("");

@@ -164,7 +164,7 @@ const Product = ({ product }) => {
                     height={600}
                     src={`${IMAGE_URL}/${product.slug}/${url}`}
                     className="md:h-20 md:w-20 w-10 h-10  rounded object-cover cursor-pointer"
-                    alt={url}
+                    alt={product.name}
                     onClick={() => {
                       setImage(url);
                       window.scrollTo({

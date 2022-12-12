@@ -62,16 +62,16 @@ const ProductGrid = ({ products }) => {
             <Image
               width={500}
               height={500}
-              src={`${IMAGE_URL}/${product.slug}/${product.images[0]}`}
+              src={product.main_image}
               alt={product.name}
               qaulity={100}
-              className="h-[350px] object-contain aspect-square rounded-lg"
+              className="w-full object-cover aspect-square rounded-lg"
             />
             <div className="flex flex-col items-center px-8 py-4">
               <p className="text-base md:text-xl font-futuraBold text-deep">
                 {product.name}
               </p>
-              <p className=" text-xs text-center font-futuraBook w-full">
+              <p className=" text-sm font-medium text-center font-futuraBook w-full">
                 {product.description}
               </p>
             </div>
