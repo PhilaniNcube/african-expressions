@@ -32,21 +32,21 @@ const SectionTwo = () => {
 
         <div className="w-full">
           <Image
-            src="/images/sheep.jpeg"
+            src="/images/sheep_image.jpg"
             alt="sheep"
-            width={320}
-            height={213}
-            className="w-full max-h-[400px] object-cover apsect-video rounded-sm shadow-lg"
+            width={6370}
+            height={4247}
+            className="w-full object-cover apsect-video rounded-sm shadow-lg"
           />
         </div>
 
         <div className="w-full">
           <Image
-            src="/images/sheep_2.jpeg"
+            src="/images/panorama.jpg"
             alt="Sheep"
-            width={320}
-            height={175}
-            className="w-full max-h-[400px] object-cover apsect-video rounded-sm shadow-lg"
+            width={6037}
+            height={3307}
+            className="w-full object-cover apsect-video rounded-sm shadow-lg"
           />
         </div>
         <div className="w-full text-base">

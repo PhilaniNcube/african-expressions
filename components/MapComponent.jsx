@@ -135,8 +135,8 @@ const MapComponent = ({ stores }) => {
               <h3 className="font-georgiaBold text-xl text-accent">
                 {store.name}
               </h3>
-              <p>{store.website ? `${store.website}` : "n/a"}</p>
-              <p className="text-xs">{store.streetAddress}</p>
+              <p>{store.website ? `${store.website}` : ""}</p>
+              <p className="text-sm">{store.streetAddress}</p>
               <p className="text-sm">{store.city}</p>
               <p className="text-sm">{store.contact}</p>
             </div>

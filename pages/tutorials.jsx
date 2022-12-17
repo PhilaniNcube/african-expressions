@@ -38,7 +38,7 @@ const tutorials = () => {
             allowFullScreen
           ></iframe>
           <p className="text-base text-deep uppercase text-center">
-            AFRICAS NATURAL BEAUTY
+            AFRICAN NATURAL BEAUTY
           </p>
         </div>
       </div>
