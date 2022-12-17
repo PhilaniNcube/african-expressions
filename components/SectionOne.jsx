@@ -38,44 +38,44 @@ const SectionOne = () => {
             <div className=" w-full">
               <div className="w-full h-full rounded-sm">
                 <Image
-                  src="/images/wool-1.jpg"
+                  src="/images/ae_2.png"
                   alt="image"
-                  width={1920}
-                  height={1280}
-                  className="w-full aspect-video rounded-md shadow-lg object-cover"
+                  width={1000}
+                  height={100}
+                  className="w-full aspect-square rounded-md shadow-lg object-cover"
                 />
               </div>
             </div>
             <div className=" w-full">
               <div className="w-full h-full rounded-sm">
                 <Image
-                  src="/images/wool-2.jpg"
+                  src="/images/ae_3.png"
                   alt="image"
                   width={1920}
                   height={1280}
-                  className="w-full aspect-video rounded-md shadow-lg object-cover"
+                  className="w-full aspect-square rounded-md shadow-lg object-cover"
                 />
               </div>
             </div>
             <div className=" w-full">
               <div className="w-full h-full rounded-sm">
                 <Image
-                  src="/images/wool-3.jpg"
+                  src="/images/ae_4.png"
                   alt="image"
                   width={1920}
                   height={1280}
-                  className="w-full aspect-video rounded-md shadow-lg object-cover"
+                  className="w-full aspect-square rounded-md shadow-lg object-cover"
                 />
               </div>
             </div>
             <div className=" w-full">
               <div className="w-full h-full rounded-sm">
                 <Image
-                  src="/images/wool.jpg"
+                  src="/images/ae_5.png"
                   alt="image"
                   width={1920}
                   height={1280}
-                  className="w-full aspect-video rounded-md shadow-lg object-cover"
+                  className="w-full aspect-square rounded-md shadow-lg object-cover"
                 />
               </div>
             </div>
