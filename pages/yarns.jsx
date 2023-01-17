@@ -92,8 +92,8 @@ const Yarn = ({ initialData, error }) => {
             Yarns
           </h1>
           <p className="my-4">
-            The yarns are spun into a fine, lightweight fabric that is perfect
-            for sweaters, scarves, hats, gloves, blankets, and more.
+            Delicately spun, offering shades and textures perfect for any
+            project imaginable
           </p>
 
           <div className="hidden lg:flex items-center z-30 py-6 border-y text-deep text-xl border-deep justify-start space-x-6">
