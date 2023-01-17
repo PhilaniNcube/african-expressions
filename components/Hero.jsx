@@ -18,12 +18,12 @@ const Hero = () => {
         width={4000}
       />
       <div className="absolute inset-0">
-        <div className="my-auto max-w-7xl mx-auto h-full py-12 flex flex-col items-center justify-center">
-          <h1 className="font-georgiaBold text-white text-center text-2xl md:text-4xl lg:text-6xl">
-           Yarns that inspire
+        <div className="my-auto max-w-7xl mx-auto h-full py-6 flex flex-col items-center justify-center lg:-translate-y-16">
+          <h1 className="font-georgiaBold text-white text-center text-2xl md:text-4xl lg:text-6xl ">
+            Yarns that inspire
           </h1>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 mt-12 gap-12">
+          <div className="hidden md:grid grid-cols-3 mt-12 gap-4 lg:gap-12">
             <span
               onClick={() => {
                 router.push("/yarns");

@@ -42,7 +42,7 @@ const SectionTwo = () => {
 
         <div className="w-full">
           <Image
-            src="/images/panorama.jpg"
+            src="/images/fibre.jpg"
             alt="Sheep"
             width={6037}
             height={3307}

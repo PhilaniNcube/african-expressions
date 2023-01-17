@@ -68,13 +68,15 @@ const OnlineStores = ({ initialData }) => {
         </div>
 
         <div className="w-full mt-6 grid grid-cols-1 md:grid-cols-2 bg-slate-50 py-6 rounded-xl px-4 shadow border border-slate-100 gap-8">
-          {onlineStoresQuery.isLoading && (
-            <p className="text-base text-zinc-700">Loading...</p>
-          )}
 
-          {onlineStoresQuery.isSuccess &&
+
+          {onlineStoresQuery.isLoading ? (
+            <p className="text-base text-zinc-700">Loading...</p>
+          ) : (
+            onlineStoresQuery.isSuccess &&
             filteredStores.map((store) => (
-              <div
+              <Link
+                href={`https://${store.website}`}
                 key={store.id}
                 className="bg-white w-full rounded-lg shadow-lg shadow-zinc-800/10 p-4"
               >
@@ -84,7 +86,9 @@ const OnlineStores = ({ initialData }) => {
                 <p className="mt-2 text-deep">
                   Website:
                   <span className="pl-3 text-sky-700 cursor-pointer">
-                    <Link href={`https://${store.website}`}>{store.website}</Link>
+                    <Link href={`https://${store.website}`}>
+                      {store.website}
+                    </Link>
                   </span>
                 </p>
                 <p className="mt-2 text-deep">
@@ -96,8 +100,9 @@ const OnlineStores = ({ initialData }) => {
                 <p className="mt-2 text-deep">
                   Ciy: <span className="pl-3">{store.city}</span>
                 </p>
-              </div>
-            ))}
+              </Link>
+            ))
+          )}
         </div>
       </div>
     </main>

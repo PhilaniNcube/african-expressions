@@ -74,9 +74,7 @@ const Patterns = ({ initialData, categories }) => {
           Patterns
         </h1>
         <p className="my-4">
-          Our yarn allows each design pattern to be created using innovative
-          techniques. You can create unique textures, shapes and patterns as you
-          please.
+          Patterns for every skill level for both knitting and crochet.
         </p>
 
         <div className="hidden lg:flex items-center z-30 py-6 border-y text-deep text-xl border-gray-800 justify-start space-x-6">
@@ -208,7 +206,9 @@ const Patterns = ({ initialData, categories }) => {
                       {({ filter }) => (
                         <Fragment>
                           <span
-                            className={`block truncate ${filter ? "font-futuraBold" : "font-futuraBook"}`}
+                            className={`block truncate ${
+                              filter ? "font-futuraBold" : "font-futuraBook"
+                            }`}
                           >
                             All
                           </span>

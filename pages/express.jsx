@@ -19,9 +19,9 @@ const Express = ({products}) => {
           Express Yourself
         </h1>
         <p className="my-4 text-deep">
-          Express yourself with our tutorials and premium yarn. An awe-inspiring
-          result of lightweight, versatile and stylish garments which are
-          perfect for both men and women can be created.
+          Let creativity free with the Express Yourself yarn bases. 100% natural
+          yarns for 100% enjoyment. Use our tutorials to add a splash of colour
+          and personal touch to your project.
         </p>
 
         <ProductGrid products={products} />
@@ -29,7 +29,6 @@ const Express = ({products}) => {
         <h1 className="font-georgiaBold mt-6 text-2xl md:text-4xl lg:text-5xl text-deep">
           Tutorials
         </h1>
-
 
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
           <div className="w-full object-cover h-full aspect-[5/4]">
