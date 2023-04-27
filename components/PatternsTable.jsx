@@ -47,7 +47,7 @@ export default function PatternsTable({patterns}) {
                     {" "}
                     <td className="pr-6">
                       <div className="w-full flex justify-start items-center h-full">
-                        <div className="text-accent rounded-full text-sm leading-3 py-2 px-5">
+                        <div className="text-dark font-montBold rounded-full text-sm leading-3 py-2 px-5">
                           {pattern.name}
                         </div>
                       </div>
