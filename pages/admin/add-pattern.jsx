@@ -69,6 +69,11 @@ const AddPattern = ({ categories, products, stitching }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if(!image || !doc || !name || !stitch || !category || !productId) {
+      alert('Please fill in all fields');
+      return;
+    }
+
     const patternReq = await fetch(`/api/pattern`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
