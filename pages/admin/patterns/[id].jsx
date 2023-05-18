@@ -1,15 +1,150 @@
+import { useState } from "react";
 import supabase from "../../../utils/supabase";
 
-const Pattern = ({pattern}) => {
+const Pattern = ({ pattern, categories, products, stitching }) => {
 
-  console.assert(pattern)
+  const [loading, setLoading] = useState(false);
 
-  return <div>Pattern</div>;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const {name, product, category, stitching} = Object.fromEntries(new FormData(e.currentTarget));
+    console.log({ name, product, category, stitching });
+
+    const { data, error } = await supabase.from("patterns").update({name, product, category, stitching}).eq("id", pattern.id).single();
+
+    if(error) {
+      alert(error.message);
+      setLoading(false);
+      return;
+    } else {
+      alert("Pattern Updated");
+      setLoading(false);
+    }
+
+    setLoading(false);
+  }
+
+
+  return (
+    <main className="py-10">
+      <div className="max-w-7xl mx-auto px-6">
+        <h1 className="font-montExtraBold text-2xl text-accent">
+          Edit {pattern.name}
+        </h1>
+
+        <hr className="text-accent h-[2px] mt-3 rounded-lg bg-accent" />
+
+        <form onSubmit={handleSubmit} className="w-full lg:w-2/3 py-4 px-3 rounded-md border border-accent mt-6 bg-slate-50">
+          <div className="flex flex-col lg:w-2/3">
+            <label htmlFor="name" className="font-semibold">
+              Pattern Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              defaultValue={pattern.name}
+              className="outline-none rounded-md border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
+            />
+          </div>
+
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
+            <div className="flex flex-col">
+              <label
+                htmlFor="category"
+                className="text-sm font-bold text-gray-800 "
+              >
+                Category
+              </label>
+              <select
+                type="text"
+                id="category"
+                name="category"
+                required
+                defaultValue={pattern.category.id}
+                className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
+              >
+                <option value="">Select Category</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="product"
+                className="text-sm font-bold text-gray-800 "
+              >
+                Product Name
+              </label>
+              <select
+                type="text"
+                id="product"
+                name="product"
+                required
+                defaultValue={pattern.product_id.id}
+                className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
+              >
+                <option value="">Select Product</option>
+                {products.map((product) => (
+                  <option key={product.id} value={product.id}>
+                    {product.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="stitching"
+                className="text-sm font-bold text-gray-800 "
+              >
+                Stitching
+              </label>
+              <select
+                type="text"
+                id="stitching"
+                name="stitching"
+                required
+                defaultValue={pattern.stitching.id}
+                className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
+              >
+                <option value="">Select stitching</option>
+                {stitching.map((stitch) => (
+                  <option key={stitch.id} value={stitch.id}>
+                    {stitch.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-accent text-white text-lg font-medium px-8 rounded py-1 mt-3"
+          >
+            {loading ? "Please wait...." : "Submit"}
+          </button>
+        </form>
+      </div>
+    </main>
+  );
 };
 export default Pattern;
 
 
 export async function getServerSideProps({params: {id}}) {
+
+    let { data: categories } = await supabase.from("category").select("id, name");
+
+    let { data: products } = await supabase.from("products").select("id,name");
+
+    let { data: stitching } = await supabase.from("stitching").select("id, name");
 
   //fetch the pattern with the id of id from supabase
   const {data: pattern, error} = await supabase.from("patterns").select("*, product_id(*), category(*), stitching(*)").eq("id", id).single()
@@ -21,8 +156,11 @@ export async function getServerSideProps({params: {id}}) {
 
   return {
     props: {
-      pattern
-    }
-  }
+      pattern,
+      categories,
+      products,
+      stitching,
+    },
+  };
 
 }

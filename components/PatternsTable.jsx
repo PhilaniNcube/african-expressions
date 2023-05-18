@@ -1,14 +1,20 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 export default function PatternsTable({patterns}) {
+
+  const router = useRouter()
+
   return (
     <>
       <div className="py-12">
         <div className="mx-auto w-full container bg-white shadow rounded">
           <div className="flex flex-col lg:flex-row p-8 justify-between items-start lg:items-stretch w-full">
-
             <div className="w-full lg:w-3/4 xl:w-2/3 flex flex-col lg:flex-row items-start">
-              <Link href="/admin/add-pattern" className="focus:shadow-outline-gray border border-transparent w-auto my-2 lg:my-0 lg:ml-2 xl:ml-4 bg-dark transition focus:outline-none focus:border-gray-800 focus:shadow-outline-gray duration-150 ease-in-out hover:bg-deep rounded text-white px-6 py-2 text-sm">
+              <Link
+                href="/admin/add-pattern"
+                className="focus:shadow-outline-gray border border-transparent w-auto my-2 lg:my-0 lg:ml-2 xl:ml-4 bg-dark transition focus:outline-none focus:border-gray-800 focus:shadow-outline-gray duration-150 ease-in-out hover:bg-deep rounded text-white px-6 py-2 text-sm"
+              >
                 Add Pattern
               </Link>
             </div>
@@ -35,6 +41,9 @@ export default function PatternsTable({patterns}) {
                   </th>
                   <th className="text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4">
                     Pattern Image
+                  </th>
+                  <th className="text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                    Edit Pattern
                   </th>
                 </tr>
               </thead>
@@ -77,15 +86,29 @@ export default function PatternsTable({patterns}) {
                         View Image
                       </Link>
                     </td>
+                    <td className="text-sm pr-6 whitespace-no-wrap text-gray-800  tracking-normal leading-4">
+                      <svg
+                        onClick={() => router.push(`/admin/patterns/${pattern.id}`)}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                        />
+                      </svg>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
-
-
-
       </div>
     </>
   );
