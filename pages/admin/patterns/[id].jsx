@@ -10,7 +10,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
   const [category, setCategory] = useState('');
   const [productId, setProductId] = useState('');
   
-  console.log(doc)
+  console.log({doc})
 
 
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
       `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`,
     );
     
-    console.log(doc)
+    console.log("document filename",doc)
 
     setLoading(false);
   };
