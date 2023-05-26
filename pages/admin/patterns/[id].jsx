@@ -65,6 +65,8 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
     setDoc(
       `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`,
     );
+    
+    console.log(doc)
 
     setLoading(false);
   };
