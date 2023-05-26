@@ -458,6 +458,7 @@ export async function getStaticProps() {
       categories: category,
       error,
     },
+    revalidate: 10,
   };
 }
 
