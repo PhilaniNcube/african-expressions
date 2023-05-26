@@ -67,13 +67,11 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
         setDoc(
       `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${upload.data.Key}`,
     );
+        console.log("document filename",doc)
     }
 
-    setDoc(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${upload.data.Key}`,
-    );
     
-    console.log("document filename",doc)
+  
 
     setLoading(false);
   };
