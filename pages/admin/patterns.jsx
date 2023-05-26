@@ -25,5 +25,6 @@ export async function getServerSideProps() {
     props: {
       patterns,
     },
+    revalidate: 0,
   };
 }
