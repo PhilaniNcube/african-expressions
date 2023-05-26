@@ -64,11 +64,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
 
     if (fileUrl.length > 0) {
       alert('File Uploaded');
-      
-         const { data, error } = await supabase.from("patterns").update({ document:`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${upload.data.Key}`}).eq("id", pattern.id).select('*').single();
-      
-      console.log({data, error)}
-      
+       setDoc(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`)
     }
 
     
