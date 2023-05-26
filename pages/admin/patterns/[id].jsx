@@ -3,8 +3,8 @@ import supabase from "../../../utils/supabase";
 
 const Pattern = ({ pattern, categories, products, stitching }) => {
   
-  const [image, setImage] = useState('');
-  const [doc, setDoc] = useState('');
+  const [image, setImage] = useState(pattern.image);
+  const [doc, setDoc] = useState(pattern.doc);
   const [name, setName] = useState('');
   const [stitch, setStitching] = useState('');
   const [category, setCategory] = useState('');
