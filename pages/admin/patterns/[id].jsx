@@ -187,6 +187,41 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
             </div>
           </div>
 
+ <div className="w-full flex space-x-6">
+          <div className="flex justify-center">
+            <div className=" w-full">
+              <label
+                htmlFor="image"
+                className="form-label text-xs inline-block mb-1 text-gray-700"
+              >
+                Upload Image
+              </label>
+              <input
+                className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                type="file"
+                id="image"
+                onChange={handleImageUpload}
+              />
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <div className=" w-full">
+              <label
+                htmlFor="doc"
+                className="form-label inline-block mb-1 text-gray-700 text-xs"
+              >
+                Upload Document
+              </label>
+              <input
+                onChange={handleDocUpload}
+                className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                type="file"
+                id="doc"
+              />
+            </div>
+          </div>
+        </div>
+
           <button
             type="submit"
             disabled={loading}
