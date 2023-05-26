@@ -76,7 +76,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
     const {name, product, category, stitching} = Object.fromEntries(new FormData(e.currentTarget));
     console.log({ name, product, category, stitching });
 
-    const { data, error } = await supabase.from("patterns").update({name, product, category, stitching, image, doc}).eq("id", pattern.id).single();
+    const { data, error } = await supabase.from("patterns").update({name, product, category, stitching, image, doccument:doc}).eq("id", pattern.id).single();
 
     if(error) {
       alert(error.message);
