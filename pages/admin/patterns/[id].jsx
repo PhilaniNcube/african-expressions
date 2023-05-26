@@ -64,10 +64,13 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
 
     if (fileUrl.length > 0) {
       alert('File Uploaded');
+        setDoc(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${upload.data.Key}`,
+    );
     }
 
     setDoc(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`,
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${upload.data.Key}`,
     );
     
     console.log("document filename",doc)
@@ -80,7 +83,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
     setLoading(true);
 
     const {name, product, category, stitching} = Object.fromEntries(new FormData(e.currentTarget));
-    console.log({ name, product, category, stitching, image, document });
+    console.log({ name, product, category, stitching, image, doc });
 
     const { data, error } = await supabase.from("patterns").update({name, product_id:product, category, stitching, image, document:doc}).eq("id", pattern.id).select('*').single();
     
