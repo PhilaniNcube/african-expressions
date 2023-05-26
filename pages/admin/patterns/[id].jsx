@@ -9,6 +9,8 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
   const [stitch, setStitching] = useState('');
   const [category, setCategory] = useState('');
   const [productId, setProductId] = useState('');
+  
+  console.log(doc)
 
 
   const [loading, setLoading] = useState(false);
@@ -54,7 +56,9 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
 
     let upload = await supabase.storage
       .from('patterns')
-      .upload(`${fileName}`, file);
+      .upload(`${fileName}`, file).select('*');
+    
+    console.log(upload)
 
     const fileUrl = upload.data.Key;
 
