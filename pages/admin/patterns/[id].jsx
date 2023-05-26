@@ -74,9 +74,11 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
     setLoading(true);
 
     const {name, product, category, stitching} = Object.fromEntries(new FormData(e.currentTarget));
-    console.log({ name, product, category, stitching });
+    console.log({ name, product, category, stitching, image, document });
 
-    const { data, error } = await supabase.from("patterns").update({name, product_id:product, category, stitching, image, document:doc}).eq("id", pattern.id);
+    const { data, error } = await supabase.from("patterns").update({name, product_id:product, category, stitching, image, document:doc}).eq("id", pattern.id).select('*').single();
+    
+    console.log({data, error})
 
     if(error) {
       alert(error.message);
@@ -200,6 +202,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
                 className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 type="file"
                 id="image"
+                name="image" 
                 onChange={handleImageUpload}
               />
             </div>
@@ -217,6 +220,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
                 className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 type="file"
                 id="doc"
+                name="doc" 
               />
             </div>
           </div>
