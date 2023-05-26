@@ -2,6 +2,14 @@ import { useState } from "react";
 import supabase from "../../../utils/supabase";
 
 const Pattern = ({ pattern, categories, products, stitching }) => {
+  
+  const [image, setImage] = useState('');
+  const [doc, setDoc] = useState('');
+  const [name, setName] = useState('');
+  const [stitch, setStitching] = useState('');
+  const [category, setCategory] = useState('');
+  const [productId, setProductId] = useState('');
+
 
   const [loading, setLoading] = useState(false);
   
