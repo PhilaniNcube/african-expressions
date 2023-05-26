@@ -2,19 +2,19 @@ import { useState } from "react";
 import supabase from "../../../utils/supabase";
 
 const Pattern = ({ pattern, categories, products, stitching }) => {
-  
+
   const [image, setImage] = useState(pattern.image);
-  const [doc, setDoc] = useState(pattern.doc);
+  const [doc, setDoc] = useState(pattern.document);
   const [name, setName] = useState('');
   const [stitch, setStitching] = useState('');
   const [category, setCategory] = useState('');
   const [productId, setProductId] = useState('');
-  
+
   console.log({doc})
 
 
   const [loading, setLoading] = useState(false);
-  
+
     const handleImageUpload = async (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       throw new Error('You must select an image to upload.');
@@ -57,7 +57,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
     let upload = await supabase.storage
       .from('patterns')
       .upload(`${fileName}`, file);
-    
+
     console.log(upload)
 
     const fileUrl = upload.data.Key;
@@ -67,8 +67,8 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
        setDoc(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`)
     }
 
-    
-  
+
+
 
     setLoading(false);
   };
@@ -78,20 +78,31 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
     setLoading(true);
 
     const {name, product, category, stitching} = Object.fromEntries(new FormData(e.currentTarget));
-    console.log({ name, product, category, stitching, image, doc });
+    console.log({ name:name, product:product, category:category, stitching:stitching, image:image, document:doc });
 
-    const { data, error } = await supabase.from("patterns").update({name, product_id:product, category, stitching, image, document:doc}).eq("id", pattern.id).select('*').single();
-    
-    console.log({data, error})
+    const patternReq = await fetch(`/api/patterns/update`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        image: image,
+        document: doc,
+        name: name,
+        stitching: stitching,
+        category: category,
+        product: product,
+        id: pattern.id,
+      }),
+    });
 
-    if(error) {
-      alert(error.message);
-      setLoading(false);
-      return;
-    } else {
-      alert("Pattern Updated");
-      setLoading(false);
-    }
+     const response = await patternReq.json();
+
+     console.log({response})
+
+     if (response.status === 200) {
+       alert("Pattern has been updated succesfull");
+     } else {
+       alert("There was a problem saving the pattern");
+     }
 
     setLoading(false);
   }
@@ -206,7 +217,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
                 className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 type="file"
                 id="image"
-                name="image" 
+                name="image"
                 onChange={handleImageUpload}
               />
             </div>
@@ -224,7 +235,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
                 className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 type="file"
                 id="doc"
-                name="doc" 
+                name="doc"
               />
             </div>
           </div>
