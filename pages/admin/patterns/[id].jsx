@@ -56,7 +56,7 @@ const Pattern = ({ pattern, categories, products, stitching }) => {
 
     let upload = await supabase.storage
       .from('patterns')
-      .upload(`${fileName}`, file).select('*');
+      .upload(`${fileName}`, file);
     
     console.log(upload)
 
