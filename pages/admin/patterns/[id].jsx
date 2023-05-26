@@ -4,6 +4,62 @@ import supabase from "../../../utils/supabase";
 const Pattern = ({ pattern, categories, products, stitching }) => {
 
   const [loading, setLoading] = useState(false);
+  
+    const handleImageUpload = async (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      throw new Error('You must select an image to upload.');
+    }
+
+    setLoading(true);
+
+    const file = e.target.files[0];
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+
+    let upload = await supabase.storage
+      .from('patterns')
+      .upload(`${fileName}`, file);
+
+    const fileUrl = upload.data.Key;
+
+    if (fileUrl.length > 0) {
+      alert('File Uploaded');
+    }
+
+    setImage(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`,
+    );
+
+    setLoading(false);
+  };
+
+  const handleDocUpload = async (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      throw new Error('You must select an document to upload.');
+    }
+
+    setLoading(true);
+
+    const file = e.target.files[0];
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+
+    let upload = await supabase.storage
+      .from('patterns')
+      .upload(`${fileName}`, file);
+
+    const fileUrl = upload.data.Key;
+
+    if (fileUrl.length > 0) {
+      alert('File Uploaded');
+    }
+
+    setDoc(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`,
+    );
+
+    setLoading(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
