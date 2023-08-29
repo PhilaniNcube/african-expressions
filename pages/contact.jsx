@@ -8,10 +8,7 @@ const Contact = () => {
         <h1 className="font-georgiaBold text-2xl md:text-4xl lg:text-5xl text-deep">
           Contact
         </h1>
-        <p className="my-2 text-deep">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur
-          excepturi quod reiciendis?
-        </p>
+
 
         <h2 className="text-2xl text-deep font-georgia">Any Queries?</h2>
         <div className="w-full mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -17,7 +17,7 @@ export default patterns;
 
 
 export async function getServerSideProps() {
-  let { data: patterns, error } = await supabase.from("patterns").select("*, product_id(*), category(*), stitching(*)");
+  let { data: patterns, error } = await supabase.from("patterns").select("*, product_id!inner(id, name), category!inner(id, name), stitching(*)");
 
   if(error) console.log(error.message)
 
@@ -25,6 +25,6 @@ export async function getServerSideProps() {
     props: {
       patterns,
     },
-   
+
   };
 }
