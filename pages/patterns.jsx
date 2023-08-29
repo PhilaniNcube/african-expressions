@@ -12,8 +12,10 @@ import { useQuery } from '@tanstack/react-query';
 import supabase from '../utils/supabase';
 import getProducts from '../lib/getProducts';
 
-const Patterns = ({ initialData, categories }) => {
+const Patterns = ({ initialData, categories, yarns }) => {
   const router = useRouter();
+
+  console.log('Loading', initialData)
 
   const search = router.query?.search || "";
 
@@ -27,20 +29,20 @@ const Patterns = ({ initialData, categories }) => {
       isLoading,
       isSuccess,
     } = useQuery(["yarns"], getProducts, {
-      initialData: initialData,
+      initialData: yarns,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
     });
 
 
 
-  const patternsQuery = useQuery(
+  const {data:patterns, isLoading:isPatternsLoading, isError, isFetched} = useQuery(
     ['patterns'],
     async () => {
       let { data: patterns, error } = await supabase
         .from('patterns')
         .select(
-          '*, stitching(id, name), category(id, name), product_id(id, name)',
+          '*, stitching(*), category(*), product_id!inner(id, name)',
         );
 
       return patterns;
@@ -52,19 +54,17 @@ const Patterns = ({ initialData, categories }) => {
     },
   );
 
-  const patterns = patternsQuery.data;
+  const initialPatterns = patterns;
 
   let filteredPatterns = useMemo(
     () =>
       patterns.filter(
         (pattern) =>
-          pattern.product_id.name
-            .toLowerCase()
-            .includes(filter.toLowerCase()) ||
+          pattern.product_id.name.toLowerCase().includes(filter.toLowerCase()) ||
           pattern.category.name.toLowerCase().includes(filter.toLowerCase()) ||
-          pattern.stitching.name.toLowerCase().includes(filter.toLowerCase()),
+          pattern.stitching.name.toLowerCase().includes(filter.toLowerCase())
       ),
-    [filter, patterns],
+    [filter, patterns]
   );
 
   return (
@@ -443,22 +443,24 @@ const Patterns = ({ initialData, categories }) => {
 
 export default Patterns;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   let { data: patterns, error } = await supabase
     .from('patterns')
-    .select('*, stitching(id, name), category(id, name), product_id(id, name)');
+    .select('*, stitching(*), category(*), product_id!inner(id, name)');
 
   let { data: products } = await supabase.from('products').select('*');
 
   let { data: category } = await supabase.from('category').select('*');
 
+  console.log({patterns})
+
   return {
     props: {
+      yarns: products,
       initialData: patterns,
       categories: category,
       error,
-    },
-    revalidate: 10,
+    }
   };
 }
 
