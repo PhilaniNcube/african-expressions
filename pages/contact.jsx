@@ -1,7 +1,36 @@
 import React, { Fragment } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Contact = () => {
+
+const router = useRouter()
+
+async function handleSubmit(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+
+  formData.append("access_key", "6c4f158f-5776-4364-9e2f-9db13bed20eb");
+
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
+
+  const response = await fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: json,
+  });
+  const result = await response.json();
+  if (result.success) {
+    console.log(result);
+    alert('Thank you for your feedback. We will be in touch with you soon.')
+    router.push('/')
+  }
+}
+
   return (
     <Fragment>
       <div className="max-w-7xl mx-auto py-12 px-6 md:px-4">
