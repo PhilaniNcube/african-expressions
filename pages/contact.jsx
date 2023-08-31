@@ -38,10 +38,9 @@ async function handleSubmit(event) {
           Contact
         </h1>
 
-
         <h2 className="text-2xl text-deep font-georgia">Any Queries?</h2>
         <div className="w-full mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <form className="w-full mt-6">
+          <form onSubmit={handleSubmit} className="w-full mt-6">
             <div className="flex flex-col md:mr-16">
               <label
                 htmlFor="name"
@@ -131,7 +130,7 @@ async function handleSubmit(event) {
                   type="button"
                   className="text-white text-lg uppercase font-medium bg-accent hover:bg-yellow-800/80 px-16 rounded cursor-pointer shadow-lg hover:shadow-sm py-3 mt-4"
                 >
-                 View Stores
+                  View Stores
                 </button>
               </Link>
               <p className="px-2 text-sm text-deep">
