@@ -19,7 +19,7 @@ async function handleSubmit(event) {
 
   const object = Object.fromEntries(new FormData(event.currentTarget));
   const json = JSON.stringify({
-    ...object,
+    access_key: "6c4f158f-5776-4364-9e2f-9db13bed20eb",
     name: name,
     email: email,
     number: number,
