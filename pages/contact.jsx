@@ -6,14 +6,27 @@ const Contact = () => {
 
 const router = useRouter()
 
+const [name, setName] = React.useState("");
+const [email, setEmail] = React.useState("");
+const [number, setNumber] = React.useState("");
+const [message, setMessage] = React.useState("");
+
 async function handleSubmit(event) {
   event.preventDefault();
   const formData = new FormData(event.target);
 
   formData.append("access_key", "6c4f158f-5776-4364-9e2f-9db13bed20eb");
 
-  const object = Object.fromEntries(formData);
-  const json = JSON.stringify(object);
+  const object = Object.fromEntries(new FormData(event.currentTarget));
+  const json = JSON.stringify({
+    ...object,
+    name: name,
+    email: email,
+    number: number,
+    message: message,
+  });
+
+  console.log({form:json})
 
   const response = await fetch("https://api.web3forms.com/submit", {
     method: "POST",
@@ -21,7 +34,7 @@ async function handleSubmit(event) {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: json,
+    body: json
   });
   const result = await response.json();
   if (result.success) {
@@ -33,48 +46,52 @@ async function handleSubmit(event) {
 
   return (
     <Fragment>
-      <div className="max-w-7xl mx-auto py-12 px-6 md:px-4">
-        <h1 className="font-georgiaBold text-2xl md:text-4xl lg:text-5xl text-deep">
+      <div className="px-6 py-12 mx-auto max-w-7xl md:px-4">
+        <h1 className="text-2xl font-georgiaBold md:text-4xl lg:text-5xl text-deep">
           Contact
         </h1>
 
         <h2 className="text-2xl text-deep font-georgia">Any Queries?</h2>
-        <div className="w-full mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid w-full grid-cols-1 gap-6 mt-6 md:grid-cols-2">
           <form onSubmit={handleSubmit} className="w-full mt-6">
             <div className="flex flex-col md:mr-16">
               <label
                 htmlFor="name"
-                className="text-deep text-sm font-bold leading-tight tracking-normal mb-2"
+                className="mb-2 text-sm font-bold leading-tight tracking-normal text-deep"
               >
                 Full Name
               </label>
               <input
                 type="text"
                 required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 id="name"
-                className="text-deep focus:outline-none  bg-white font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                className="flex items-center w-full h-10 pl-3 text-sm font-normal bg-white border border-gray-300 rounded shadow text-deep focus:outline-none"
                 placeholder="Full Name"
               />
             </div>
             <div className="flex flex-col mt-4 md:mr-16">
               <label
                 htmlFor="email"
-                className="text-deep text-sm font-bold leading-tight tracking-normal mb-2"
+                className="mb-2 text-sm font-bold leading-tight tracking-normal text-deep"
               >
                 Email
               </label>
               <input
                 type="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 id="email"
-                className="text-deep focus:outline-none  bg-white font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                className="flex items-center w-full h-10 pl-3 text-sm font-normal bg-white border border-gray-300 rounded shadow text-deep focus:outline-none"
                 placeholder="email@example.com"
               />
             </div>
             <div className="flex flex-col mt-4 md:mr-16">
               <label
                 htmlFor="number"
-                className="text-deep text-sm font-bold leading-tight tracking-normal mb-2"
+                className="mb-2 text-sm font-bold leading-tight tracking-normal text-deep"
               >
                 Contact Number
               </label>
@@ -82,7 +99,9 @@ async function handleSubmit(event) {
                 type="tel"
                 required
                 id="number"
-                className="text-deep focus:outline-none  bg-white font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
+                className="flex items-center w-full h-10 pl-3 text-sm font-normal bg-white border border-gray-300 rounded shadow text-deep focus:outline-none"
                 placeholder="Contact Number"
               />
             </div>
@@ -98,7 +117,9 @@ async function handleSubmit(event) {
                 id="message"
                 name="message"
                 required
-                className="bg-transparent border focus:outline-none border-gray-300 pl-3 py-3 shadow-sm rounded text-sm  resize-none placeholder-gray-500 text-deep "
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="py-3 pl-3 text-sm placeholder-gray-500 bg-transparent border border-gray-300 rounded shadow-sm resize-none focus:outline-none text-deep "
                 placeholder="Message"
                 rows={5}
               />
@@ -106,14 +127,14 @@ async function handleSubmit(event) {
 
             <button
               type="submit"
-              className="text-white text-lg uppercase font-medium bg-accent hover:bg-yellow-800/80 px-16 rounded cursor-pointer shadow-lg hover:shadow-sm py-3 mt-4"
+              className="px-16 py-3 mt-4 text-lg font-medium text-white uppercase rounded shadow-lg cursor-pointer bg-accent hover:bg-yellow-800/80 hover:shadow-sm"
             >
               Submit
             </button>
           </form>
 
           <div className="flex items-center">
-            <div className="w-full flex flex-col items-center space-y-2">
+            <div className="flex flex-col items-center w-full space-y-2">
               <p className="text-2xl text-deep font-georgia">Head Office</p>
               <span className="flex text-sm text-deep">
                 <p className="font-bold ">Address:</p>
@@ -128,7 +149,7 @@ async function handleSubmit(event) {
               <Link href="/stores" passHref>
                 <button
                   type="button"
-                  className="text-white text-lg uppercase font-medium bg-accent hover:bg-yellow-800/80 px-16 rounded cursor-pointer shadow-lg hover:shadow-sm py-3 mt-4"
+                  className="px-16 py-3 mt-4 text-lg font-medium text-white uppercase rounded shadow-lg cursor-pointer bg-accent hover:bg-yellow-800/80 hover:shadow-sm"
                 >
                   View Stores
                 </button>
