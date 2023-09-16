@@ -3,14 +3,14 @@ import supabase from '../utils/supabase';
 import { useRouter } from 'next/router';
 import { useQuery } from "@tanstack/react-query";
 import Link from 'next/link';
-import getStores from '../lib/getStores';
+import getStores, {getOnlineStores} from '../lib/getStores';
 
 const OnlineStores = ({ initialData }) => {
   const [filter, setFilter] = useState('');
   const router = useRouter();
 
   const onlineStoresQuery = useQuery(
-    ['online-stores'],getStores,
+    ['online-stores'],getOnlineStores,
     {
       initialData: initialData,
       refetchOnMount: false,
@@ -113,7 +113,7 @@ export default OnlineStores;
 
 export async function getServerSideProps() {
 
-  const stores = await getStores();
+  const stores = await getOnlineStores();
 
   return {
     props: {
