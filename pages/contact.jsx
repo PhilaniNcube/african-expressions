@@ -18,6 +18,9 @@ async function handleSubmit(event) {
   formData.append("access_key", "6c4f158f-5776-4364-9e2f-9db13bed20eb");
 
   const object = Object.fromEntries(new FormData(event.currentTarget));
+
+  console.log({object})
+
   const json = JSON.stringify({
     access_key: "6c4f158f-5776-4364-9e2f-9db13bed20eb",
     name: name,
@@ -37,8 +40,11 @@ async function handleSubmit(event) {
     body: json
   });
   const result = await response.json();
+
+  console.log(result);
+
   if (result.success) {
-    console.log(result);
+    // console.log(result);
     alert('Thank you for your feedback. We will be in touch with you soon.')
     router.push('/')
   }
