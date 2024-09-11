@@ -1,54 +1,59 @@
-import React, { Fragment } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import React, { Fragment } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+import { useForm } from "react-hook-form";
+import useWeb3Forms from "@web3forms/react";
+
+// ncbphi001 webforms access key: 677e1cff-b326-45cb-a7cc-d37575722699;
 
 const Contact = () => {
+  const router = useRouter();
 
-const router = useRouter()
-
-const [name, setName] = React.useState("");
-const [email, setEmail] = React.useState("");
-const [number, setNumber] = React.useState("");
-const [message, setMessage] = React.useState("");
-
-async function handleSubmit(event) {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-
-  formData.append("access_key", "6c4f158f-5776-4364-9e2f-9db13bed20eb");
-
-  const object = Object.fromEntries(new FormData(event.currentTarget));
-
-  console.log({object})
-
-  const json = JSON.stringify({
-    access_key: "6c4f158f-5776-4364-9e2f-9db13bed20eb",
-    name: name,
-    email: email,
-    number: number,
-    message: message,
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    control,
+    setValue,
+    formState: { errors, isSubmitSuccessful, isSubmitting },
+  } = useForm({
+    mode: "onTouched",
   });
 
-  console.log({form:json})
+  const [isSuccess, setIsSuccess] = React.useState(false);
+  const [result, setResult] = React.useState(null);
 
-  const response = await fetch("https://api.web3forms.com/submit", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: json
-  });
-  const result = await response.json();
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [number, setNumber] = React.useState("");
+  const [message, setMessage] = React.useState("");
 
-  console.log(result);
+  const accessKey = process.env.NEXT_PUBLIC_WEBFORMS_ACCESS_KEY;
 
-  if (result.success) {
-    // console.log(result);
-    alert('Thank you for your feedback. We will be in touch with you soon.')
-    router.push('/')
-  }
-}
+   const { submit: onSubmit } = useWeb3Forms({
+     access_key: accessKey,
+     settings: {
+       from_name: "African Expressions",
+       subject: "New Contact Message from your Website",
+        replyTo: "info@africanexpressions.co.za",
+       // ... other settings
+     },
+     onSuccess: (msg, data) => {
+       console.log("Success", {msg, data});
+       setIsSuccess(true);
+       setResult(msg);
+       reset();
+     },
+     onError: (msg, data) => {
+      console.log("Error", { msg, data });
+       setIsSuccess(false);
+       setResult(msg);
+     },
+   });
+
+
 
   return (
     <Fragment>
@@ -59,7 +64,7 @@ async function handleSubmit(event) {
 
         <h2 className="text-2xl text-deep font-georgia">Any Queries?</h2>
         <div className="grid w-full grid-cols-1 gap-6 mt-6 md:grid-cols-2">
-          <form onSubmit={handleSubmit} className="w-full mt-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full mt-6">
             <div className="flex flex-col md:mr-16">
               <label
                 htmlFor="name"
@@ -70,6 +75,7 @@ async function handleSubmit(event) {
               <input
                 type="text"
                 required
+                {...register("name", { required: true })}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 id="name"
@@ -87,6 +93,7 @@ async function handleSubmit(event) {
               <input
                 type="email"
                 required
+                {...register("email", { required: true })}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 id="email"
@@ -106,6 +113,7 @@ async function handleSubmit(event) {
                 required
                 id="number"
                 value={number}
+                {...register("number", { required: true })}
                 onChange={(e) => setNumber(e.target.value)}
                 className="flex items-center w-full h-10 pl-3 text-sm font-normal bg-white border border-gray-300 rounded shadow text-deep focus:outline-none"
                 placeholder="Contact Number"
@@ -123,6 +131,7 @@ async function handleSubmit(event) {
                 id="message"
                 name="message"
                 required
+                {...register("message", { required: true })}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="py-3 pl-3 text-sm placeholder-gray-500 bg-transparent border border-gray-300 rounded shadow-sm resize-none focus:outline-none text-deep "
@@ -132,11 +141,15 @@ async function handleSubmit(event) {
             </div>
 
             <button
+              disabled={isSubmitting}
               type="submit"
               className="px-16 py-3 mt-4 text-lg font-medium text-white uppercase rounded shadow-lg cursor-pointer bg-accent hover:bg-yellow-800/80 hover:shadow-sm"
             >
-              Submit
+              {isSubmitting ? "Please Wait..." : "Submit"}
             </button>
+            {isSuccess && (
+              <p className="mt-4 text-lg text-green-600">{result}</p>
+            )}
           </form>
 
           <div className="flex items-center">
@@ -154,6 +167,7 @@ async function handleSubmit(event) {
               </span>
               <Link href="/stores" passHref>
                 <button
+
                   type="button"
                   className="px-16 py-3 mt-4 text-lg font-medium text-white uppercase rounded shadow-lg cursor-pointer bg-accent hover:bg-yellow-800/80 hover:shadow-sm"
                 >
