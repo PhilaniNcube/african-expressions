@@ -37,7 +37,7 @@ const Contact = () => {
      settings: {
        from_name: "African Expressions",
        subject: "New Contact Message from your Website",
-        replyTo: "roxxane@samil.co.za",
+        replyTo: "roxanne@samil.co.za",
        // ... other settings
      },
      onSuccess: (msg, data) => {
