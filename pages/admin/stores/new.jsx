@@ -20,7 +20,7 @@ const NewStore = () => {
 
   const addStoreMutation = useMutation({
     mutationFn: async (newStore) => {
-      const response = await fetch("/api/stores/create", {
+      const response = await fetch("/api/stores/new", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -18,7 +18,7 @@ const StoresIndex = ({ stores }) => {
     }
   );
 
-  console.log({ data, isLoading, isError, isFetching });
+
 
   // Add memoized filtered stores
   const filteredStores = useMemo(() => {
