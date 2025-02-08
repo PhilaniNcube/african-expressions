@@ -16,8 +16,6 @@ const NewStore = () => {
     website: "",
   });
 
-
-
   const addStoreMutation = useMutation({
     mutationFn: async (newStore) => {
       const response = await fetch("/api/stores/new", {
@@ -36,7 +34,6 @@ const NewStore = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(["stores"]);
       router.push("/admin/stores");
-      queryClient.invalidateQueries(["stores"]);
     },
   });
 
