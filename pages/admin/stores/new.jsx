@@ -36,6 +36,7 @@ const NewStore = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(["stores"]);
       router.push("/admin/stores");
+      queryClient.invalidateQueries(["stores"]);
     },
   });
 
