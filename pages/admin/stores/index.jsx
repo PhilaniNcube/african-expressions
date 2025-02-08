@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import supabaseService from "../../../utils/supabaseService";
 import { useState, useMemo } from "react";
 import getStores, { getOnlineStores } from "../../../lib/getStores";
+import Link from "next/link";
 
 const StoresIndex = ({ stores }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,6 +17,8 @@ const StoresIndex = ({ stores }) => {
       refetchOnWindowFocus: false,
     }
   );
+
+  console.log({ data, isLoading, isError, isFetching });
 
   // Add memoized filtered stores
   const filteredStores = useMemo(() => {
@@ -59,7 +62,7 @@ const StoresIndex = ({ stores }) => {
   return (
     <div className="p-4 mx-auto max-w-7xl">
       <h1 className="mb-4 text-2xl font-bold">Stores Management</h1>
-      <div className="mb-4">
+      <div className="flex items-center justify-between mb-4">
         <input
           type="text"
           placeholder="Search stores by name..."
@@ -67,6 +70,11 @@ const StoresIndex = ({ stores }) => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full max-w-3xl px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+        <Link className="block mt-2 text-blue-600" href="/admin/stores/new">
+          <button className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">
+            Add New Store
+          </button>
+        </Link>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300">
