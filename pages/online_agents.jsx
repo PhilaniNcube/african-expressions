@@ -9,6 +9,8 @@ const OnlineStores = ({ initialData }) => {
   const [filter, setFilter] = useState('');
   const router = useRouter();
 
+
+
   const onlineStoresQuery = useQuery(
     ['online-stores'],getOnlineStores,
     {
@@ -29,16 +31,16 @@ const OnlineStores = ({ initialData }) => {
   );
 
   return (
-    <main className="max-w-7xl mx-auto my-8 px-6 md:px-4">
+    <main className="px-6 mx-auto my-8 max-w-7xl md:px-4">
       <div className="w-full py-6">
-        <h1 className="text-accent font-extrabold font-georgiaBold text-2xl md:text-4xl">
+        <h1 className="text-2xl font-extrabold text-accent font-georgiaBold md:text-4xl">
           Online Stockists
         </h1>
 
-        <div className="flex mt-3 items-center ">
+        <div className="flex items-center mt-3 ">
           <div className="flex flex-col ">
             <div className="relative">
-              <div className="absolute text-deep flex items-center pl-3 h-full">
+              <div className="absolute flex items-center h-full pl-3 text-deep">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon icon-tabler icon-tabler-search"
@@ -60,14 +62,14 @@ const OnlineStores = ({ initialData }) => {
                 id="search"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                className="text-deep bg-white  focus:outline-none focus:border focus:border-gray-700 font-normal pr-20 sm:pr-32 h-10 flex items-center pl-10 text-sm border-gray-300 rounded border shadow"
+                className="flex items-center h-10 pl-10 pr-20 text-sm font-normal bg-white border border-gray-300 rounded shadow text-deep focus:outline-none focus:border focus:border-gray-700 sm:pr-32"
                 placeholder="Search Online Stores"
               />
             </div>
           </div>
         </div>
 
-        <div className="w-full mt-6 grid grid-cols-1 md:grid-cols-2 bg-slate-50 py-6 rounded-xl px-4 shadow border border-slate-100 gap-8">
+        <div className="grid w-full grid-cols-1 gap-8 px-4 py-6 mt-6 border shadow md:grid-cols-2 bg-slate-50 rounded-xl border-slate-100">
 
 
           {onlineStoresQuery.isLoading ? (
@@ -78,14 +80,14 @@ const OnlineStores = ({ initialData }) => {
               <Link
                 href={`https://${store.website}`}
                 key={store.id}
-                className="bg-white w-full rounded-lg shadow-lg shadow-zinc-800/10 p-4"
+                className="w-full p-4 bg-white rounded-lg shadow-lg shadow-zinc-800/10"
               >
-                <h3 className="text-accent font-futuraBold uppercase text-lg">
+                <h3 className="text-lg uppercase text-accent font-futuraBold">
                   {store.name}
                 </h3>
                 <p className="mt-2 text-deep">
                   Website:
-                  <span className="pl-3 text-sky-700 cursor-pointer">
+                  <span className="pl-3 cursor-pointer text-sky-700">
                     <Link href={`https://${store.website}`}>
                       {store.website}
                     </Link>
