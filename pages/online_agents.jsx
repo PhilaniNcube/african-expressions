@@ -76,9 +76,13 @@ const OnlineStores = ({ initialData }) => {
             <p className="text-base text-zinc-700">Loading...</p>
           ) : (
             onlineStoresQuery.isSuccess &&
-            filteredStores.map((store) => (
-              <Link
-                href={`https://${store.website}`}
+            filteredStores.map((store) => {
+
+              // check if the store.website starts with https then use that as the href if not then add it to to the url
+              const website = store.website.startsWith('https://') ? store.website : `https://${store.website}`;
+
+              return (           <Link
+                href={website}
                 key={store.id}
                 className="w-full p-4 bg-white rounded-lg shadow-lg shadow-zinc-800/10"
               >
@@ -88,7 +92,7 @@ const OnlineStores = ({ initialData }) => {
                 <p className="mt-2 text-deep">
                   Website:
                   <span className="pl-3 cursor-pointer text-sky-700">
-                    <Link href={`https://${store.website}`}>
+                    <Link href={website}>
                       {store.website}
                     </Link>
                   </span>
@@ -102,8 +106,8 @@ const OnlineStores = ({ initialData }) => {
                 <p className="mt-2 text-deep">
                   Ciy: <span className="pl-3">{store.city}</span>
                 </p>
-              </Link>
-            ))
+              </Link>)
+            })
           )}
         </div>
       </div>
