@@ -18,6 +18,8 @@ const StoresIndex = ({ stores }) => {
     }
   );
 
+  console.log(data, isLoading)
+
 
 
   // Add memoized filtered stores
