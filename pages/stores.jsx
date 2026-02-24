@@ -6,7 +6,7 @@ import getStores from "../lib/getStores";
 const stores = ({stores}) => {
   return (
     <Fragment>
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto max-w-7xl">
         <MapComponent stores={stores} />
       </div>
     </Fragment>

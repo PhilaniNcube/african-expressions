@@ -63,9 +63,9 @@ const MapComponent = ({ stores }) => {
         () =>
           stores.filter(
             (store) =>
-              store.name.toLowerCase().includes(filter.toLowerCase()) ||
-              store.city.toLowerCase().includes(filter.toLowerCase()) ||
-              store.streetAddress.toLowerCase().includes(filter.toLowerCase())
+              (store.name ?? '').toLowerCase().includes(filter.toLowerCase()) ||
+              (store.city ?? '').toLowerCase().includes(filter.toLowerCase()) ||
+              (store.streetAddress ?? '').toLowerCase().includes(filter.toLowerCase())
           ),
         [filter, stores]
       );
