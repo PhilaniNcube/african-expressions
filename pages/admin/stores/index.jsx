@@ -25,7 +25,7 @@ const StoresIndex = ({ stores }) => {
   // Add memoized filtered stores
   const filteredStores = useMemo(() => {
     return data?.filter((store) =>
-      store.name.toLowerCase().includes(searchTerm.toLowerCase())
+      store.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [data, searchTerm]);
 
