@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { cacheLife } from 'next/cache';
-import supabaseService from '../../../utils/supabaseService';
 import AdminStoresClient from './AdminStoresClient';
+import getStores from '@/lib/getStores';
 
 export const metadata: Metadata = { title: 'Stores | Admin' };
 
@@ -9,9 +9,7 @@ export default async function AdminStoresPage() {
   'use cache';
   cacheLife('minutes');
 
-  const { data: stores, error } = await supabaseService.from('stores').select('*');
-
-  if (error) console.error('Error fetching stores:', error.message);
+  const stores = await getStores();
 
   return <AdminStoresClient initialStores={(stores ?? []) as any} />;
 }

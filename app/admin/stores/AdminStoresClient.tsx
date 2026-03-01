@@ -3,8 +3,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import getStores from '../../../lib/getStores';
 import type { Store } from '../../../types';
+
+const fetchStores = async (): Promise<Store[]> => {
+  const res = await fetch('/api/stores');
+  if (!res.ok) throw new Error('Failed to fetch stores');
+  return res.json();
+};
 
 interface AdminStoresClientProps {
   initialStores: Store[];
@@ -14,7 +19,7 @@ export default function AdminStoresClient({ initialStores }: AdminStoresClientPr
   const [searchTerm, setSearchTerm] = useState('');
   const queryClient = useQueryClient();
 
-  const { data } = useQuery(['stores'], getStores, {
+  const { data } = useQuery(['stores'], fetchStores, {
     initialData: initialStores,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
