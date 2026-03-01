@@ -215,7 +215,9 @@ export default function PatternsClient({
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <img
+                  <Image
+                    width={500}
+                    height={800} 
                     alt={pattern.name}
                     src={pattern.image}
                     className="z-10 block object-cover w-full h-full rounded-md shadow-xl hover:shadow-sm"
