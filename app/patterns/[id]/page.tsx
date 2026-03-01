@@ -3,30 +3,47 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import supabase from '../../../utils/supabase';
+import { eq } from 'drizzle-orm';
+import { cacheLife, cacheTag } from 'next/cache';
+import { db } from '../../../db';
+import { patterns, products, categories, stitching } from '../../../db/schema';
 
 type Props = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const { data: pattern } = await supabase
-    .from('patterns')
-    .select('name')
-    .eq('id', id)
-    .single();
+  const row = await db
+    .select({ name: patterns.name })
+    .from(patterns)
+    .where(eq(patterns.id, id))
+    .then((rows) => rows[0] ?? null);
 
-  return { title: pattern ? `${pattern.name} | African Expressions` : 'Pattern' };
+  return { title: row ? `${row.name} | African Expressions` : 'Pattern' };
 }
 
 async function getPattern(id: string) {
-  const { data: pattern, error } = await supabase
-    .from('patterns')
-    .select('*, stitching(id, name), category(id, name), product_id(id, name)')
-    .eq('id', id)
-    .single();
+  'use cache';
+  cacheLife('hours');
+  cacheTag('patterns');
 
-  if (error || !pattern) return null;
-  return pattern;
+  const row = await db
+    .select({
+      id: patterns.id,
+      name: patterns.name,
+      image: patterns.image,
+      document: patterns.document,
+      stitching: { id: stitching.id, name: stitching.name },
+      category: { id: categories.id, name: categories.name },
+      product_id: { id: products.id, name: products.name },
+    })
+    .from(patterns)
+    .leftJoin(stitching, eq(patterns.stitching, stitching.id))
+    .leftJoin(categories, eq(patterns.category, categories.id))
+    .leftJoin(products, eq(patterns.product_id, products.id))
+    .where(eq(patterns.id, id))
+    .then((rows) => rows[0] ?? null);
+
+  return row;
 }
 
 export default async function PatternPage({ params }: Props) {

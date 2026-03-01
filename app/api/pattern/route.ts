@@ -1,24 +1,23 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import supabaseService from '../../../utils/supabaseService';
+import { db } from '../../../db';
+import { patterns } from '../../../db/schema';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
 
-  const { data, error } = await supabaseService.from('patterns').insert([
-    {
+  try {
+    const data = await db.insert(patterns).values({
       name: body.name,
       image: body.image,
       document: body.document,
       product_id: body.productId,
       stitching: body.stitching,
       category: body.category,
-    },
-  ]);
+    }).returning();
 
-  if (error) {
+    return NextResponse.json({ status: 200, body: data });
+  } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
-
-  return NextResponse.json({ status: 200, body: data });
 }

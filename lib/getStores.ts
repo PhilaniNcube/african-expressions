@@ -1,32 +1,25 @@
-import supabase from '../utils/supabase';
+import { asc, isNotNull, ne } from 'drizzle-orm';
+import { db } from '../db';
+import { stores } from '../db/schema';
 import { Store } from '../types';
 
 const getStores = async (): Promise<Store[]> => {
-  const { data: stores, error } = await supabase
-    .from('stores')
-    .select('*')
-    .order('name');
+  const result = await db
+    .select()
+    .from(stores)
+    .orderBy(asc(stores.name));
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return (stores ?? []) as Store[];
+  return result as Store[];
 };
 
 export const getOnlineStores = async (): Promise<Store[]> => {
-  const { data: stores, error } = await supabase
-    .from('stores')
-    .select('*')
-    .order('name')
-    .not('website', 'is', null)
-    .neq('website', '');
+  const result = await db
+    .select()
+    .from(stores)
+    .where(isNotNull(stores.website))
+    .orderBy(asc(stores.name));
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return (stores ?? []) as Store[];
+  return result.filter((store) => store.website !== '') as Store[];
 };
 
 export default getStores;

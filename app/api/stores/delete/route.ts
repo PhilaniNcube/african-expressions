@@ -1,20 +1,22 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import supabaseService from '../../../../utils/supabaseService';
+import { eq } from 'drizzle-orm';
+import { db } from '../../../../db';
+import { stores } from '../../../../db/schema';
 
 export async function DELETE(request: NextRequest) {
   const body = await request.json();
   const { id } = body;
 
-  const { data, error } = await supabaseService
-    .from('stores')
-    .delete()
-    .eq('id', id);
+  try {
+    const data = await db
+      .delete(stores)
+      .where(eq(stores.id, id))
+      .returning();
 
-  if (error) {
+    return NextResponse.json({ status: 200, body: data });
+  } catch (error) {
     console.error(error);
     return NextResponse.json({ error }, { status: 500 });
   }
-
-  return NextResponse.json({ status: 200, body: data });
 }

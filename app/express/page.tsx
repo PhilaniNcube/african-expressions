@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
-import supabase from '../../utils/supabase';
+import { eq, asc } from 'drizzle-orm';
+import { cacheLife, cacheTag } from 'next/cache';
+import { db } from '../../db';
+import { products } from '../../db/schema';
 import ProductGrid from '../../components/layout/ProductGrid';
 
 export const metadata: Metadata = {
@@ -7,21 +10,23 @@ export const metadata: Metadata = {
 };
 
 async function getExpressProducts() {
-  const { data: products } = await supabase
-    .from('products')
-    .select('*')
-    .order('name', { ascending: true })
-    .eq('type', 'express');
+  'use cache';
+  cacheLife('hours');
+  cacheTag('express-products');
 
-  return products;
+  return db
+    .select()
+    .from(products)
+    .where(eq(products.type, 'express'))
+    .orderBy(asc(products.name));
 }
 
 export default async function ExpressPage() {
   const products = await getExpressProducts();
 
   return (
-    <div className="max-w-7xl mx-auto px-6 md:px-4 my-8">
-      <h1 className="font-georgiaBold text-2xl md:text-4xl lg:text-5xl text-accent">
+    <div className="px-6 mx-auto my-8 max-w-7xl md:px-4">
+      <h1 className="text-2xl font-georgiaBold md:text-4xl lg:text-5xl text-accent">
         Express Yourself
       </h1>
       <p className="my-4 text-deep">
@@ -32,11 +37,11 @@ export default async function ExpressPage() {
 
       <ProductGrid products={products} />
 
-      <h1 className="font-georgiaBold mt-6 text-2xl md:text-4xl lg:text-5xl text-deep">
+      <h1 className="mt-6 text-2xl font-georgiaBold md:text-4xl lg:text-5xl text-deep">
         Tutorials
       </h1>
 
-      <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+      <div className="grid w-full grid-cols-1 gap-4 mt-3 md:grid-cols-3">
         <div className="w-full object-cover h-full aspect-[5/4]">
           <iframe
             className="w-full object-cover h-full aspect-[5/4]"

@@ -4,7 +4,6 @@
 import React, { Fragment, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import IMAGE_URL from '../../../lib/image';
 import type { Product } from '../../../types';
 
 interface YarnDetailProps {
@@ -17,35 +16,35 @@ export default function YarnDetail({ product }: YarnDetailProps) {
   return (
     <Fragment>
       <section>
-        <div className="max-w-7xl mx-auto my-12 px-6 lg:px-0">
-          <span className="text-deep text-xl font-medium">
+        <div className="px-6 mx-auto my-12 max-w-7xl lg:px-0">
+          <span className="text-xl font-medium text-deep">
             <span className="text-accent">
               <Link href="/">Home</Link>
             </span>{' '}
             /{' '}
-            <span className="text-accent cursor-pointer font-medium">
+            <span className="font-medium cursor-pointer text-accent">
               <Link href="/yarns">Yarns</Link>
             </span>{' '}
             / {product.name}
           </span>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="w-full flex justify-center items-center py-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="flex items-center justify-center w-full py-2">
               <Image
                 width={1080}
                 height={1080}
-                src={`${IMAGE_URL}/${product.slug}/${image}`}
+                src={image}
                 alt="Product"
                 className="w-full h-[400px] object-contain"
               />
             </div>
 
             <div className="w-full p-6">
-              <h1 className="text-2xl md:text-3xl lg:text-5xl uppercase font-georgia text-accent">
+              <h1 className="text-2xl uppercase md:text-3xl lg:text-5xl font-georgia text-accent">
                 {product.name}
               </h1>
 
-              <p className="text-md md:text-lg text-deep mt-2">{product.description}</p>
+              <p className="mt-2 text-md md:text-lg text-deep">{product.description}</p>
 
               <table className="w-full my-3">
                 <thead className="hidden">
@@ -55,52 +54,52 @@ export default function YarnDetail({ product }: YarnDetailProps) {
                   </tr>
                 </thead>
                 <tbody className="w-full">
-                  <tr className="text-deep w-full text-xs">
-                    <td className="px-3 w-2/6">
-                      <p className="text-xs font-futuraBold text-deep w-4/6 mr-3">Composition:</p>
+                  <tr className="w-full text-xs text-deep">
+                    <td className="w-2/6 px-3">
+                      <p className="w-4/6 mr-3 text-xs font-futuraBold text-deep">Composition:</p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-deep text-left">{product.composition}</p>
-                    </td>
-                  </tr>
-                  <tr className="text-deep text-xs">
-                    <td className="px-3">
-                      <p className="text-xs font-futuraBold text-deep w-4/6">Ball Weight:</p>
-                    </td>
-                    <td className="px-3">
-                      <p className="text-xs text-deep text-left">{product.ball_weight}g</p>
+                      <p className="text-xs text-left text-deep">{product.composition}</p>
                     </td>
                   </tr>
-                  <tr className="text-deep text-xs">
+                  <tr className="text-xs text-deep">
                     <td className="px-3">
-                      <p className="text-xs text-deep font-futuraBold w-4/6">Yarn Meterage:</p>
+                      <p className="w-4/6 text-xs font-futuraBold text-deep">Ball Weight:</p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-deep text-left">{product.yarn_length}m</p>
-                    </td>
-                  </tr>
-                  <tr className="text-deep text-xs">
-                    <td className="px-3">
-                      <p className="text-xs text-deep font-futuraBold w-4/6">Tension:</p>
-                    </td>
-                    <td className="px-3">
-                      <p className="text-xs text-deep text-left">{product.tension}</p>
+                      <p className="text-xs text-left text-deep">{product.ball_weight}g</p>
                     </td>
                   </tr>
-                  <tr className="text-deep text-xs">
+                  <tr className="text-xs text-deep">
                     <td className="px-3">
-                      <p className="text-xs text-deep font-futuraBold w-4/6">Needle Size:</p>
+                      <p className="w-4/6 text-xs text-deep font-futuraBold">Yarn Meterage:</p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-deep text-left">{product.needle_size}</p>
+                      <p className="text-xs text-left text-deep">{product.yarn_length}m</p>
                     </td>
                   </tr>
-                  <tr className="text-deep text-xs">
+                  <tr className="text-xs text-deep">
                     <td className="px-3">
-                      <p className="text-xs font-futuraBold text-deep w-4/6">Yarn Weight:</p>
+                      <p className="w-4/6 text-xs text-deep font-futuraBold">Tension:</p>
                     </td>
                     <td className="px-3">
-                      <p className="text-xs text-deep self-start">{product.yarn_weight}</p>
+                      <p className="text-xs text-left text-deep">{product.tension}</p>
+                    </td>
+                  </tr>
+                  <tr className="text-xs text-deep">
+                    <td className="px-3">
+                      <p className="w-4/6 text-xs text-deep font-futuraBold">Needle Size:</p>
+                    </td>
+                    <td className="px-3">
+                      <p className="text-xs text-left text-deep">{product.needle_size}</p>
+                    </td>
+                  </tr>
+                  <tr className="text-xs text-deep">
+                    <td className="px-3">
+                      <p className="w-4/6 text-xs font-futuraBold text-deep">Yarn Weight:</p>
+                    </td>
+                    <td className="px-3">
+                      <p className="self-start text-xs text-deep">{product.yarn_weight}</p>
                     </td>
                   </tr>
                 </tbody>
@@ -111,14 +110,14 @@ export default function YarnDetail({ product }: YarnDetailProps) {
               </p>
 
               <Link href={`/patterns?search=${product.name}`} passHref>
-                <button className="bg-accent text-white hover:bg-accent/90 hover:shadow-md mt-8 px-6 py-2 rounded-md text-base uppercase">
+                <button className="px-6 py-2 mt-8 text-base text-white uppercase rounded-md bg-accent hover:bg-accent/90 hover:shadow-md">
                   View Pattern
                 </button>
               </Link>
             </div>
           </div>
 
-          <div className="mt-4 w-full flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center w-full mt-4">
             <p className="text-lg font-medium text-deep">Available Colours</p>
             <div className="flex flex-wrap gap-4 p-6">
               {product.images.map((url, i) => (
@@ -126,15 +125,15 @@ export default function YarnDetail({ product }: YarnDetailProps) {
                   <Image
                     width={600}
                     height={600}
-                    src={`${IMAGE_URL}/${product.slug}/${url}`}
-                    className="md:h-20 md:w-20 w-10 h-10 rounded object-cover cursor-pointer"
+                    src={url}
+                    className="object-cover w-10 h-10 rounded cursor-pointer md:h-20 md:w-20"
                     alt={product.name}
                     onClick={() => {
                       setImage(url);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
                   />
-                  <p className="text-xs text-deep">{url.split('.')[0]}</p>
+                  <p className="text-xs text-deep">{url.split('/').pop()?.split('.')[0]}</p>
                 </div>
               ))}
             </div>

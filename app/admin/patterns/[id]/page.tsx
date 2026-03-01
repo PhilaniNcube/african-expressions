@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { cacheLife } from 'next/cache';
 import supabase from '../../../../utils/supabase';
 import EditPatternClient from './EditPatternClient';
 
@@ -8,6 +9,9 @@ export const metadata: Metadata = { title: 'Edit Pattern | Admin' };
 type Props = { params: Promise<{ id: string }> };
 
 export default async function EditPatternPage({ params }: Props) {
+  'use cache';
+  cacheLife('minutes');
+
   const { id } = await params;
 
   const [

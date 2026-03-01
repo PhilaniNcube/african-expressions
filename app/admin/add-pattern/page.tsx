@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
+import { cacheLife } from 'next/cache';
 import supabase from '../../../utils/supabase';
 import AddPatternClient from './AddPatternClient';
 
 export const metadata: Metadata = { title: 'Add Pattern | Admin' };
 
 export default async function AddPatternPage() {
+  'use cache';
+  cacheLife('minutes');
+
   const [{ data: categories }, { data: products }, { data: stitching }] =
     await Promise.all([
       supabase.from('category').select('id, name'),

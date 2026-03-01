@@ -1,5 +1,13 @@
 import type { Metadata } from 'next';
-import supabase from '../../utils/supabase';
+import { eq } from 'drizzle-orm';
+import { cacheLife, cacheTag } from 'next/cache';
+import { db } from '../../db';
+import {
+  patterns,
+  products,
+  categories,
+  stitching,
+} from '../../db/schema';
 import PatternsClient from './PatternsClient';
 
 export const metadata: Metadata = {
@@ -7,30 +15,44 @@ export const metadata: Metadata = {
 };
 
 async function getData() {
-  const [{ data: patterns }, { data: products }, { data: categories }] =
-    await Promise.all([
-      supabase
-        .from('patterns')
-        .select('*, stitching(*), category(*), product_id!inner(id, name)'),
-      supabase.from('products').select('*'),
-      supabase.from('category').select('*'),
-    ]);
+  'use cache';
+  cacheLife('hours');
+  cacheTag('patterns');
+
+  const [patternsData, productsData, categoriesData] = await Promise.all([
+    db
+      .select({
+        id: patterns.id,
+        name: patterns.name,
+        image: patterns.image,
+        document: patterns.document,
+        product_id: { id: products.id, name: products.name },
+        category: { id: categories.id, name: categories.name },
+        stitching: { id: stitching.id, name: stitching.name },
+      })
+      .from(patterns)
+      .leftJoin(products, eq(patterns.product_id, products.id))
+      .leftJoin(categories, eq(patterns.category, categories.id))
+      .leftJoin(stitching, eq(patterns.stitching, stitching.id)),
+    db.select().from(products),
+    db.select().from(categories),
+  ]);
 
   return {
-    patterns: patterns ?? [],
-    products: products ?? [],
-    categories: categories ?? [],
+    patterns: patternsData,
+    products: productsData,
+    categories: categoriesData,
   };
 }
 
 export default async function PatternsPage() {
-  const { patterns, products, categories } = await getData();
+  const { patterns: patternsData, products: productsData, categories: categoriesData } = await getData();
 
   return (
     <PatternsClient
-      initialPatterns={patterns as any}
-      products={products as any}
-      categories={categories as any}
+      initialPatterns={patternsData as any}
+      products={productsData as any}
+      categories={categoriesData as any}
     />
   );
 }

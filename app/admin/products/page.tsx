@@ -1,11 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { cacheLife } from 'next/cache';
 import supabase from '../../../utils/supabase';
 
 export const metadata: Metadata = { title: 'Products | Admin' };
 
 export default async function AdminProductsPage() {
+  'use cache';
+  cacheLife('minutes');
+
   const { data: products } = await supabase.from('products').select('*');
 
   return (

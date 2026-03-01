@@ -1,31 +1,38 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import supabase from '../../../utils/supabase';
+import { eq } from 'drizzle-orm';
+import { cacheLife, cacheTag } from 'next/cache';
+import { db } from '../../../db';
+import { products } from '../../../db/schema';
 import YarnDetail from './YarnDetail';
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const { data: product } = await supabase
-    .from('products')
-    .select('name')
-    .eq('slug', slug)
-    .single();
+  const product = await db
+    .select({ name: products.name })
+    .from(products)
+    .where(eq(products.slug, slug))
+    .then((rows) => rows[0] ?? null);
 
   return { title: product ? `${product.name} | African Expressions` : 'Yarn' };
 }
 
 export default async function YarnPage({ params }: Props) {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('products');
+
   const { slug } = await params;
 
-  const { data: product, error } = await supabase
-    .from('products')
-    .select('*')
-    .eq('slug', slug)
-    .single();
+  const product = await db
+    .select()
+    .from(products)
+    .where(eq(products.slug, slug))
+    .then((rows) => rows[0] ?? null);
 
-  if (error || !product) return notFound();
+  if (!product) return notFound();
 
   return <YarnDetail product={product as any} />;
 }

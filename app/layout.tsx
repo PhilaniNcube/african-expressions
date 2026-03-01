@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { Suspense } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import ContactButton from '../components/layout/ContactButton';
@@ -19,9 +20,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <Providers>
-          <Navbar />
+          <Suspense>
+            <Navbar />
+          </Suspense>
           <ContactButton />
-          {children}
+          <Suspense>
+            {children}
+          </Suspense>
           <Footer />
         </Providers>
       </body>

@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
+import { cacheLife } from 'next/cache';
 import supabase from '../../../utils/supabase';
 import PatternsTable from '../../../components/PatternsTable';
 
 export const metadata: Metadata = { title: 'Patterns | Admin' };
 
 export default async function AdminPatternsPage() {
+  'use cache';
+  cacheLife('minutes');
+
   const { data: patterns, error } = await supabase
     .from('patterns')
     .select('*, product_id!inner(id, name), category!inner(id, name), stitching(*)');
