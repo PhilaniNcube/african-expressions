@@ -1,6 +1,8 @@
+'use client';
+
 /* eslint-disable @next/next/no-img-element */
 import { Fragment, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   FaFacebookF,
   FaPinterestP,
@@ -46,6 +48,7 @@ const socials = [
 
 const Navbar = () => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const [search, setSearch] = useState('')
 
@@ -71,7 +74,7 @@ const Navbar = () => {
             <Link href="/" passHref>
               <li
                 className={`cursor-pointer hover:text-accent transition-all duration-300 ${
-                  router.route === "/"
+                  pathname === "/"
                     ? "text-accent font-futuraBold"
                     : "text-deep"
                 }`}
@@ -83,7 +86,7 @@ const Navbar = () => {
             <Link href="/yarns" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === "/yarns"
+                  pathname === "/yarns"
                     ? "text-accent font-futuraBold"
                     : "text-deep"
                 }`}
@@ -94,7 +97,7 @@ const Navbar = () => {
             <Link href="/patterns" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === "/patterns"
+                  pathname === "/patterns"
                     ? "text-accent font-futuraBold"
                     : "text-deep"
                 }`}
@@ -105,7 +108,7 @@ const Navbar = () => {
             <Link href="/express" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === "/express"
+                  pathname === "/express"
                     ? "text-accent font-futuraBold"
                     : "text-deep"
                 }`}
@@ -116,7 +119,7 @@ const Navbar = () => {
             <Link href="/online_agents" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === "/online_agents"
+                  pathname === "/online_agents"
                     ? "text-accent font-futuraBold"
                     : "text-deep"
                 }`}
@@ -127,7 +130,7 @@ const Navbar = () => {
             <Link href="/stores" passHref>
               <li
                 className={`cursor-pointer  hover:text-accent transition-all duration-300 ${
-                  router.route === "/stores"
+                  pathname === "/stores"
                     ? "text-accent font-futuraBold"
                     : "text-deep"
                 }`}

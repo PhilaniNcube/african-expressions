@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -8,12 +10,12 @@ const ProductGrid = ({ products }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 transition-all duration-500 ease-in-out lg:grid-cols-3 gap-x-10 gap-y-10 my-8 px-6 lg:px-0">
+    <div className="grid grid-cols-1 px-6 my-8 transition-all duration-500 ease-in-out md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 lg:px-0">
       {products?.map((product, i) => (
         <Link href={`/yarns/${product.slug}`} passHref key={product.slug}>
           <div
             key={product.id}
-            className="rounded relative  cursor-pointer"
+            className="relative rounded cursor-pointer"
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
@@ -22,16 +24,16 @@ const ProductGrid = ({ products }) => {
                 hoveredIndex === i ? 'opacity-100' : 'opacity-0 '
               }`}
             >
-              <div className="text-deep w-full h-full rounded-lg bg-gray-600/40 px-8 py-20 flex justify-center items-start flex-col space-y-2">
-                <div className="w-full h-full flex justify-center bg-white flex-col px-6 py-12">
-                  <p className=" text-md font-futuraBold  w-full">
+              <div className="flex flex-col items-start justify-center w-full h-full px-8 py-20 space-y-2 rounded-lg text-deep bg-gray-600/40">
+                <div className="flex flex-col justify-center w-full h-full px-6 py-12 bg-white">
+                  <p className="w-full text-md font-futuraBold">
                     {product.name}
                   </p>
-                  <p className=" text-xs  w-full border-b pb-2 border-gray-700">
+                  <p className="w-full pb-2 text-xs border-b border-gray-700 ">
                     {product.description}
                   </p>
 
-                  <p className="text-xs mt-1">
+                  <p className="mt-1 text-xs">
                     <span className="font-futuraBold">Composition:</span>
                     {product.composition}
                   </p>
@@ -64,14 +66,14 @@ const ProductGrid = ({ products }) => {
               height={500}
               src={product.main_image}
               alt={product.name}
-              qaulity={100}
-              className="w-full object-cover aspect-square rounded-lg"
+              quality={100}
+              className="object-cover w-full rounded-lg aspect-square"
             />
             <div className="flex flex-col items-center px-8 py-4">
               <p className="text-base md:text-xl font-futuraBold text-deep">
                 {product.name}
               </p>
-              <p className=" text-sm font-medium text-center font-futuraBook w-full">
+              <p className="w-full text-sm font-medium text-center font-futuraBook">
                 {product.description}
               </p>
             </div>
@@ -86,9 +88,9 @@ export default ProductGrid;
 
 const ProductDetails = ({ product }) => {
   return (
-    <div className="bg-white/60 absolute inset-0 h-full w-full">
-      <div className="flex justify-center items-center">
-        <p className="text-lg text-deep underline underline-offset-2">
+    <div className="absolute inset-0 w-full h-full bg-white/60">
+      <div className="flex items-center justify-center">
+        <p className="text-lg underline text-deep underline-offset-2">
           {product.name}
         </p>
       </div>

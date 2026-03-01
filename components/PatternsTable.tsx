@@ -1,19 +1,23 @@
+"use client";
+
+import { Pattern } from "@/types";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
-export default function PatternsTable({patterns}) {
+
+export default function PatternsTable({patterns}:{patterns:Pattern[]}) {
 
   const router = useRouter()
 
   return (
     <>
       <div className="py-12">
-        <div className="mx-auto w-full container bg-white shadow rounded">
-          <div className="flex flex-col lg:flex-row p-8 justify-between items-start lg:items-stretch w-full">
-            <div className="w-full lg:w-3/4 xl:w-2/3 flex flex-col lg:flex-row items-start">
+        <div className="container w-full mx-auto bg-white rounded shadow">
+          <div className="flex flex-col items-start justify-between w-full p-8 lg:flex-row lg:items-stretch">
+            <div className="flex flex-col items-start w-full lg:w-3/4 xl:w-2/3 lg:flex-row">
               <Link
                 href="/admin/add-pattern"
-                className="focus:shadow-outline-gray border border-transparent w-auto my-2 lg:my-0 lg:ml-2 xl:ml-4 bg-dark transition focus:outline-none focus:border-gray-800 focus:shadow-outline-gray duration-150 ease-in-out hover:bg-deep rounded text-white px-6 py-2 text-sm"
+                className="w-auto px-6 py-2 my-2 text-sm text-white transition duration-150 ease-in-out border border-transparent rounded focus:shadow-outline-gray lg:my-0 lg:ml-2 xl:ml-4 bg-dark focus:outline-none focus:border-gray-800 hover:bg-deep"
               >
                 Add Pattern
               </Link>
@@ -22,27 +26,27 @@ export default function PatternsTable({patterns}) {
           <div className="w-full overflow-x-scroll xl:overflow-x-hidden">
             <table className="min-w-full bg-white rounded">
               <thead>
-                <tr className="w-full h-16 border-gray-300 border-b py-8 bg-indigo-100">
+                <tr className="w-full h-16 py-8 bg-indigo-100 border-b border-gray-300">
                   {" "}
-                  <th className="text-gray-600 font-normal pl-6 text-left text-sm tracking-normal leading-4">
+                  <th className="pl-6 text-sm font-normal leading-4 tracking-normal text-left text-gray-600">
                     Title
                   </th>
-                  <th className="pl-8 text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                  <th className="pl-8 pr-6 text-sm font-normal leading-4 tracking-normal text-left text-gray-600">
                     Category{" "}
                   </th>
-                  <th className="text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                  <th className="pr-6 text-sm font-normal leading-4 tracking-normal text-left text-gray-600">
                     Yarn
                   </th>
-                  <th className="text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                  <th className="pr-6 text-sm font-normal leading-4 tracking-normal text-left text-gray-600">
                     Stitching
                   </th>
-                  <th className="text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                  <th className="pr-6 text-sm font-normal leading-4 tracking-normal text-left text-gray-600">
                     Pattern Document
                   </th>
-                  <th className="text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                  <th className="pr-6 text-sm font-normal leading-4 tracking-normal text-left text-gray-600">
                     Pattern Image
                   </th>
-                  <th className="text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                  <th className="pr-6 text-sm font-normal leading-4 tracking-normal text-left text-gray-600">
                     Edit Pattern
                   </th>
                 </tr>
@@ -51,42 +55,42 @@ export default function PatternsTable({patterns}) {
                 {patterns.map((pattern) => (
                   <tr
                     key={pattern.id}
-                    className="h-24 border-gray-300  border-t border-b hover:border-indigo-300 hover:shadow-md cursor-pointer transition duration-150 ease-in-out"
+                    className="h-24 transition duration-150 ease-in-out border-t border-b border-gray-300 cursor-pointer hover:border-indigo-300 hover:shadow-md"
                   >
                     {" "}
                     <td className="pr-6">
-                      <div className="w-full flex justify-start items-center h-full">
-                        <div className="text-dark font-montBold rounded-full text-sm leading-3 py-2 px-5">
+                      <div className="flex items-center justify-start w-full h-full">
+                        <div className="px-5 py-2 text-sm leading-3 rounded-full text-dark font-montBold">
                           {pattern.name}
                         </div>
                       </div>
                     </td>
-                    <td className="pl-8 pr-6 text-left whitespace-no-wrap text-sm text-gray-800  tracking-normal leading-4">
+                    <td className="pl-8 pr-6 text-sm leading-4 tracking-normal text-left text-gray-800 whitespace-no-wrap">
                       {pattern.category.name}
                     </td>
-                    <td className="text-sm pr-6 whitespace-no-wrap text-gray-800  tracking-normal leading-4">
+                    <td className="pr-6 text-sm leading-4 tracking-normal text-gray-800 whitespace-no-wrap">
                       {pattern.product_id.name}
                     </td>
-                    <td className="text-sm pr-6 whitespace-no-wrap text-gray-800  tracking-normal leading-4">
+                    <td className="pr-6 text-sm leading-4 tracking-normal text-gray-800 whitespace-no-wrap">
                       {pattern.stitching.name}
                     </td>
-                    <td className="text-sm pr-6 whitespace-no-wrap tracking-normal leading-4">
+                    <td className="pr-6 text-sm leading-4 tracking-normal whitespace-no-wrap">
                       <Link
-                        className="bg-dark hover:bg-deep rounded px-4 py-2 text-white"
+                        className="px-4 py-2 text-white rounded bg-dark hover:bg-deep"
                         href={pattern.document}
                       >
                         View Pattern
                       </Link>
                     </td>
-                    <td className="text-sm pr-6 whitespace-no-wrap text-gray-800  tracking-normal leading-4">
+                    <td className="pr-6 text-sm leading-4 tracking-normal text-gray-800 whitespace-no-wrap">
                       <Link
-                        className="bg-dark hover:bg-deep rounded px-4 py-2 text-white"
+                        className="px-4 py-2 text-white rounded bg-dark hover:bg-deep"
                         href={pattern.image}
                       >
                         View Image
                       </Link>
                     </td>
-                    <td className="text-sm pr-6 whitespace-no-wrap text-gray-800  tracking-normal leading-4">
+                    <td className="pr-6 text-sm leading-4 tracking-normal text-gray-800 whitespace-no-wrap">
                       <svg
                         onClick={() => router.push(`/admin/patterns/${pattern.id}`)}
                         xmlns="http://www.w3.org/2000/svg"

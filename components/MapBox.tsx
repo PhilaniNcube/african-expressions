@@ -2,10 +2,11 @@ import {useRef, useState} from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Map, {Marker} from 'react-map-gl'
+import { Store } from '@/types';
 
 
 
-const MapBox = ({stores}) => {
+const MapBox = ({stores}:{stores: Store[]}) => {
 
   const mapRef = useRef(null)
   const [viewport, setViewport] = useState({
@@ -17,7 +18,7 @@ const MapBox = ({stores}) => {
 
 
   return (
-    <div className="text-black relative bg-blue-400">
+    <div className="relative text-black bg-blue-400">
 
     </div>
   );

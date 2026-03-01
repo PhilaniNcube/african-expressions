@@ -1,17 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
-import React from 'react';
 
 const SectionTwo = () => {
   return (
-    <section className="max-w-7xl mx-auto py-12 px-6 md:px-4">
-      <h1 className="text-4xl text-deep font-georgiaBold mb-6">
+    <section className="px-6 py-12 mx-auto max-w-7xl md:px-4">
+      <h1 className="mb-6 text-4xl text-deep font-georgiaBold">
         About African Expressions
       </h1>
 
-      <div className="w-full grid grid-cols-1 text-deep md:grid-cols-2 gap-6 lg:gap-12 py-4">
+      <div className="grid w-full grid-cols-1 gap-6 py-4 text-deep md:grid-cols-2 lg:gap-12">
         <div className="w-full text-base">
-          <h3 className="font-georgiaBold text-xl">Natural beauty</h3>
+          <h3 className="text-xl font-georgiaBold">Natural beauty</h3>
           <p className="pb-3">
             African Expressions was born from the desire for Africa to share her
             natural beauty with the rest of the world. Through our unique range
@@ -36,7 +35,7 @@ const SectionTwo = () => {
             alt="sheep"
             width={6370}
             height={4247}
-            className="w-full object-cover apsect-video rounded-sm shadow-lg"
+            className="object-cover w-full rounded-sm shadow-lg apsect-video"
           />
         </div>
 
@@ -46,11 +45,11 @@ const SectionTwo = () => {
             alt="Sheep"
             width={6037}
             height={3307}
-            className="w-full object-cover apsect-video rounded-sm shadow-lg"
+            className="object-cover w-full rounded-sm shadow-lg apsect-video"
           />
         </div>
         <div className="w-full text-base">
-          <h3 className="font-georgiaBold text-xl">Natural Fibres</h3>
+          <h3 className="text-xl font-georgiaBold">Natural Fibres</h3>
           <p className="pb-3">
             From farm to store, each and every process is handled with the
             utmost of care to ensure that the fibres are treated delicately and

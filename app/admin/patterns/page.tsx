@@ -1,0 +1,21 @@
+import type { Metadata } from 'next';
+import supabase from '../../../utils/supabase';
+import PatternsTable from '../../../components/PatternsTable';
+
+export const metadata: Metadata = { title: 'Patterns | Admin' };
+
+export default async function AdminPatternsPage() {
+  const { data: patterns, error } = await supabase
+    .from('patterns')
+    .select('*, product_id!inner(id, name), category!inner(id, name), stitching(*)');
+
+  if (error) console.log(error.message);
+
+  return (
+    <main className="max-w-7xl mx-auto px-6 md:px-4 lg:px-0 py-12">
+      <h1 className="text-3xl text-deep font-georgiaBold">Patterns</h1>
+      <hr className="text-dark" />
+      <PatternsTable patterns={(patterns ?? []) as any} />
+    </main>
+  );
+}
