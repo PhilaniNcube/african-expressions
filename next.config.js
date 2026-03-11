@@ -2,6 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   cacheComponents: true,
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '25mb',
+    },
+  },
   images: {
     minimumCacheTTL: 2678400,
     remotePatterns: [
