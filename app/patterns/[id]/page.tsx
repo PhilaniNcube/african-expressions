@@ -10,10 +10,22 @@ import { patterns, products, categories, stitching } from '../../../db/schema';
 
 type Props = { params: Promise<{ id: string }> };
 
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isPatternId(id: string) {
+  return UUID_PATTERN.test(id);
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
+
+  if (!isPatternId(id)) {
+    return { title: 'Pattern' };
+  }
+
   const row = await db
-    .select({ name: patterns.name })
+    .select()
     .from(patterns)
     .where(eq(patterns.id, id))
     .then((rows) => rows[0] ?? null);
@@ -23,6 +35,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 async function getPattern(id: string) {
   'use cache';
+
+  if (!isPatternId(id)) {
+    return null;
+  }
+
   cacheLife('hours');
   cacheTag('patterns');
 
@@ -53,44 +70,44 @@ export default async function PatternPage({ params }: Props) {
   if (!pattern) return notFound();
 
   return (
-    <main className="max-w-7xl py-12 mx-auto px-6 relative lg:px-4">
+    <main className="relative px-6 py-12 mx-auto max-w-7xl lg:px-4">
       <Link href="/patterns" passHref>
-        <button className="mt-8 bg-accent px-6 py-1 rounded text-white uppercase">
+        <button className="px-6 py-1 mt-8 text-white uppercase rounded bg-accent">
           Back To Patterns
         </button>
       </Link>
-      <div className="my-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 my-4 md:grid-cols-2">
         <div className="relative w-full">
           <Image
             height={1080}
             width={1080}
-            className="w-full object-cover"
+            className="object-cover w-full"
             src={pattern.image}
             alt={pattern.name}
           />
         </div>
 
         <div className="w-full">
-          <h1 className="font-georgia uppercase text-2xl text-accent md:text-4xl">
+          <h1 className="text-2xl uppercase font-georgia text-accent md:text-4xl">
             {pattern.name}
           </h1>
-          <p className="text-md text-deep mb-2">
-            <span className="font-futuraBold mr-6">Stitching:</span>
+          <p className="mb-2 text-md text-deep">
+            <span className="mr-6 font-futuraBold">Stitching:</span>
             <span className="font-futuraBook">{(pattern.stitching as any)?.name}</span>
           </p>
-          <p className="text-md text-deep mb-2">
-            <span className="font-futuraBold mr-6">Category:</span>
+          <p className="mb-2 text-md text-deep">
+            <span className="mr-6 font-futuraBold">Category:</span>
             <span className="font-futuraBook">{(pattern.category as any)?.name}</span>
           </p>
-          <p className="text-md text-deep mb-2">
-            <span className="font-futuraBold mr-6">Yarn:</span>
+          <p className="mb-2 text-md text-deep">
+            <span className="mr-6 font-futuraBold">Yarn:</span>
             <span className="font-futuraBook">{(pattern.product_id as any)?.name}</span>
           </p>
           <a
             href={pattern.document}
             target="_blank"
             rel="noreferrer"
-            className="inline-block mt-6 bg-accent px-6 py-2 rounded text-white uppercase"
+            className="inline-block px-6 py-2 mt-6 text-white uppercase rounded bg-accent"
           >
             Download Pattern
           </a>
