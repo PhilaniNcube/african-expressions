@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import supabase from '../../utils/supabase';
+
 
 const AddPattern = ({ categories, products, stitching }) => {
   const [image, setImage] = useState('');
@@ -104,11 +104,11 @@ const AddPattern = ({ categories, products, stitching }) => {
   };
 
   return (
-    <main className="max-w-7xl mx-auto px-6 md:px-4 lg:px-0 py-12">
+    <main className="px-6 py-12 mx-auto max-w-7xl md:px-4 lg:px-0">
       <h1 className="text-3xl text-deep font-georgiaBold">Add A Pattern</h1>
 
-      <form className="w-full md:w-1/2 mx-auto" onSubmit={handleSubmit}>
-        <div className="mb-6 flex flex-col ">
+      <form className="w-full mx-auto md:w-1/2" onSubmit={handleSubmit}>
+        <div className="flex flex-col mb-6 ">
           <label
             htmlFor="name"
             className="pb-2 text-sm font-bold text-gray-800 "
@@ -122,11 +122,11 @@ const AddPattern = ({ categories, products, stitching }) => {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
+            className="px-3 py-3 text-sm text-gray-500 bg-transparent border border-gray-400 rounded shadow-sm"
           />
         </div>
 
-        <div className="mb-6 flex flex-col">
+        <div className="flex flex-col mb-6">
           <label
             htmlFor="category"
             className="pb-2 text-sm font-bold text-gray-800 "
@@ -140,7 +140,7 @@ const AddPattern = ({ categories, products, stitching }) => {
             required
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
+            className="px-3 py-3 text-sm text-gray-500 bg-transparent border border-gray-400 rounded shadow-sm"
           >
             <option value="">Select Category</option>
             {categories.map((category) => (
@@ -150,7 +150,7 @@ const AddPattern = ({ categories, products, stitching }) => {
             ))}
           </select>
         </div>
-        <div className="mb-6 flex flex-col">
+        <div className="flex flex-col mb-6">
           <label
             htmlFor="productId"
             className="pb-2 text-sm font-bold text-gray-800 "
@@ -164,7 +164,7 @@ const AddPattern = ({ categories, products, stitching }) => {
             required
             value={productId}
             onChange={(e) => setProductId(e.target.value)}
-            className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
+            className="px-3 py-3 text-sm text-gray-500 bg-transparent border border-gray-400 rounded shadow-sm"
           >
             <option value="">Select Product</option>
             {products.map((product) => (
@@ -174,7 +174,7 @@ const AddPattern = ({ categories, products, stitching }) => {
             ))}
           </select>
         </div>
-        <div className="mb-6 flex flex-col">
+        <div className="flex flex-col mb-6">
           <label
             htmlFor="stitch"
             className="pb-2 text-sm font-bold text-gray-800 "
@@ -188,7 +188,7 @@ const AddPattern = ({ categories, products, stitching }) => {
             required
             value={stitch}
             onChange={(e) => setStitching(e.target.value)}
-            className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
+            className="px-3 py-3 text-sm text-gray-500 bg-transparent border border-gray-400 rounded shadow-sm"
           >
             <option value="">Select Stitching</option>
             {stitching.map((stitch) => (
@@ -199,12 +199,12 @@ const AddPattern = ({ categories, products, stitching }) => {
           </select>
         </div>
 
-        <div className="w-full flex space-x-6">
+        <div className="flex w-full space-x-6">
           <div className="flex justify-center">
-            <div className=" w-full">
+            <div className="w-full ">
               <label
                 htmlFor="image"
-                className="form-label text-xs inline-block mb-1 text-gray-700"
+                className="inline-block mb-1 text-xs text-gray-700 form-label"
               >
                 Upload Image
               </label>
@@ -217,10 +217,10 @@ const AddPattern = ({ categories, products, stitching }) => {
             </div>
           </div>
           <div className="flex justify-center">
-            <div className=" w-full">
+            <div className="w-full ">
               <label
                 htmlFor="doc"
-                className="form-label inline-block mb-1 text-gray-700 text-xs"
+                className="inline-block mb-1 text-xs text-gray-700 form-label"
               >
                 Upload Document
               </label>
@@ -237,7 +237,7 @@ const AddPattern = ({ categories, products, stitching }) => {
         <button
           type="submit"
           disabled={loading}
-          className="bg-accent text-white text-lg font-medium px-8 rounded py-1 mt-3"
+          className="px-8 py-1 mt-3 text-lg font-medium text-white rounded bg-accent"
         >
           {loading ? 'Please wait....' : 'Submit'}
         </button>

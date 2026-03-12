@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import supabase from '../utils/supabase';
+
 import { useRouter } from 'next/router';
 import { useQuery } from "@tanstack/react-query";
 import Link from 'next/link';
-import getStores, {getOnlineStores} from '../lib/getStores';
+import {getOnlineStores} from '../lib/getStores';
 
 const OnlineStores = ({ initialData }) => {
   const [filter, setFilter] = useState('');
