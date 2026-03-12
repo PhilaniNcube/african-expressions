@@ -47,6 +47,7 @@ async function getData() {
 
 export default async function PatternsPage() {
   const { patterns: patternsData, products: productsData, categories: categoriesData } = await getData();
+  console.log('Patterns data:', patternsData);
 
   return (
     <PatternsClient
