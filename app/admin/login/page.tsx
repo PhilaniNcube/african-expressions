@@ -1,56 +1,26 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useActionState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { authClient } from '../../../lib/auth-client';
+import { authenticateAction } from './actions';
 
 function LoginForm() {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirectTo') || '/admin/patterns';
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+  const [state, formAction, isPending] = useActionState(authenticateAction, null);
 
-    try {
-      if (isSignUp) {
-        const { error: signUpError } = await authClient.signUp.email({
-          email,
-          password,
-          name,
-        });
-        if (signUpError) {
-          setError(signUpError.message || 'Failed to sign up');
-        } else {
-          router.push(redirectTo);
-          router.refresh();
-        }
-      } else {
-        const { error: signInError } = await authClient.signIn.email({
-          email,
-          password,
-        });
-        if (signInError) {
-          setError(signInError.message || 'Failed to sign in. Please check your credentials.');
-        } else {
-          router.push(redirectTo);
-          router.refresh();
-        }
-      }
-    } catch (err: any) {
-      setError(err.message || 'An unexpected error occurred');
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (state?.success) {
+      const timer = setTimeout(() => {
+        router.push(redirectTo);
+        router.refresh();
+      }, 1000);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [state?.success, router, redirectTo]);
 
   return (
     <div className="w-full max-w-md p-8 space-y-6 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-stone-200/50">
@@ -68,7 +38,6 @@ function LoginForm() {
           type="button"
           onClick={() => {
             setIsSignUp(false);
-            setError('');
           }}
           className={`flex-1 pb-3 text-sm font-semibold transition-colors duration-200 ${
             !isSignUp
@@ -82,7 +51,6 @@ function LoginForm() {
           type="button"
           onClick={() => {
             setIsSignUp(true);
-            setError('');
           }}
           className={`flex-1 pb-3 text-sm font-semibold transition-colors duration-200 ${
             isSignUp
@@ -94,13 +62,21 @@ function LoginForm() {
         </button>
       </div>
 
-      {error && (
+      {state?.error && (
         <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg border border-red-100 animate-pulse">
-          {error}
+          {state.error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      {state?.success && (
+        <div className="p-3 text-sm text-green-700 bg-green-50 rounded-lg border border-green-100">
+          {state.success}
+        </div>
+      )}
+
+      <form action={formAction} key={isSignUp ? 'signup' : 'signin'} className="space-y-4">
+        <input type="hidden" name="actionType" value={isSignUp ? 'signUp' : 'signIn'} />
+
         {isSignUp && (
           <div className="space-y-1">
             <label className="text-xs font-semibold uppercase tracking-wider text-stone-600">
@@ -108,9 +84,8 @@ function LoginForm() {
             </label>
             <input
               type="text"
+              name="name"
               required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
               placeholder="Admin User"
               className="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-900/10 focus:border-stone-900 transition-all text-stone-900 placeholder-stone-400"
             />
@@ -123,9 +98,8 @@ function LoginForm() {
           </label>
           <input
             type="email"
+            name="email"
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             placeholder="admin@example.com"
             className="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-900/10 focus:border-stone-900 transition-all text-stone-900 placeholder-stone-400"
           />
@@ -137,9 +111,8 @@ function LoginForm() {
           </label>
           <input
             type="password"
+            name="password"
             required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
             className="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-900/10 focus:border-stone-900 transition-all text-stone-900 placeholder-stone-400"
           />
@@ -147,10 +120,10 @@ function LoginForm() {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={isPending}
           className="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-md hover:shadow-lg focus:outline-none transition-all duration-150 disabled:opacity-50 active:scale-[0.98]"
         >
-          {loading ? (
+          {isPending ? (
             <span className="flex items-center justify-center space-x-2">
               <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               <span>Please wait...</span>
