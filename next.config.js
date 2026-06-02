@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   cacheComponents: true,
+  serverExternalPackages: ['better-auth'],
   experimental: {
     serverActions: {
       bodySizeLimit: '25mb',
