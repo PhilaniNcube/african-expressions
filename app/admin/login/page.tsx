@@ -13,14 +13,17 @@ function LoginForm() {
   const [state, formAction, isPending] = useActionState(authenticateAction, null);
 
   useEffect(() => {
+    console.log('Client-side LoginForm state:', state);
     if (state?.success) {
+      console.log('Authentication success! Attempting redirect to:', redirectTo);
       const timer = setTimeout(() => {
+        console.log('Executing router.push to:', redirectTo);
         router.push(redirectTo);
         router.refresh();
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [state?.success, router, redirectTo]);
+  }, [state, router, redirectTo]);
 
   return (
     <div className="w-full max-w-md p-8 space-y-6 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-stone-200/50">
