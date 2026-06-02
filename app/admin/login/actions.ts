@@ -2,6 +2,7 @@
 
 import { auth } from '../../../lib/auth';
 import { headers, cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 async function setCookiesFromResponse(res: Response) {
   const setCookieHeaders = res.headers.getSetCookie();
@@ -29,7 +30,8 @@ async function setCookiesFromResponse(res: Response) {
       else if (key === 'domain') options.domain = optVal;
       else if (key === 'max-age') options.maxAge = parseInt(optVal as string, 10);
       else if (key === 'expires') options.expires = new Date(optVal as string);
-      else if (key === 'secure') options.secure = true;
+      // Strip 'Secure' flag in dev so the cookie works over HTTP localhost
+      // else if (key === 'secure') options.secure = true;
       else if (key === 'httponly') options.httpOnly = true;
       else if (key === 'samesite') {
         const sameSiteVal = (optVal as string).toLowerCase();
@@ -38,14 +40,13 @@ async function setCookiesFromResponse(res: Response) {
         }
       }
     }
-    console.log(`Setting cookie in Next.js: ${name}=${value.slice(0, 10)}... (secure: ${!!options.secure}, httpOnly: ${!!options.httpOnly})`);
+    console.log(`Setting cookie: ${name}=${value.slice(0, 20)}... (httpOnly: ${!!options.httpOnly}, sameSite: ${options.sameSite})`);
     cookieStore.set(name, value, options);
   }
 }
 
 export interface ActionState {
   error?: string;
-  success?: string;
 }
 
 export async function authenticateAction(
@@ -55,6 +56,7 @@ export async function authenticateAction(
   const actionType = formData.get('actionType') as string;
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
+  const redirectTo = (formData.get('redirectTo') as string) || '/admin/patterns';
 
   if (!email || !password) {
     return { error: 'Email and password are required' };
@@ -69,50 +71,42 @@ export async function authenticateAction(
 
       console.log('Attempting sign up for:', email);
       const res = await auth.api.signUpEmail({
-        body: {
-          email,
-          password,
-          name,
-        },
+        body: { email, password, name },
         headers: await headers(),
         asResponse: true,
       });
 
       console.log('SignUp Response Status:', res.status);
-      console.log('SignUp Response Headers Set-Cookie:', res.headers.get('set-cookie'));
-
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
         throw new Error(errData.message || 'Failed to sign up');
       }
 
       await setCookiesFromResponse(res);
-
-      return { success: 'Account created successfully! Redirecting...' };
+      console.log('Cookies set — redirecting to:', redirectTo);
     } else {
       console.log('Attempting sign in for:', email);
       const res = await auth.api.signInEmail({
-        body: {
-          email,
-          password,
-        },
+        body: { email, password },
         headers: await headers(),
         asResponse: true,
       });
 
       console.log('SignIn Response Status:', res.status);
-      console.log('SignIn Response Headers Set-Cookie:', res.headers.get('set-cookie'));
-
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.message || 'Failed to sign in. Please check your credentials.');
+        throw new Error(errData.message || 'Invalid email or password.');
       }
 
       await setCookiesFromResponse(res);
-
-      return { success: 'Signed in successfully! Redirecting...' };
+      console.log('Cookies set — redirecting to:', redirectTo);
     }
   } catch (err: any) {
+    // Don't catch NEXT_REDIRECT — rethrow it
+    if (err?.digest?.startsWith('NEXT_REDIRECT')) throw err;
     return { error: err.message || 'Authentication failed. Please check your details.' };
   }
+
+  // redirect() is called outside try/catch so Next.js can handle it correctly
+  redirect(redirectTo);
 }

@@ -1,29 +1,15 @@
 'use client';
 
-import { useState, Suspense, useActionState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, Suspense, useActionState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { authenticateAction } from './actions';
 
 function LoginForm() {
   const [isSignUp, setIsSignUp] = useState(false);
-  const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirectTo') || '/admin/patterns';
 
   const [state, formAction, isPending] = useActionState(authenticateAction, null);
-
-  useEffect(() => {
-    console.log('Client-side LoginForm state:', state);
-    if (state?.success) {
-      console.log('Authentication success! Attempting redirect to:', redirectTo);
-      const timer = setTimeout(() => {
-        console.log('Executing router.push to:', redirectTo);
-        router.push(redirectTo);
-        router.refresh();
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [state, router, redirectTo]);
 
   return (
     <div className="w-full max-w-md p-8 space-y-6 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-stone-200/50">
@@ -39,9 +25,7 @@ function LoginForm() {
       <div className="flex border-b border-stone-200">
         <button
           type="button"
-          onClick={() => {
-            setIsSignUp(false);
-          }}
+          onClick={() => setIsSignUp(false)}
           className={`flex-1 pb-3 text-sm font-semibold transition-colors duration-200 ${
             !isSignUp
               ? 'border-b-2 border-stone-900 text-stone-900'
@@ -52,9 +36,7 @@ function LoginForm() {
         </button>
         <button
           type="button"
-          onClick={() => {
-            setIsSignUp(true);
-          }}
+          onClick={() => setIsSignUp(true)}
           className={`flex-1 pb-3 text-sm font-semibold transition-colors duration-200 ${
             isSignUp
               ? 'border-b-2 border-stone-900 text-stone-900'
@@ -66,19 +48,14 @@ function LoginForm() {
       </div>
 
       {state?.error && (
-        <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg border border-red-100 animate-pulse">
+        <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg border border-red-100">
           {state.error}
-        </div>
-      )}
-
-      {state?.success && (
-        <div className="p-3 text-sm text-green-700 bg-green-50 rounded-lg border border-green-100">
-          {state.success}
         </div>
       )}
 
       <form action={formAction} key={isSignUp ? 'signup' : 'signin'} className="space-y-4">
         <input type="hidden" name="actionType" value={isSignUp ? 'signUp' : 'signIn'} />
+        <input type="hidden" name="redirectTo" value={redirectTo} />
 
         {isSignUp && (
           <div className="space-y-1">
