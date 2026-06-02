@@ -30,8 +30,8 @@ async function setCookiesFromResponse(res: Response) {
       else if (key === 'domain') options.domain = optVal;
       else if (key === 'max-age') options.maxAge = parseInt(optVal as string, 10);
       else if (key === 'expires') options.expires = new Date(optVal as string);
-      // Strip 'Secure' flag in dev so the cookie works over HTTP localhost
-      // else if (key === 'secure') options.secure = true;
+      // Only apply Secure flag in production (not over HTTP localhost)
+      else if (key === 'secure') options.secure = process.env.NODE_ENV === 'production';
       else if (key === 'httponly') options.httpOnly = true;
       else if (key === 'samesite') {
         const sameSiteVal = (optVal as string).toLowerCase();
