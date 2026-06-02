@@ -20,6 +20,7 @@ async function setCookiesFromResponse(res: Response) {
     const value = nameValue.slice(separatorIdx + 1).trim();
 
     const options: any = {};
+    let strippedDomain: string | undefined;
     for (const option of rest) {
       const eqIdx = option.indexOf('=');
       const optName = eqIdx === -1 ? option.trim() : option.slice(0, eqIdx).trim();
@@ -27,7 +28,8 @@ async function setCookiesFromResponse(res: Response) {
       const key = optName.toLowerCase();
 
       if (key === 'path') options.path = optVal;
-      else if (key === 'domain') options.domain = optVal;
+      // Do NOT forward 'domain' — let Next.js use the current request domain
+      else if (key === 'domain') strippedDomain = optVal as string;
       else if (key === 'max-age') options.maxAge = parseInt(optVal as string, 10);
       else if (key === 'expires') options.expires = new Date(optVal as string);
       // Only apply Secure flag in production (not over HTTP localhost)
@@ -40,7 +42,11 @@ async function setCookiesFromResponse(res: Response) {
         }
       }
     }
-    console.log(`Setting cookie: ${name}=${value.slice(0, 20)}... (httpOnly: ${!!options.httpOnly}, sameSite: ${options.sameSite})`);
+    console.log(
+      `Setting cookie: ${name}=${value.slice(0, 20)}... ` +
+      `(httpOnly: ${!!options.httpOnly}, secure: ${!!options.secure}, ` +
+      `sameSite: ${options.sameSite}, strippedDomain: ${strippedDomain ?? 'none'})`
+    );
     cookieStore.set(name, value, options);
   }
 }
