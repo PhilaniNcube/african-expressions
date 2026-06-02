@@ -17,7 +17,16 @@ async function setCookiesFromResponse(res: Response) {
     if (separatorIdx === -1) continue;
 
     const name = nameValue.slice(0, separatorIdx).trim();
-    const value = nameValue.slice(separatorIdx + 1).trim();
+    // Decode the value: Better Auth URL-encodes tokens (e.g. %2F for /).
+    // Next.js cookies().set() URL-encodes its input, so we decode first to avoid double-encoding.
+    const rawValue = nameValue.slice(separatorIdx + 1).trim();
+    const value = (() => {
+      try {
+        return decodeURIComponent(rawValue);
+      } catch {
+        return rawValue;
+      }
+    })();
 
     const options: any = {};
     let strippedDomain: string | undefined;
