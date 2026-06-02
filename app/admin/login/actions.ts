@@ -1,7 +1,47 @@
 'use server';
 
 import { auth } from '../../../lib/auth';
-import { headers } from 'next/headers';
+import { headers, cookies } from 'next/headers';
+
+async function setCookiesFromResponse(res: Response) {
+  const setCookieHeaders = res.headers.getSetCookie();
+  console.log('Set-Cookie headers count:', setCookieHeaders.length);
+  if (setCookieHeaders.length === 0) return;
+
+  const cookieStore = await cookies();
+  for (const cookieStr of setCookieHeaders) {
+    const parts = cookieStr.split(';');
+    const [nameValue, ...rest] = parts;
+    const separatorIdx = nameValue.indexOf('=');
+    if (separatorIdx === -1) continue;
+
+    const name = nameValue.slice(0, separatorIdx).trim();
+    const value = nameValue.slice(separatorIdx + 1).trim();
+
+    const options: any = {};
+    for (const option of rest) {
+      const eqIdx = option.indexOf('=');
+      const optName = eqIdx === -1 ? option.trim() : option.slice(0, eqIdx).trim();
+      const optVal = eqIdx === -1 ? true : option.slice(eqIdx + 1).trim();
+      const key = optName.toLowerCase();
+
+      if (key === 'path') options.path = optVal;
+      else if (key === 'domain') options.domain = optVal;
+      else if (key === 'max-age') options.maxAge = parseInt(optVal as string, 10);
+      else if (key === 'expires') options.expires = new Date(optVal as string);
+      else if (key === 'secure') options.secure = true;
+      else if (key === 'httponly') options.httpOnly = true;
+      else if (key === 'samesite') {
+        const sameSiteVal = (optVal as string).toLowerCase();
+        if (sameSiteVal === 'lax' || sameSiteVal === 'strict' || sameSiteVal === 'none') {
+          options.sameSite = sameSiteVal;
+        }
+      }
+    }
+    console.log(`Setting cookie in Next.js: ${name}=${value.slice(0, 10)}... (secure: ${!!options.secure}, httpOnly: ${!!options.httpOnly})`);
+    cookieStore.set(name, value, options);
+  }
+}
 
 export interface ActionState {
   error?: string;
@@ -27,24 +67,48 @@ export async function authenticateAction(
         return { error: 'Name is required' };
       }
 
-      await auth.api.signUpEmail({
+      console.log('Attempting sign up for:', email);
+      const res = await auth.api.signUpEmail({
         body: {
           email,
           password,
           name,
         },
         headers: await headers(),
+        asResponse: true,
       });
+
+      console.log('SignUp Response Status:', res.status);
+      console.log('SignUp Response Headers Set-Cookie:', res.headers.get('set-cookie'));
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || 'Failed to sign up');
+      }
+
+      await setCookiesFromResponse(res);
 
       return { success: 'Account created successfully! Redirecting...' };
     } else {
-      await auth.api.signInEmail({
+      console.log('Attempting sign in for:', email);
+      const res = await auth.api.signInEmail({
         body: {
           email,
           password,
         },
         headers: await headers(),
+        asResponse: true,
       });
+
+      console.log('SignIn Response Status:', res.status);
+      console.log('SignIn Response Headers Set-Cookie:', res.headers.get('set-cookie'));
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || 'Failed to sign in. Please check your credentials.');
+      }
+
+      await setCookiesFromResponse(res);
 
       return { success: 'Signed in successfully! Redirecting...' };
     }
