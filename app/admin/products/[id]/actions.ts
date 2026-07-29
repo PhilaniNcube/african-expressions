@@ -38,6 +38,12 @@ function getTextField(formData: FormData, key: string): string {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+function getSanitizedFileName(file: File): string {
+  const nameWithoutExt = file.name.replace(/\.[^/.]+$/, '');
+  const sanitized = nameWithoutExt.replace(/[^a-zA-Z0-9_-]/g, '_').trim();
+  return sanitized || 'image';
+}
+
 function getR2KeyFromUrl(url: string) {
   if (!url) return null;
   const prefix = `${R2_PUBLIC_URL.replace(/\/+$/, '')}/`;
@@ -159,7 +165,8 @@ export async function updateProduct(
     if (mainImageFile instanceof File && mainImageFile.size > 0) {
       const imageInput = Buffer.from(await mainImageFile.arrayBuffer());
       const imageBuffer = await sharp(imageInput).webp({ quality: 75, effort: 4 }).toBuffer();
-      const imageKey = `products/${id}/main-${randomUUID()}.webp`;
+      const baseName = getSanitizedFileName(mainImageFile);
+      const imageKey = `products/${id}/main-${baseName}.webp`;
 
       await uploadToR2({
         key: imageKey,
@@ -182,7 +189,8 @@ export async function updateProduct(
       if (file instanceof File && file.size > 0) {
         const input = Buffer.from(await file.arrayBuffer());
         const webpBuffer = await sharp(input).webp({ quality: 75, effort: 4 }).toBuffer();
-        const colorKey = `products/${id}/images/${randomUUID()}.webp`;
+        const baseName = getSanitizedFileName(file);
+        const colorKey = `products/${id}/images/${baseName}.webp`;
 
         await uploadToR2({
           key: colorKey,
