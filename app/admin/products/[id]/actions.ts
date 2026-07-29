@@ -1,6 +1,5 @@
 'use server';
 
-import { randomUUID } from 'node:crypto';
 import { eq } from 'drizzle-orm';
 import sharp from 'sharp';
 import { revalidatePath, revalidateTag } from 'next/cache';
@@ -44,11 +43,19 @@ function getSanitizedFileName(file: File): string {
   return sanitized || 'image';
 }
 
-function getR2KeyFromUrl(url: string) {
+function getR2KeyFromUrl(url: string): string | null {
   if (!url) return null;
+  if (url.includes('products/')) {
+    return url.slice(url.indexOf('products/'));
+  }
+  if (url.includes('patterns/')) {
+    return url.slice(url.indexOf('patterns/'));
+  }
   const prefix = `${R2_PUBLIC_URL.replace(/\/+$/, '')}/`;
-  if (!url.startsWith(prefix)) return null;
-  return url.slice(prefix.length);
+  if (url.startsWith(prefix)) {
+    return url.slice(prefix.length);
+  }
+  return null;
 }
 
 async function deleteObjects(keys: string[], logLabel: string) {
@@ -192,6 +199,7 @@ export async function updateProduct(
         const baseName = getSanitizedFileName(file);
         const colorKey = `products/${id}/images/${baseName}.webp`;
 
+        // Upload to R2 (replaces/overwrites existing object at key if present in R2 bucket)
         await uploadToR2({
           key: colorKey,
           body: webpBuffer,
@@ -199,14 +207,28 @@ export async function updateProduct(
         });
 
         uploadedKeys.push(colorKey);
-        newlyUploadedColorImageUrls.push(getR2PublicUrl(colorKey));
+        const newUrl = getR2PublicUrl(colorKey);
+        newlyUploadedColorImageUrls.push(newUrl);
+
+        // Remove any old retained URL matching the same base filename to prevent stale duplicate entries
+        retainedImages = retainedImages.filter((existingUrl) => {
+          const existingBase = existingUrl.split('/').pop()?.split('.')[0];
+          if (existingBase === baseName && existingUrl !== newUrl) {
+            const oldKey = getR2KeyFromUrl(existingUrl);
+            if (oldKey && oldKey !== colorKey) {
+              keysToDelete.push(oldKey);
+            }
+            return false;
+          }
+          return true;
+        });
       }
     }
 
-    // Final color gallery images list
-    const finalImagesList = [...retainedImages, ...newlyUploadedColorImageUrls];
+    // Final color gallery images list (deduplicated)
+    const finalImagesList = Array.from(new Set([...retainedImages, ...newlyUploadedColorImageUrls]));
 
-    // Find deleted color image R2 keys to clean up
+    // Find deleted color image R2 keys to clean up from R2 bucket
     const remainingUrlsSet = new Set([nextMainImageUrl, ...finalImagesList]);
     for (const oldUrl of existingProduct.images) {
       if (!remainingUrlsSet.has(oldUrl)) {
@@ -217,7 +239,7 @@ export async function updateProduct(
       }
     }
 
-    // 3. Update Database
+    // 3. Update Database Row
     await db
       .update(products)
       .set({
@@ -247,9 +269,9 @@ export async function updateProduct(
     };
   }
 
-  // Delete orphaned old R2 objects
+  // Delete orphaned old R2 objects from R2 bucket
   if (keysToDelete.length > 0) {
-    await deleteObjects(keysToDelete, 'delete replaced/removed image object');
+    await deleteObjects(keysToDelete, 'delete replaced/removed image object from R2');
   }
 
   // Revalidate Next.js cache
