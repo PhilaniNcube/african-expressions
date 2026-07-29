@@ -45,15 +45,16 @@ function getSanitizedFileName(file: File): string {
 
 function getR2KeyFromUrl(url: string): string | null {
   if (!url) return null;
-  if (url.includes('products/')) {
-    return url.slice(url.indexOf('products/'));
+  const cleanUrl = url.split('?')[0];
+  if (cleanUrl.includes('products/')) {
+    return cleanUrl.slice(cleanUrl.indexOf('products/'));
   }
-  if (url.includes('patterns/')) {
-    return url.slice(url.indexOf('patterns/'));
+  if (cleanUrl.includes('patterns/')) {
+    return cleanUrl.slice(cleanUrl.indexOf('patterns/'));
   }
   const prefix = `${R2_PUBLIC_URL.replace(/\/+$/, '')}/`;
-  if (url.startsWith(prefix)) {
-    return url.slice(prefix.length);
+  if (cleanUrl.startsWith(prefix)) {
+    return cleanUrl.slice(prefix.length);
   }
   return null;
 }
@@ -182,7 +183,7 @@ export async function updateProduct(
       });
 
       uploadedKeys.push(imageKey);
-      nextMainImageUrl = getR2PublicUrl(imageKey);
+      nextMainImageUrl = `${getR2PublicUrl(imageKey)}?v=${Date.now()}`;
 
       const previousMainImageKey = getR2KeyFromUrl(existingProduct.main_image);
       if (previousMainImageKey && previousMainImageKey !== imageKey) {
@@ -207,7 +208,7 @@ export async function updateProduct(
         });
 
         uploadedKeys.push(colorKey);
-        const newUrl = getR2PublicUrl(colorKey);
+        const newUrl = `${getR2PublicUrl(colorKey)}?v=${Date.now()}`;
         newlyUploadedColorImageUrls.push(newUrl);
 
         // Remove any old retained URL matching the same base filename to prevent stale duplicate entries
