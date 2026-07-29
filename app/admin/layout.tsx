@@ -1,6 +1,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from '../../lib/auth';
+import AdminSidebar from '@/components/admin/AdminSidebar';
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const reqHeaders = await headers();
@@ -24,5 +25,5 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     }
   }
 
-  return <>{children}</>;
+  return <AdminSidebar>{children}</AdminSidebar>;
 }

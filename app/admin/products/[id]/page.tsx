@@ -1,26 +1,29 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { cacheLife } from 'next/cache';
-import supabase from '../../../../utils/supabase';
+import { eq } from 'drizzle-orm';
+import { cacheLife, cacheTag } from 'next/cache';
+import { db } from '@/db';
+import { products } from '@/db/schema';
 import EditProductClient from './EditProductClient';
 
-export const metadata: Metadata = { title: 'Edit Product | Admin' };
+export const metadata: Metadata = { title: 'Edit Yarn | Admin' };
 
 type Props = { params: Promise<{ id: string }> };
 
 export default async function EditProductPage({ params }: Props) {
   'use cache';
   cacheLife('minutes');
+  cacheTag('products');
 
   const { id } = await params;
 
-  const { data: product, error } = await supabase
-    .from('products')
-    .select('*')
-    .eq('id', id)
-    .single();
+  const product = await db
+    .select()
+    .from(products)
+    .where(eq(products.id, id))
+    .then((rows) => rows[0] ?? null);
 
-  if (error || !product) return notFound();
+  if (!product) return notFound();
 
   return <EditProductClient product={product as any} />;
 }
