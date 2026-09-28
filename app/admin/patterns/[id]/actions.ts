@@ -225,6 +225,8 @@ export async function updatePattern(
   }
 
   revalidateTag('patterns', 'max');
+  revalidatePath('/patterns');
+  revalidatePath(`/patterns/${id}`);
   revalidatePath('/admin/patterns');
   revalidatePath(`/admin/patterns/${id}`);
 

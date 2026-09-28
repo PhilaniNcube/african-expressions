@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { db } from '../../../db';
 import { products } from '../../../db/schema';
 
@@ -13,6 +14,10 @@ export async function POST(request: NextRequest) {
       .set({ main_image: body.image })
       .where(eq(products.id, body.id))
       .returning();
+
+    revalidateTag('products', 'max');
+    revalidatePath('/yarns');
+    revalidatePath('/admin/products');
 
     return NextResponse.json({ status: 200, body: data });
   } catch (error) {

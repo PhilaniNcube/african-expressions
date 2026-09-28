@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 async function getExpressProducts() {
   'use cache';
   cacheLife('hours');
-  cacheTag('express-products');
+  cacheTag('express-products', 'products');
 
   return db
     .select()

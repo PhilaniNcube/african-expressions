@@ -277,8 +277,11 @@ export async function updateProduct(
 
   // Revalidate Next.js cache
   revalidateTag('products', 'max');
+  // Pattern pages embed the yarn name, so product edits must refresh them too.
+  revalidateTag('patterns', 'max');
   revalidatePath('/yarns');
   revalidatePath(`/yarns/${slug}`);
+  revalidatePath('/patterns');
   revalidatePath('/admin/products');
   revalidatePath(`/admin/products/${id}`);
 

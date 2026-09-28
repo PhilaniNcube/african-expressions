@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { db } from '../../../db';
 import { patterns } from '../../../db/schema';
 
@@ -15,6 +16,10 @@ export async function POST(request: NextRequest) {
       stitching: body.stitching,
       category: body.category,
     }).returning();
+
+    revalidateTag('patterns', 'max');
+    revalidatePath('/patterns');
+    revalidatePath('/admin/patterns');
 
     return NextResponse.json({ status: 200, body: data });
   } catch (error) {

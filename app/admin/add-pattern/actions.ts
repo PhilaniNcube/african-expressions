@@ -180,6 +180,8 @@ export async function createPattern(
   }
 
   revalidateTag('patterns', 'max');
+  revalidatePath('/patterns');
+  revalidatePath(`/patterns/${patternId}`);
   revalidatePath('/admin/patterns');
   redirect('/admin/patterns');
 }
