@@ -12,10 +12,11 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "npx tsx scripts/migrate-to-neon.ts",
-    "db:migrate-patterns-r2": "npx tsx scripts/migrate-patterns-to-r2.ts",
-    "db:migrate-products-r2": "npx tsx scripts/migrate-products-to-r2.ts",
-    "db:rename-product-images": "npx tsx scripts/rename-product-images.ts"
+    "db:migrate-neon-to-turso": "npx tsx scripts/migrate-neon-to-turso.ts",
+    "legacy:seed-supabase-to-neon": "npx tsx legacy/scripts/migrate-to-neon.ts",
+    "legacy:migrate-patterns-r2": "npx tsx legacy/scripts/migrate-patterns-to-r2.ts",
+    "legacy:migrate-products-r2": "npx tsx legacy/scripts/migrate-products-to-r2.ts",
+    "legacy:rename-product-images": "npx tsx legacy/scripts/rename-product-images.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1000.0",
@@ -23,6 +24,7 @@
     "@googlemaps/js-api-loader": "^1.16.8",
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.0.13",
+    "@libsql/client": "^0.18.0",
     "@neondatabase/serverless": "^1.0.2",
     "@supabase/supabase-js": "^1.33.3",
     "@tailwindcss/aspect-ratio": "^0.4.0",

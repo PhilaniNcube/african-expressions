@@ -1,18 +1,24 @@
 import {
-  pgTable,
-  uuid,
+  sqliteTable,
   text,
   real,
   integer,
   numeric,
-  timestamp,
-  boolean,
-} from 'drizzle-orm/pg-core';
+} from 'drizzle-orm/sqlite-core';
+
+// ─── Helpers ────────────────────────────────────────────────────────────────
+
+// SQLite has no native uuid type, so ids are stored as text and generated
+// on the application side via crypto.randomUUID().
+const primaryId = () =>
+  text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID());
 
 // ─── Stores ──────────────────────────────────────────────────────────────────
 
-export const stores = pgTable('stores', {
-  id: uuid('id').defaultRandom().primaryKey(),
+export const stores = sqliteTable('stores', {
+  id: primaryId(),
   name: text('name').notNull(),
   streetAddress: text('streetAddress').notNull(),
   city: text('city').notNull(),
@@ -25,13 +31,14 @@ export const stores = pgTable('stores', {
 
 // ─── Products ────────────────────────────────────────────────────────────────
 
-export const products = pgTable('products', {
-  id: uuid('id').defaultRandom().primaryKey(),
+export const products = sqliteTable('products', {
+  id: primaryId(),
   name: text('name').notNull(),
   slug: text('slug').notNull().unique(),
   type: text('type').notNull(),
   main_image: text('main_image').notNull(),
-  images: text('images').array().notNull().default([]),
+  // SQLite has no array type; stored as a JSON-encoded string.
+  images: text('images', { mode: 'json' }).$type<string[]>().notNull().default([]),
   description: text('description').notNull(),
   composition: text('composition').notNull(),
   yarn_weight: text('yarn_weight').notNull(),
@@ -39,37 +46,37 @@ export const products = pgTable('products', {
   yarn_length: integer('yarn_length').notNull(),
   tension: text('tension'),
   needle_size: text('needle_size'),
-  price: numeric('price', { precision: 10, scale: 2 }),
+  price: numeric('price'),
 });
 
 // ─── Categories ──────────────────────────────────────────────────────────────
 
-export const categories = pgTable('categories', {
-  id: uuid('id').defaultRandom().primaryKey(),
+export const categories = sqliteTable('categories', {
+  id: primaryId(),
   name: text('name').notNull(),
 });
 
 // ─── Stitching ───────────────────────────────────────────────────────────────
 
-export const stitching = pgTable('stitching', {
-  id: uuid('id').defaultRandom().primaryKey(),
+export const stitching = sqliteTable('stitching', {
+  id: primaryId(),
   name: text('name').notNull(),
 });
 
 // ─── Patterns ────────────────────────────────────────────────────────────────
 
-export const patterns = pgTable('patterns', {
-  id: uuid('id').defaultRandom().primaryKey(),
+export const patterns = sqliteTable('patterns', {
+  id: primaryId(),
   name: text('name').notNull(),
   image: text('image').notNull(),
   document: text('document').notNull(),
-  product_id: uuid('product_id')
+  product_id: text('product_id')
     .notNull()
     .references(() => products.id),
-  category: uuid('category')
+  category: text('category')
     .notNull()
     .references(() => categories.id),
-  stitching: uuid('stitching')
+  stitching: text('stitching')
     .notNull()
     .references(() => stitching.id),
 });
@@ -93,22 +100,22 @@ export type NewPattern = typeof patterns.$inferInsert;
 
 // ─── Better Auth Tables ──────────────────────────────────────────────────────
 
-export const user = pgTable('user', {
+export const user = sqliteTable('user', {
   id: text('id').primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
-  emailVerified: boolean('emailVerified').notNull(),
+  emailVerified: integer('emailVerified', { mode: 'boolean' }).notNull(),
   image: text('image'),
-  createdAt: timestamp('createdAt').notNull(),
-  updatedAt: timestamp('updatedAt').notNull(),
+  createdAt: integer('createdAt', { mode: 'timestamp' }).notNull(),
+  updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull(),
 });
 
-export const session = pgTable('session', {
+export const session = sqliteTable('session', {
   id: text('id').primaryKey(),
-  expiresAt: timestamp('expiresAt').notNull(),
+  expiresAt: integer('expiresAt', { mode: 'timestamp' }).notNull(),
   token: text('token').notNull().unique(),
-  createdAt: timestamp('createdAt').notNull(),
-  updatedAt: timestamp('updatedAt').notNull(),
+  createdAt: integer('createdAt', { mode: 'timestamp' }).notNull(),
+  updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull(),
   ipAddress: text('ipAddress'),
   userAgent: text('userAgent'),
   userId: text('userId')
@@ -116,7 +123,7 @@ export const session = pgTable('session', {
     .references(() => user.id),
 });
 
-export const account = pgTable('account', {
+export const account = sqliteTable('account', {
   id: text('id').primaryKey(),
   accountId: text('accountId').notNull(),
   providerId: text('providerId').notNull(),
@@ -126,19 +133,19 @@ export const account = pgTable('account', {
   accessToken: text('accessToken'),
   refreshToken: text('refreshToken'),
   idToken: text('idToken'),
-  accessTokenExpiresAt: timestamp('accessTokenExpiresAt'),
-  refreshTokenExpiresAt: timestamp('refreshTokenExpiresAt'),
+  accessTokenExpiresAt: integer('accessTokenExpiresAt', { mode: 'timestamp' }),
+  refreshTokenExpiresAt: integer('refreshTokenExpiresAt', { mode: 'timestamp' }),
   scope: text('scope'),
   password: text('password'),
-  createdAt: timestamp('createdAt').notNull(),
-  updatedAt: timestamp('updatedAt').notNull(),
+  createdAt: integer('createdAt', { mode: 'timestamp' }).notNull(),
+  updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull(),
 });
 
-export const verification = pgTable('verification', {
+export const verification = sqliteTable('verification', {
   id: text('id').primaryKey(),
   identifier: text('identifier').notNull(),
   value: text('value').notNull(),
-  expiresAt: timestamp('expiresAt').notNull(),
-  createdAt: timestamp('createdAt'),
-  updatedAt: timestamp('updatedAt'),
+  expiresAt: integer('expiresAt', { mode: 'timestamp' }).notNull(),
+  createdAt: integer('createdAt', { mode: 'timestamp' }),
+  updatedAt: integer('updatedAt', { mode: 'timestamp' }),
 });

@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   cacheComponents: true,
-  serverExternalPackages: ['better-auth'],
+  serverExternalPackages: ['better-auth', '@libsql/client'],
   experimental: {
     serverActions: {
       bodySizeLimit: '25mb',

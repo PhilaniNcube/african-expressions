@@ -6,8 +6,9 @@ config({ path: '.env.local' });
 export default {
   schema: './db/schema.ts',
   out: './db/migrations',
-  dialect: 'postgresql',
+  dialect: 'turso',
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    url: process.env.TURSO_DATABASE_URL!,
+    authToken: process.env.TURSO_DATABASE_TOKEN!,
   },
 } satisfies Config;
