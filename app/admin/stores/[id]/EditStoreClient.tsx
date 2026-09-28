@@ -1,74 +1,189 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import supabase from '../../../../utils/supabase';
+/* eslint-disable @next/next/no-img-element */
+import { useActionState } from 'react';
+import { useForm } from 'react-hook-form';
+import Link from 'next/link';
 import type { Store } from '../../../../types';
+import { updateStore, type UpdateStoreState } from './actions';
 
-interface EditStoreClientProps {
-  store: Store;
-}
+type StoreFormValues = {
+  name: string;
+  streetAddress: string;
+  city: string;
+  contact: string;
+  lat: string;
+  long: string;
+  website: string;
+};
 
-export default function EditStoreClient({ store }: EditStoreClientProps) {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState('');
+const initialState: UpdateStoreState = { success: false };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    setLoading(true);
-    const file = e.target.files[0];
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random()}.${fileExt}`;
-    const upload = await supabase.storage.from('products').upload(fileName, file);
-    const fileUrl = (upload.data as any)?.Key;
-    if (fileUrl?.length > 0) alert('File Uploaded');
-    setImage(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`);
-    setLoading(false);
-  };
+export default function EditStoreClient({ store }: { store: Store }) {
+  const [state, formAction, isPending] = useActionState(updateStore, initialState);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const res = await fetch('/api/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ image, id: store.id }),
-    });
-    const response = await res.json();
-    if (response.status === 200) {
-      alert('Image has been added successfully');
-      router.push('/admin/products');
-    } else {
-      alert('There was a problem saving the Image');
-    }
-    setImage('');
-  };
+  const {
+    register,
+    formState: { errors },
+  } = useForm<StoreFormValues>({
+    defaultValues: {
+      name: store.name ?? '',
+      streetAddress: store.streetAddress ?? '',
+      city: store.city ?? '',
+      contact: store.contact ?? '',
+      lat: store.lat != null ? String(store.lat) : '',
+      long: store.long != null ? String(store.long) : '',
+      website: store.website ?? '',
+    },
+  });
 
   return (
-    <main className="my-8">
-      <section className="px-4 mx-auto max-w-7xl">
-        <div>
-          <p className="text-2xl font-bold text-gray-700">{store.name}</p>
-          <form onSubmit={handleSubmit}>
-            <div className="flex justify-center">
-              <div className="w-full">
-                <label htmlFor="image" className="inline-block mb-1 text-xs text-gray-700 form-label">
-                  Upload Image
-                </label>
-                <input
-                  className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white border border-solid border-gray-300 rounded"
-                  type="file"
-                  id="image"
-                  onChange={handleImageUpload}
-                />
-              </div>
-            </div>
-            <button disabled={loading} className="px-8 py-2 mt-2 text-white bg-blue-600 rounded">
-              {loading ? 'Please wait...' : 'Submit'}
-            </button>
-          </form>
+    <div className="max-w-2xl p-4 mx-auto">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">Edit Store</h1>
+        <Link href="/admin/stores" className="text-blue-600">
+          Back to stores
+        </Link>
+      </div>
+
+      {state.error && (
+        <div className="p-3 mb-4 text-sm text-red-700 bg-red-100 border border-red-300 rounded">
+          {state.error}
         </div>
-      </section>
-    </main>
+      )}
+
+      {state.success && state.message && (
+        <div className="p-3 mb-4 text-sm text-green-700 bg-green-100 border border-green-300 rounded">
+          {state.message}
+        </div>
+      )}
+
+      <form action={formAction} className="space-y-4">
+        <input type="hidden" name="id" value={store.id} />
+
+        <div>
+          <label htmlFor="name" className="block mb-1 text-sm font-medium">
+            Store Name *
+          </label>
+          <input
+            type="text"
+            id="name"
+            {...register('name', { required: 'Store name is required' })}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="streetAddress" className="block mb-1 text-sm font-medium">
+            Street Address *
+          </label>
+          <input
+            type="text"
+            id="streetAddress"
+            {...register('streetAddress', { required: 'Street address is required' })}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          {errors.streetAddress && (
+            <p className="mt-1 text-sm text-red-600">{errors.streetAddress.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="city" className="block mb-1 text-sm font-medium">
+            City *
+          </label>
+          <input
+            type="text"
+            id="city"
+            {...register('city', { required: 'City is required' })}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          {errors.city && <p className="mt-1 text-sm text-red-600">{errors.city.message}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="contact" className="block mb-1 text-sm font-medium">
+            Contact Number
+          </label>
+          <input
+            type="tel"
+            id="contact"
+            {...register('contact')}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="lat" className="block mb-1 text-sm font-medium">
+              Latitude
+            </label>
+            <input
+              type="number"
+              step="any"
+              id="lat"
+              {...register('lat')}
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="long" className="block mb-1 text-sm font-medium">
+              Longitude
+            </label>
+            <input
+              type="number"
+              step="any"
+              id="long"
+              {...register('long')}
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="website" className="block mb-1 text-sm font-medium">
+            Website
+          </label>
+          <input
+            type="url"
+            id="website"
+            {...register('website')}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="image_file" className="block mb-1 text-sm font-medium">
+            Store Image (optional)
+          </label>
+          {store.image && (
+            <img
+              src={store.image}
+              alt={store.name}
+              className="object-cover w-32 h-32 mb-2 rounded"
+            />
+          )}
+          <input
+            type="file"
+            id="image_file"
+            name="image_file"
+            accept="image/jpeg,image/png,image/webp,image/avif"
+            className="block w-full text-sm text-gray-700"
+          />
+          <p className="mt-1 text-xs text-gray-500">
+            Uploading a new image replaces the current one (stored in R2).
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isPending}
+          className="w-full px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 disabled:opacity-50"
+        >
+          {isPending ? 'Saving...' : 'Save Store'}
+        </button>
+      </form>
+    </div>
   );
 }
