@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function YarnsPage() {
   'use cache';
-  cacheLife('days');
+  cacheLife('content');
   cacheTag('products');
 
   const products = await getProducts();

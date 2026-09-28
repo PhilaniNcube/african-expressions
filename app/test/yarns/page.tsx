@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function TestYarnsPage() {
   'use cache';
-  cacheLife('days');
+  cacheLife('content');
   cacheTag('products');
 
   const data = await db.select().from(products).orderBy(asc(products.type));

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 async function getExpressProducts() {
   'use cache';
-  cacheLife('days');
+  cacheLife('content');
   cacheTag('express-products', 'products');
 
   return db

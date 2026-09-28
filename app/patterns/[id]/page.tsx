@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -27,14 +28,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: row ? `${row.name} | African Expressions` : 'Pattern' };
 }
 
-async function getPattern(id: string) {
+const getPattern = cache(async (id: string) => {
   'use cache';
 
   if (!isPatternId(id)) {
     return null;
   }
 
-  cacheLife('days');
+  cacheLife('content');
   cacheTag('patterns');
 
   const row = await db
@@ -55,7 +56,7 @@ async function getPattern(id: string) {
     .then((rows) => rows[0] ?? null);
 
   return row;
-}
+});
 
 export default async function PatternPage({ params }: Props) {
   const { id } = await params;

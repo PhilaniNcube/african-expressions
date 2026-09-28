@@ -1,12 +1,13 @@
+import { cache } from 'react';
 import { asc, isNotNull } from 'drizzle-orm';
 import { cacheLife, cacheTag } from 'next/cache';
 import { db } from '../db';
 import { stores } from '../db/schema';
 import { Store } from '../types';
 
-const getStores = async (): Promise<Store[]> => {
+const getStores = cache(async (): Promise<Store[]> => {
   'use cache';
-  cacheLife('days');
+  cacheLife('content');
   cacheTag('stores');
 
   const result = await db
@@ -15,11 +16,11 @@ const getStores = async (): Promise<Store[]> => {
     .orderBy(asc(stores.name));
 
   return result as Store[];
-};
+});
 
-export const getOnlineStores = async (): Promise<Store[]> => {
+export const getOnlineStores = cache(async (): Promise<Store[]> => {
   'use cache';
-  cacheLife('days');
+  cacheLife('content');
   cacheTag('stores');
 
   const result = await db
@@ -29,6 +30,6 @@ export const getOnlineStores = async (): Promise<Store[]> => {
     .orderBy(asc(stores.name));
 
   return result.filter((store) => store.website !== '') as Store[];
-};
+});
 
 export default getStores;

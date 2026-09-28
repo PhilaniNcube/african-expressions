@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 async function getData() {
   'use cache';
-  cacheLife('days');
+  cacheLife('content');
   cacheTag('patterns');
 
   const [patternsData, productsData, categoriesData] = await Promise.all([

@@ -2,6 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   cacheComponents: true,
+  cacheLife: {
+    // Public content that changes rarely. Admin writes invalidate the relevant
+    // tags immediately, so these values are only the background refresh window.
+    content: {
+      stale: 60 * 60 * 24, // 1 day
+      revalidate: 60 * 60 * 24 * 7, // 1 week
+      expire: 60 * 60 * 24 * 30, // 30 days
+    },
+  },
   serverExternalPackages: ['better-auth', '@libsql/client'],
   experimental: {
     serverActions: {

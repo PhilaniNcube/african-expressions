@@ -1,12 +1,13 @@
+import { cache } from 'react';
 import { asc, eq } from 'drizzle-orm';
 import { cacheLife, cacheTag } from 'next/cache';
 import { db } from '../db';
 import { products } from '../db/schema';
 import { Product } from '../types';
 
-const getProducts = async (): Promise<Product[]> => {
+const getProducts = cache(async (): Promise<Product[]> => {
   'use cache';
-  cacheLife('days');
+  cacheLife('content');
   cacheTag('products');
 
   const result = await db
@@ -18,11 +19,11 @@ const getProducts = async (): Promise<Product[]> => {
     ...p,
     price: p.price != null ? Number(p.price) : undefined,
   })) as Product[];
-};
+});
 
-export const getProductBySlug = async (slug: string): Promise<Product | null> => {
+export const getProductBySlug = cache(async (slug: string): Promise<Product | null> => {
   'use cache';
-  cacheLife('days');
+  cacheLife('content');
   cacheTag('products', `product-${slug}`);
 
   const result = await db
@@ -37,6 +38,6 @@ export const getProductBySlug = async (slug: string): Promise<Product | null> =>
     ...result,
     price: result.price != null ? Number(result.price) : undefined,
   } as Product;
-};
+});
 
 export default getProducts;
