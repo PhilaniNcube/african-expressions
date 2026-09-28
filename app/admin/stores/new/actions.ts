@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { db } from "../../../../db";
 import { stores } from "../../../../db/schema";
 import { redirect } from "next/navigation";
@@ -41,6 +42,7 @@ export async function createStore(
     await db
       .insert(stores)
       .values({ name, streetAddress, city, contact, website, lat, long });
+    revalidateTag("stores", "max");
   } catch (error) {
     console.error("Failed to create store:", error);
     return { success: false, error: "Failed to create store. Please try again." };

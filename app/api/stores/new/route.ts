@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { db } from '../../../../db';
 import { stores } from '../../../../db/schema';
 
@@ -12,6 +13,8 @@ export async function POST(request: NextRequest) {
       .insert(stores)
       .values({ city, contact, lat, long, name, streetAddress, website })
       .returning();
+
+    revalidateTag('stores', 'max');
 
     return NextResponse.json({ status: 200, body: data });
   } catch (error) {

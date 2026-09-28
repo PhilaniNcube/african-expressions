@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
+import { revalidateTag } from 'next/cache';
 import { db } from '../../../../db';
 import { stores } from '../../../../db/schema';
 
@@ -13,6 +14,8 @@ export async function DELETE(request: NextRequest) {
       .delete(stores)
       .where(eq(stores.id, id))
       .returning();
+
+    revalidateTag('stores', 'max');
 
     return NextResponse.json({ status: 200, body: data });
   } catch (error) {

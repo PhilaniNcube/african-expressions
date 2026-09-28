@@ -1,20 +1,14 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { eq } from 'drizzle-orm';
 import { cacheLife, cacheTag } from 'next/cache';
-import { db } from '../../../db';
-import { products } from '../../../db/schema';
+import { getProductBySlug } from '../../../lib/getProducts';
 import YarnDetail from './YarnDetail';
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = await db
-    .select({ name: products.name })
-    .from(products)
-    .where(eq(products.slug, slug))
-    .then((rows) => rows[0] ?? null);
+  const product = await getProductBySlug(slug);
 
   return { title: product ? `${product.name} | African Expressions` : 'Yarn' };
 }
@@ -26,13 +20,9 @@ export default async function YarnPage({ params }: Props) {
 
   const { slug } = await params;
 
-  const product = await db
-    .select()
-    .from(products)
-    .where(eq(products.slug, slug))
-    .then((rows) => rows[0] ?? null);
+  const product = await getProductBySlug(slug);
 
   if (!product) return notFound();
 
-  return <YarnDetail product={product as any} />;
+  return <YarnDetail product={product} />;
 }

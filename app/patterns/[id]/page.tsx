@@ -20,15 +20,9 @@ function isPatternId(id: string) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
 
-  if (!isPatternId(id)) {
-    return { title: 'Pattern' };
-  }
-
-  const row = await db
-    .select()
-    .from(patterns)
-    .where(eq(patterns.id, id))
-    .then((rows) => rows[0] ?? null);
+  // Reuses the same cached query as the page body, so a cold render costs a
+  // single DB round-trip instead of one per uncached metadata lookup.
+  const row = await getPattern(id);
 
   return { title: row ? `${row.name} | African Expressions` : 'Pattern' };
 }

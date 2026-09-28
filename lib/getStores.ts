@@ -1,9 +1,14 @@
-import { asc, isNotNull, ne } from 'drizzle-orm';
+import { asc, isNotNull } from 'drizzle-orm';
+import { cacheLife, cacheTag } from 'next/cache';
 import { db } from '../db';
 import { stores } from '../db/schema';
 import { Store } from '../types';
 
 const getStores = async (): Promise<Store[]> => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('stores');
+
   const result = await db
     .select()
     .from(stores)
@@ -13,6 +18,10 @@ const getStores = async (): Promise<Store[]> => {
 };
 
 export const getOnlineStores = async (): Promise<Store[]> => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('stores');
+
   const result = await db
     .select()
     .from(stores)

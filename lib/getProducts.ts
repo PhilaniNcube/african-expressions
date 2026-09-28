@@ -1,4 +1,4 @@
-import { asc } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 import { cacheLife, cacheTag } from 'next/cache';
 import { db } from '../db';
 import { products } from '../db/schema';
@@ -18,6 +18,25 @@ const getProducts = async (): Promise<Product[]> => {
     ...p,
     price: p.price != null ? Number(p.price) : undefined,
   })) as Product[];
+};
+
+export const getProductBySlug = async (slug: string): Promise<Product | null> => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('products', `product-${slug}`);
+
+  const result = await db
+    .select()
+    .from(products)
+    .where(eq(products.slug, slug))
+    .then((rows) => rows[0] ?? null);
+
+  if (!result) return null;
+
+  return {
+    ...result,
+    price: result.price != null ? Number(result.price) : undefined,
+  } as Product;
 };
 
 export default getProducts;
