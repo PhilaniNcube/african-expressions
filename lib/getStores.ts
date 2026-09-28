@@ -6,7 +6,7 @@ import { Store } from '../types';
 
 const getStores = async (): Promise<Store[]> => {
   'use cache';
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag('stores');
 
   const result = await db
@@ -19,7 +19,7 @@ const getStores = async (): Promise<Store[]> => {
 
 export const getOnlineStores = async (): Promise<Store[]> => {
   'use cache';
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag('stores');
 
   const result = await db

@@ -34,7 +34,7 @@ async function getPattern(id: string) {
     return null;
   }
 
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag('patterns');
 
   const row = await db

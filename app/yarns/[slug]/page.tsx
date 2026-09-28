@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function YarnPage({ params }: Props) {
   'use cache';
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag('products');
 
   const { slug } = await params;

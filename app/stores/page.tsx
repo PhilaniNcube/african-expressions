@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default async function StoresPage() {
   'use cache';
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag('stores');
 
   const stores = await getStores();

@@ -6,7 +6,7 @@ import { Product } from '../types';
 
 const getProducts = async (): Promise<Product[]> => {
   'use cache';
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag('products');
 
   const result = await db
@@ -22,7 +22,7 @@ const getProducts = async (): Promise<Product[]> => {
 
 export const getProductBySlug = async (slug: string): Promise<Product | null> => {
   'use cache';
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag('products', `product-${slug}`);
 
   const result = await db

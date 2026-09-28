@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function TestPatternsPage() {
   'use cache';
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag('patterns');
 
   // Fetch all patterns with joined product, category and stitching names

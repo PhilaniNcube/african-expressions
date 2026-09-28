@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function TestStoresPage() {
   'use cache';
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag('stores');
 
   const data = await db.select().from(stores).orderBy(asc(stores.name));
