@@ -27,6 +27,37 @@ const solutions = [
   },
 ];
 
+const mobileLinks = [
+  {
+    name: 'Home',
+    href: '/',
+  },
+  {
+    name: 'About',
+    href: '/about',
+  },
+  {
+    name: 'Yarns',
+    href: '/yarns',
+  },
+  {
+    name: 'Patterns',
+    href: '/patterns',
+  },
+  {
+    name: 'Express Yourself',
+    href: '/express',
+  },
+  {
+    name: 'Stores',
+    href: '/stores',
+  },
+  {
+    name: 'Online Stockists',
+    href: '/online_agents',
+  },
+];
+
 const socials = [
   {
     href: 'https://www.facebook.com/AfricanExpressionsYarn/',
@@ -221,97 +252,20 @@ const Navbar = () => {
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <Menu.Item>
-                  {({ active }) => (
-                    <Menu.Button
-                      className={`${
-                        active ? "bg-yellow-600 text-white" : "text-slate-800"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <Link href="/">
-                        Home
-                      </Link>
-                    </Menu.Button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <Menu.Button
-                      className={`${
-                        active ? "bg-yellow-600 text-white" : "text-slate-800"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <Link href="/about">
-                        About
-                      </Link>
-                    </Menu.Button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <Menu.Button
-                      className={`${
-                        active ? "bg-yellow-600 text-white" : "text-slate-800"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <Link href="/yarns">
-                        Yarns
-                      </Link>
-                    </Menu.Button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <Menu.Button
-                      className={`${
-                        active ? "bg-yellow-600 text-white" : "text-slate-800"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <Link href="/patterns">
-                        Patterns
-                      </Link>
-                    </Menu.Button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <Menu.Button
-                      className={`${
-                        active ? "bg-yellow-600 text-white" : "text-slate-800"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <Link href="/express">
-                        Express Yourself
-                      </Link>
-                    </Menu.Button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <Menu.Button
-                      className={`${
-                        active ? "bg-yellow-600 text-white" : "text-slate-800"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <Link href="/stores">
-                        Stores
-                      </Link>
-                    </Menu.Button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <Menu.Button
-                      className={`${
-                        active ? "bg-yellow-600 text-white" : "text-slate-800"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <Link href="/online_agents">
-                        Online Stockists
-                      </Link>
-                    </Menu.Button>
-                  )}
-                </Menu.Item>
+                {mobileLinks.map((link) => (
+                  <Menu.Item
+                    key={link.href}
+                    as={Link}
+                    href={link.href}
+                    className={({ focus }) =>
+                      `${
+                        focus ? "bg-yellow-600 text-white" : "text-slate-800"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`
+                    }
+                  >
+                    {link.name}
+                  </Menu.Item>
+                ))}
               </Menu.Items>
             </Transition>
           </Menu>
