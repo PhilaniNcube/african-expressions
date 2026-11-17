@@ -1,20 +1,19 @@
 'use client';
 
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import React, { Fragment, useMemo, useState } from 'react';
 import ProductGrid from '../../components/layout/ProductGrid';
+import FilterSelect, { type FilterOption } from '../../components/ui/FilterSelect';
 import type { Product } from '../../types';
 
-const composition = [
-  { name: 'All', value: '' },
-  { name: 'Acrylic', value: 'acrylic' },
-  { name: 'Alpaca', value: 'alpaca' },
-  { name: 'Mohair', value: 'mohair' },
-  { name: 'Nylon', value: 'nylon' },
-  { name: 'Polyamide', value: 'polyamide' },
-  { name: 'Silk', value: 'silk' },
-  { name: 'Viscose', value: 'viscose' },
+const compositionFilters = [
+  { label: 'All', value: '' },
+  { label: 'Acrylic', value: 'acrylic' },
+  { label: 'Alpaca', value: 'alpaca' },
+  { label: 'Mohair', value: 'mohair' },
+  { label: 'Nylon', value: 'nylon' },
+  { label: 'Polyamide', value: 'polyamide' },
+  { label: 'Silk', value: 'silk' },
+  { label: 'Viscose', value: 'viscose' },
 ];
 
 interface YarnsClientProps {
@@ -22,20 +21,53 @@ interface YarnsClientProps {
 }
 
 export default function YarnsClient({ initialProducts }: YarnsClientProps) {
-  const [filter, setFilter] = useState('');
+  const [yarn, setYarn] = useState('');
+  const [weight, setWeight] = useState('');
+  const [composition, setComposition] = useState('');
 
-  const weights = [...new Set(initialProducts?.map((product) => product.yarn_weight))];
+  const products = useMemo(() => initialProducts ?? [], [initialProducts]);
 
-  const filteredProducts = useMemo(
-    () =>
-      initialProducts?.filter(
-        (product) =>
-          product.name.toLowerCase().includes(filter.toLowerCase()) ||
-          product.yarn_weight.toLowerCase().includes(filter.toLowerCase()) ||
-          product.composition.toLowerCase().includes(filter.toLowerCase()),
-      ),
-    [filter, initialProducts],
+  const yarnOptions = useMemo<FilterOption[]>(
+    () => [
+      { label: 'All', value: '' },
+      ...Array.from(new Set(products.map((product) => product.name)))
+        .sort((a, b) => a.localeCompare(b))
+        .map((name) => ({ label: name, value: name })),
+    ],
+    [products],
   );
+
+  const weightOptions = useMemo<FilterOption[]>(
+    () => [
+      { label: 'All', value: '' },
+      ...Array.from(new Set(products.map((product) => product.yarn_weight)))
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b))
+        .map((name) => ({ label: name, value: name })),
+    ],
+    [products],
+  );
+
+  const filteredProducts = useMemo(() => {
+    const yarnQuery = yarn.trim().toLowerCase();
+    const weightQuery = weight.trim().toLowerCase();
+    const compositionQuery = composition.trim().toLowerCase();
+
+    return products.filter(
+      (product) =>
+        (!yarnQuery || product.name.toLowerCase().includes(yarnQuery)) &&
+        (!weightQuery || product.yarn_weight.toLowerCase() === weightQuery) &&
+        (!compositionQuery || product.composition.toLowerCase().includes(compositionQuery)),
+    );
+  }, [products, yarn, weight, composition]);
+
+  const activeFilterCount = [yarn, weight, composition].filter(Boolean).length;
+
+  const clearFilters = () => {
+    setYarn('');
+    setWeight('');
+    setComposition('');
+  };
 
   return (
     <Fragment>
@@ -48,105 +80,65 @@ export default function YarnsClient({ initialProducts }: YarnsClientProps) {
             Delicately spun, offering shades and textures perfect for any project imaginable
           </p>
 
-          <div className="z-30 items-center justify-start hidden py-6 space-x-6 text-xl lg:flex border-y text-deep border-deep">
-            <span className="px-3 py-1 text-sm uppercase border-r font-futuraBold border-deep">
-              {filteredProducts?.length} Items
-            </span>
-            <span className="px-3 py-1 text-sm uppercase border-r border-gray-700">
-              {filter ? `${filter}` : 'Filters'}
-            </span>
-
-            {/* By Yarn */}
-            <span className="uppercase z-[999] border-r border-gray-700 px-3">
-              <Listbox value={filter} onChange={setFilter}>
-                <div className="relative">
-                  <ListboxButton className="relative w-full pl-3 pr-10 text-left uppercase bg-white rounded-lg cursor-default focus:outline-none">
-                    <span className="block text-sm font-futuraBold">By Yarn</span>
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                      <ChevronDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                    </span>
-                  </ListboxButton>
-                  <ListboxOptions transition className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm transition duration-100 ease-in data-[closed]:opacity-0">
-                      <ListboxOption
-                        className={({ active }: { active: boolean }) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-100 text-accent' : 'text-deep'}`}
-                        value=""
-                      >
-                        <span className="block font-normal truncate">All</span>
-                      </ListboxOption>
-                      {initialProducts?.map((product) => (
-                        <ListboxOption
-                          key={product.id}
-                          className={({ active }: { active: boolean }) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-100 text-accent' : 'text-deep'}`}
-                          value={product.name}
-                        >
-                          <span className="block font-normal truncate">{product.name}</span>
-                        </ListboxOption>
-                      ))}
-                  </ListboxOptions>
+          <div className="z-30 py-4 border-y border-deep">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-xs uppercase font-futuraBold text-deep">
+                {filteredProducts.length} {filteredProducts.length === 1 ? 'Item' : 'Items'}
+              </p>
+              {activeFilterCount > 0 ? (
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-deep/60">
+                    {activeFilterCount} {activeFilterCount === 1 ? 'filter' : 'filters'} active
+                  </span>
+                  <button
+                    type="button"
+                    onClick={clearFilters}
+                    className="text-xs uppercase underline font-futuraBold text-accent underline-offset-2 hover:text-dark"
+                  >
+                    Clear
+                  </button>
                 </div>
-              </Listbox>
-            </span>
+              ) : null}
+            </div>
 
-            {/* By Weight */}
-            <span className="uppercase z-[999] border-r border-gray-700 px-3">
-              <Listbox value={filter} onChange={setFilter}>
-                <div className="relative">
-                  <ListboxButton className="relative w-full pl-3 pr-10 text-left uppercase bg-white rounded-lg cursor-default focus:outline-none">
-                    <span className="block text-sm font-futuraBold">By Weight</span>
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                      <ChevronDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                    </span>
-                  </ListboxButton>
-                  <ListboxOptions transition className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm transition duration-100 ease-in data-[closed]:opacity-0">
-                      <ListboxOption
-                        className={({ active }: { active: boolean }) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-100 text-accent' : 'text-deep'}`}
-                        value=""
-                      >
-                        <span className="block font-normal truncate">All</span>
-                      </ListboxOption>
-                      {weights?.map((weight, i) => (
-                        <ListboxOption
-                          key={i}
-                          className={({ active }: { active: boolean }) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-100 text-accent' : 'text-deep'}`}
-                          value={weight}
-                        >
-                          <span className="block font-normal truncate">{weight}</span>
-                        </ListboxOption>
-                      ))}
-                  </ListboxOptions>
-                </div>
-              </Listbox>
-            </span>
-
-            {/* By Composition */}
-            <span className="uppercase z-[999] border-r border-gray-700 px-3">
-              <Listbox value={filter} onChange={setFilter}>
-                <div className="relative">
-                  <ListboxButton className="relative w-full pl-3 pr-10 text-left uppercase bg-white rounded-lg cursor-default focus:outline-none">
-                    <span className="block text-sm font-futuraBold">By Composition</span>
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                      <ChevronDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                    </span>
-                  </ListboxButton>
-                  <ListboxOptions transition className="absolute mt-1 max-h-60 w-[200px] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm transition duration-100 ease-in data-[closed]:opacity-0">
-                      {composition.map((item, i) => (
-                        <ListboxOption
-                          key={i}
-                          className={({ active }: { active: boolean }) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-100 text-accent' : 'text-deep'}`}
-                          value={item.value}
-                        >
-                          <span className="block font-normal truncate">{item.name}</span>
-                        </ListboxOption>
-                      ))}
-                  </ListboxOptions>
-                </div>
-              </Listbox>
-            </span>
+            <div className="grid grid-cols-1 gap-3 mt-3 sm:grid-cols-3">
+              <FilterSelect
+                label="By Yarn"
+                value={yarn}
+                options={yarnOptions}
+                onChange={setYarn}
+              />
+              <FilterSelect
+                label="By Weight"
+                value={weight}
+                options={weightOptions}
+                onChange={setWeight}
+              />
+              <FilterSelect
+                label="By Composition"
+                value={composition}
+                options={compositionFilters}
+                onChange={setComposition}
+              />
+            </div>
           </div>
         </header>
 
         <main className="mt-6">
-          <ProductGrid products={filteredProducts} />
+          {filteredProducts.length > 0 ? (
+            <ProductGrid products={filteredProducts} />
+          ) : (
+            <div className="py-16 text-center">
+              <p className="text-lg font-futuraBold text-deep">No yarns match these filters</p>
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="px-6 py-2 mt-4 text-sm text-white uppercase rounded-md bg-accent hover:bg-accent/90"
+              >
+                Clear filters
+              </button>
+            </div>
+          )}
         </main>
       </div>
     </Fragment>

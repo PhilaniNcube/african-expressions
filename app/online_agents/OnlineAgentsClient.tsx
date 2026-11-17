@@ -78,12 +78,12 @@ export default function OnlineAgentsClient({ initialStores }: OnlineAgentsClient
                   <h3 className="text-lg uppercase text-accent font-futuraBold">
                     {store.name}
                   </h3>
-                  <p className="mt-2 text-deep">
+                  <p className="mt-2 break-words text-deep">
                     Website:
-                    <span className="pl-3 cursor-pointer text-sky-700">{store.website}</span>
+                    <span className="pl-3 break-words cursor-pointer text-sky-700">{store.website}</span>
                   </p>
-                  <p className="mt-2 text-deep">
-                    Contact: <span className="pl-3">{store.contact}</span>
+                  <p className="mt-2 break-words text-deep">
+                    Contact: <span className="pl-3 break-words">{store.contact}</span>
                   </p>
                 </Link>
               );

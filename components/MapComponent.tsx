@@ -145,6 +145,9 @@ const MapComponent = ({ stores }: { stores: Store[] }) => {
         </div>
 
         <div className="grid h-full gap-4 p-2 mt-3 overflow-y-scroll border-t-2 border-accent">
+          {filteredStores.length === 0 ? (
+            <p className="p-4 text-base text-zinc-700">No stores found.</p>
+          ) : null}
           {filteredStores.map((store) => (
             <div
               onClick={() => handleStoreClick(store)}

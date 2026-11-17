@@ -109,7 +109,7 @@ export default function YarnDetail({ product }: YarnDetailProps) {
                 All garments to be gently washed with the use of mild soap or should be dry cleaned
               </p>
 
-              <Link href={`/patterns?search=${product.name}`} passHref>
+              <Link href={`/patterns?search=${encodeURIComponent(product.name)}`} passHref>
                 <button className="px-6 py-2 mt-8 text-base text-white uppercase rounded-md bg-accent hover:bg-accent/90 hover:shadow-md">
                   View Pattern
                 </button>
