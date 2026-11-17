@@ -1,14 +1,19 @@
 'use client';
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import useWeb3Forms from '@web3forms/react';
 
 type ContactFormData = {
   name: string;
   email: string;
   number: string;
+  message: string;
+  botcheck?: string;
+};
+
+type SubmitResult = {
+  type: 'success' | 'error';
   message: string;
 };
 
@@ -20,32 +25,48 @@ const Contact = () => {
     formState: { isSubmitting },
   } = useForm<ContactFormData>({ mode: 'onTouched' });
 
-  const [isSuccess, setIsSuccess] = React.useState(false);
-  const [result, setResult] = React.useState<string | null>(null);
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [number, setNumber] = React.useState('');
-  const [message, setMessage] = React.useState('');
+  const [result, setResult] = useState<SubmitResult | null>(null);
+  const inFlight = useRef(false);
 
-  const accessKey = process.env.NEXT_PUBLIC_WEBFORMS_ACCESS_KEY as string;
+  const onSubmit = async (data: ContactFormData) => {
+    if (inFlight.current) return;
+    inFlight.current = true;
+    setResult(null);
 
-  const { submit: onSubmit } = useWeb3Forms({
-    access_key: accessKey,
-    settings: {
-      from_name: 'African Expressions',
-      subject: 'New Contact Message from your Website',
-      replyTo: 'roxanne@samil.co.za',
-    },
-    onSuccess: (msg: string) => {
-      setIsSuccess(true);
-      setResult(msg);
+    try {
+      // Sent server-side via Resend so the API key never reaches the browser.
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const payload = (await response.json().catch(() => null)) as
+        | { message?: string; error?: string }
+        | null;
+
+      if (!response.ok) {
+        setResult({
+          type: 'error',
+          message: payload?.error ?? 'Something went wrong. Please try again.',
+        });
+        return;
+      }
+
+      setResult({
+        type: 'success',
+        message: payload?.message ?? 'Thank you! Your message has been sent.',
+      });
       reset();
-    },
-    onError: (msg: string) => {
-      setIsSuccess(false);
-      setResult(msg);
-    },
-  });
+    } catch {
+      setResult({
+        type: 'error',
+        message: 'Something went wrong. Please try again.',
+      });
+    } finally {
+      inFlight.current = false;
+    }
+  };
 
   return (
     <Fragment>
@@ -67,8 +88,6 @@ const Contact = () => {
                 type="text"
                 required
                 {...register('name', { required: true })}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
                 id="name"
                 className="flex items-center w-full h-10 pl-3 text-sm font-normal bg-white border border-gray-300 rounded shadow text-deep focus:outline-none"
                 placeholder="Full Name"
@@ -85,8 +104,6 @@ const Contact = () => {
                 type="email"
                 required
                 {...register('email', { required: true })}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 id="email"
                 className="flex items-center w-full h-10 pl-3 text-sm font-normal bg-white border border-gray-300 rounded shadow text-deep focus:outline-none"
                 placeholder="email@example.com"
@@ -103,9 +120,7 @@ const Contact = () => {
                 type="tel"
                 required
                 id="number"
-                value={number}
                 {...register('number', { required: true })}
-                onChange={(e) => setNumber(e.target.value)}
                 className="flex items-center w-full h-10 pl-3 text-sm font-normal bg-white border border-gray-300 rounded shadow text-deep focus:outline-none"
                 placeholder="Contact Number"
               />
@@ -121,11 +136,20 @@ const Contact = () => {
                 id="message"
                 required
                 {...register('message', { required: true })}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
                 className="py-3 pl-3 text-sm placeholder-gray-500 bg-transparent border border-gray-300 rounded shadow-sm resize-none focus:outline-none text-deep"
                 placeholder="Message"
                 rows={5}
+              />
+            </div>
+            {/* Honeypot: hidden from people, filled in by bots. */}
+            <div className="hidden" aria-hidden="true">
+              <label htmlFor="botcheck">Leave this field empty</label>
+              <input
+                id="botcheck"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                {...register('botcheck')}
               />
             </div>
             <button
@@ -135,8 +159,16 @@ const Contact = () => {
             >
               {isSubmitting ? 'Please Wait...' : 'Submit'}
             </button>
-            {isSuccess && (
-              <p className="mt-4 text-lg text-green-600">{result}</p>
+            {result && (
+              <p
+                role="status"
+                aria-live="polite"
+                className={`mt-4 text-lg ${
+                  result.type === 'success' ? 'text-green-600' : 'text-red-600'
+                }`}
+              >
+                {result.message}
+              </p>
             )}
           </form>
 

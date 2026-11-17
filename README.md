@@ -32,3 +32,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Contact form
+
+The contact form posts to `app/api/contact/route.ts`, which sends the notification
+email through [Resend](https://resend.com). The sender must use a domain verified
+in the Resend dashboard; this project uses `yellowlizard.com` because DNS access
+for `africanexpressions.co.za` is not available. The notification recipient does
+not need to be on the verified domain.
+
+Required environment variables:
+
+| Variable | Purpose |
+| --- | --- |
+| `RESEND_API_KEY` | Server-side Resend API key. Never exposed to the browser. |
+| `CONTACT_TO_EMAIL` | Inbox that receives submissions. Defaults to `cayly@samil.co.za`. |
+| `CONTACT_FROM_EMAIL` | Sender address. Must use the verified `yellowlizard.com` domain. Defaults to `African Expressions <dev@yellowlizard.com>`. |
+
+Without `RESEND_API_KEY` the route returns a friendly "not available right now"
+message instead of sending.
+
+The Resend account is registered to `dev@yellowlizard.com`, and `yellowlizard.com`
+must be verified under **Domains**. If no domain is verified, Resend only accepts
+`onboarding@resend.dev` as the sender and only delivers to the account address
+(`dev@yellowlizard.com`).
+
+If DNS access to `africanexpressions.co.za` becomes available, verify that domain
+too and point `CONTACT_FROM_EMAIL` at an address on it — no code change needed.
