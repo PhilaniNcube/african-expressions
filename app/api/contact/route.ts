@@ -29,6 +29,45 @@ function readField(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+// Accepts either `email@example.com` or `Name <email@example.com>`.
+const PLAIN_ADDRESS_PATTERN = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
+const NAMED_ADDRESS_PATTERN = /^[^<>]+<[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+>$/;
+
+// Dashboard UIs (Vercel included) keep surrounding quotes as part of the value,
+// unlike `.env` files where they are stripped. Resend rejects quoted addresses,
+// so normalise before use.
+function stripQuotes(value: string): string {
+  const trimmed = value.trim();
+  const first = trimmed[0];
+  if (
+    trimmed.length >= 2 &&
+    (first === '"' || first === "'") &&
+    trimmed[trimmed.length - 1] === first
+  ) {
+    return trimmed.slice(1, -1).trim();
+  }
+  return trimmed;
+}
+
+function resolveFrom(raw: string | undefined): string {
+  const value = stripQuotes(raw ?? '');
+  if (!value) return DEFAULT_FROM;
+  if (PLAIN_ADDRESS_PATTERN.test(value) || NAMED_ADDRESS_PATTERN.test(value)) {
+    return value;
+  }
+
+  console.warn(
+    'Contact form: CONTACT_FROM_EMAIL is not a valid address, using the default.',
+    value
+  );
+  return DEFAULT_FROM;
+}
+
+function resolveTo(raw: string | undefined): string {
+  const value = stripQuotes(raw ?? '');
+  return PLAIN_ADDRESS_PATTERN.test(value) ? value : DEFAULT_TO;
+}
+
 function validate(fields: ContactPayload): string | null {
   if (!fields.name) return 'Please enter your full name.';
   if (fields.name.length > MAX_LENGTHS.name) return 'Please use a shorter name.';
@@ -93,8 +132,8 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const to = process.env.CONTACT_TO_EMAIL || DEFAULT_TO;
-  const from = process.env.CONTACT_FROM_EMAIL || DEFAULT_FROM;
+  const to = resolveTo(process.env.CONTACT_TO_EMAIL);
+  const from = resolveFrom(process.env.CONTACT_FROM_EMAIL);
   const subject = `New contact message from ${stripNewlines(fields.name)}`;
   const submittedAt = new Date().toLocaleString('en-ZA', {
     timeZone: 'Africa/Johannesburg',
@@ -117,7 +156,12 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      console.error('Contact form: Resend rejected the message:', error.name, error.message);
+      console.error(
+        'Contact form: Resend rejected the message:',
+        error.name,
+        error.message,
+        { from, to }
+      );
       return NextResponse.json(
         { error: `We could not send your message. Please try again. ${CONTACT_FALLBACK_HINT}` },
         { status: 502 }

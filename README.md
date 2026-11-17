@@ -52,6 +52,10 @@ Required environment variables:
 Without `RESEND_API_KEY` the route returns a friendly "not available right now"
 message instead of sending.
 
+Set these values in Vercel **without surrounding quotes** — dashboard values keep
+quotes literally, unlike `.env.local`. The route strips stray quotes and falls back
+to the default sender if the value is not a valid address.
+
 The Resend account is registered to `dev@yellowlizard.com`, and `yellowlizard.com`
 must be verified under **Domains**. If no domain is verified, Resend only accepts
 `onboarding@resend.dev` as the sender and only delivers to the account address
